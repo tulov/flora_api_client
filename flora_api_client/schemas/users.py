@@ -9,6 +9,7 @@ class DataForAuthSchema(Schema):
     id = Integer(required=True, strict=True)
     service = Str(required=True)
     is_checked = Bool(required=True)
+    value = Str(required=True)
 
 
 class UserSchema(Schema):
