@@ -47,7 +47,7 @@ class RegistrationUserSchema(Schema):
     language = Str(required=True, validate=Length(equal=2))
     currency = Str(required=True, validate=Length(equal=3))
 
-    @validates_schema(skip_on_field_errors=True)
+    @validates_schema()
     def validate_object(self, data, **kwargs):
         if 'email' not in data and 'phone' not in data:
             raise ValidationError(
