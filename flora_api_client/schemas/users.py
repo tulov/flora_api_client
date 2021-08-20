@@ -1,4 +1,4 @@
-from marshmallow import Schema, validates, ValidationError
+from marshmallow import Schema, validates, ValidationError, validates_schema
 from marshmallow.fields import Str, Integer, List, DateTime, Bool, Dict, Nested
 from marshmallow.validate import Length, Range, ContainsOnly, Email
 from .enums import Roles
@@ -46,3 +46,10 @@ class RegistrationUserSchema(Schema):
     send_email = Bool(required=False, default=True)
     language = Str(required=True, validate=Length(equal=2))
     currency = Str(required=True, validate=Length(equal=3))
+
+    @validates_schema(skip_on_field_errors=True)
+    def validate_object(self, data):
+        if 'email' not in data and 'phone' not in data:
+            raise ValidationError(
+                'You need to fill in at least one field from "email" or "phone"'
+            )
