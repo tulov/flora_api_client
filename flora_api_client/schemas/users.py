@@ -48,7 +48,7 @@ class RegistrationUserSchema(Schema):
     currency = Str(required=True, validate=Length(equal=3))
 
     @validates_schema(skip_on_field_errors=True)
-    def validate_object(self, data):
+    def validate_object(self, data, **kwargs):
         if 'email' not in data and 'phone' not in data:
             raise ValidationError(
                 'You need to fill in at least one field from "email" or "phone"'
