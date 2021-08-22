@@ -35,3 +35,29 @@ class Phone(Validator):
             raise ValidationError(message)
 
         return value
+
+
+class UniqueItems(Validator):
+    def __init__(self, *, message='items must be unique'):
+        self._message = message
+
+    def __call__(
+        self, value: typing.Union[typing.List, typing.Tuple]
+    ) -> typing.Union[typing.List, typing.Tuple]:
+        if not value:
+            return value
+        if len(value) != len(set(value)):
+            raise ValidationError(self._message)
+        return value
+
+
+class Filled(Validator):
+    def __init__(self, *, message='container should be filled'):
+        self._message = message
+
+    def __call__(
+        self, value: typing.Union[typing.List, typing.Tuple]
+    ) -> typing.Union[typing.List, typing.Tuple]:
+        if not value:
+            raise ValidationError(self._message)
+        return value

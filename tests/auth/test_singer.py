@@ -62,19 +62,23 @@ def test_inline(dataset):
 sign_datasets = [
     {
         'body': body,
-        'expected': 'd0066c54dd0b7ff7bd2b538a70abb85275895ed30b3f314a060515ec15e44884'
+        'expected': 'd0066c54dd0b7ff7bd2b538a70abb85275'
+                    '895ed30b3f314a060515ec15e44884'
     },
     {
         'body': {},
-        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36b2703d096c835b8c62147f59356afb53'
+        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36b'
+                    '2703d096c835b8c62147f59356afb53'
     },
     {
         'body': [],
-        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36b2703d096c835b8c62147f59356afb53'
+        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36b2'
+                    '703d096c835b8c62147f59356afb53'
     },
     {
         'body': None,
-        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36b2703d096c835b8c62147f59356afb53'
+        'expected': 'f830e9ce5fbdf739cb4b363f9b806a36'
+                    'b2703d096c835b8c62147f59356afb53'
     }
 ]
 

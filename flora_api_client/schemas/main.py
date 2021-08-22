@@ -1,7 +1,7 @@
-from marshmallow import Schema
-from marshmallow.fields import Str
+import marshmallow_dataclass
+from flora_api_client.presentations.main import ApplicationInfoResponse
 
 
-class ApplicationInfoResponseSchema(Schema):
-    version = Str(required=True)
-    name = Str(required=True)
+ApplicationInfoResponseSchema = marshmallow_dataclass.class_schema(
+    ApplicationInfoResponse
+)

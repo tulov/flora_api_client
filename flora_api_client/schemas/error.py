@@ -5,15 +5,9 @@
 Схемы валидации ответов *ResponseSchema используются только при тестировании,
 чтобы убедиться что обработчики возвращают данные в корректном формате.
 """
-from marshmallow import Schema
-from marshmallow.fields import Dict, Nested, Str
+import marshmallow_dataclass
+from flora_api_client.presentations.error import Error, ErrorResponse
 
 
-class ErrorSchema(Schema):
-    code = Str(required=True)
-    message = Str(required=True)
-    fields = Dict()
-
-
-class ErrorResponseSchema(Schema):
-    error = Nested(ErrorSchema(), required=True)
+ErrorSchema = marshmallow_dataclass.class_schema(Error)
+ErrorResponseSchema = marshmallow_dataclass.class_schema(ErrorResponse)
