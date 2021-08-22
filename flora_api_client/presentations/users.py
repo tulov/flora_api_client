@@ -72,6 +72,8 @@ class RegistrationUserData:
     def __post_init__(self):
         if not self.phone and not self.email:
             raise ValidationError(
-                'You need to fill in at least '
-                'one field from "email" or "phone"'
+                {"_schema": [
+                    'You need to fill in at least '
+                    'one field from "email" or "phone"'
+                ]}
             )
