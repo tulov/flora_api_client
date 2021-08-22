@@ -31,9 +31,11 @@ class Tmp:
 if __name__ == '__main__':
     data = {
         "id": 2,
-        "arr": ["one", "two"]
+        "arr": ["one", "two"],
+        "value": "test"
     }
 
     schema = marshmallow_dataclass.class_schema(Tmp)()
     clear_data = schema.load(data)
+    print(isinstance(clear_data, Tmp))
     print(schema.dump(clear_data))

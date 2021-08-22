@@ -1,7 +1,22 @@
-import requests
-from typing import Dict, Any
+from typing import Dict, Any, Union
 from aiohttp import ClientSession
+from functools import wraps
+
 from flora_api_client.auth.singer import Singer
+from flora_api_client.presentations.main import ApplicationInfoResponse
+from flora_api_client.schemas.main import ApplicationInfoResponseSchema
+from flora_api_client.schemas.error import ErrorResponseSchema
+
+
+def schema(schema_class):
+    def decorate(fn):
+        @wraps(fn)
+        async def inner(*args, **kwargs):
+            code, res = await fn(*args, **kwargs)
+            sch = ErrorResponseSchema() if code > 299 else schema_class()
+            return code, sch.load(res)
+        return inner
+    return decorate
 
 
 class FloraApiClient:
@@ -23,17 +38,13 @@ class FloraApiClient:
 
 
 class FloraAsyncApiClient(FloraApiClient):
-    async def info(self):
+    @schema(ApplicationInfoResponseSchema)
+    async def info(
+        self
+    ) -> (int, Union[ApplicationInfoResponse, ErrorResponseSchema]):
         headers = self.get_auth_headers({"url": self.info_url})
         async with ClientSession() as session:
             async with session.get(
                 f'{self._host}{self.info_url}', headers=headers
             ) as resp:
                 return resp.status, await resp.json()
-
-
-class FloraSyncApiClient(FloraApiClient):
-    def info(self):
-        headers = self.get_auth_headers({"url": self.info_url})
-        resp = requests.get(f'{self._host}{self.info_url}', headers=headers)
-        return resp.status_code, resp.json()
