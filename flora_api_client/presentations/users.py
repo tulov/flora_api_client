@@ -1,5 +1,5 @@
 from typing import List, Dict, Any, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 
 from marshmallow import ValidationError
 from marshmallow.validate import ContainsOnly, Length, Range, Email
@@ -77,3 +77,6 @@ class RegistrationUserData:
                     'one field from "email" or "phone"'
                 ]}
             )
+
+    def as_dict(self):
+        return asdict(self)
