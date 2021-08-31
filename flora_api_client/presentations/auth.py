@@ -17,4 +17,5 @@ class AuthRequest:
 @dataclass(frozen=True)
 class AuthResponse:
     token: str = field()
+    long_token: str = field()
     user: User = field()
