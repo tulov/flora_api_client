@@ -89,5 +89,4 @@ class ConfirmDataForAuthRequest:
 
 @dataclass(frozen=True)
 class ConfirmDataForAuthResponse:
-    next_attempt_datetime: Optional[datetime] = field()
     success: bool = field(default=False)
