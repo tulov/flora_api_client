@@ -80,3 +80,14 @@ class RegistrationUserData:
 
     def as_dict(self):
         return asdict(self)
+
+
+@dataclass(frozen=True)
+class ConfirmDataForAuthRequest:
+    code: str = field(metadata={"validate": Length(min=4, max=20)})
+
+
+@dataclass(frozen=True)
+class ConfirmDataForAuthResponse:
+    next_attempt_datetime: Optional[datetime] = field()
+    success: bool = field(default=False)
