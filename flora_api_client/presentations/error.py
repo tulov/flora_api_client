@@ -11,5 +11,6 @@ class Error(BaseDataclass):
     fields: Dict[str, Any] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
 class ErrorResponse(BaseDataclass):
     error: Error = field()
