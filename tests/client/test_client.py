@@ -6,6 +6,9 @@ from flora_api_client.presentations.users import (
     RegistrationUserData, User
 )
 from flora_api_client.presentations.auth import AuthRequest, AuthResponse
+from flora_api_client.presentations.users import (
+    ConfirmDataForAuthRequest, ConfirmDataForAuthResponse
+)
 
 
 @mock('aiohttp.ClientSession.get',
@@ -105,3 +108,15 @@ async def test_auth(async_api_client):
     status, res = await async_api_client.auth.authenticate(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, AuthResponse)
+
+
+@mock('aiohttp.ClientSession.put',
+      body={
+          "success": True,
+      },
+      status=HTTPStatus.OK)
+async def test_auth_data_confirm(async_api_client):
+    data = ConfirmDataForAuthRequest("0123")
+    status, res = await async_api_client.data_for_auth.confirm(1, data)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, ConfirmDataForAuthResponse)

@@ -6,10 +6,11 @@ from marshmallow.validate import ContainsOnly, Length, Range, Email
 from datetime import datetime
 from .enums import Roles
 from .validates import UniqueItems, Filled, Phone
+from .base import BaseDataclass
 
 
 @dataclass(frozen=True)
-class DataForAuth:
+class DataForAuth(BaseDataclass):
     id: int = field(metadata={
         "strict": True,
     })
@@ -21,7 +22,7 @@ class DataForAuth:
 
 
 @dataclass(frozen=True)
-class User:
+class User(BaseDataclass):
     id: int = field(metadata={
         "strict": True,
     })
@@ -59,7 +60,7 @@ class User:
 
 
 @dataclass(frozen=True)
-class RegistrationUserData:
+class RegistrationUserData(BaseDataclass):
     password: str = field(metadata={"validate": Length(min=6, max=30)})
     phone: Optional[str] = field(metadata={"validate": Phone()})
     email: Optional[str] = field(metadata={"validate": Email()})
@@ -78,15 +79,12 @@ class RegistrationUserData:
                 ]}
             )
 
-    def as_dict(self):
-        return asdict(self)
-
 
 @dataclass(frozen=True)
-class ConfirmDataForAuthRequest:
+class ConfirmDataForAuthRequest(BaseDataclass):
     code: str = field(metadata={"validate": Length(min=4, max=20)})
 
 
 @dataclass(frozen=True)
-class ConfirmDataForAuthResponse:
+class ConfirmDataForAuthResponse(BaseDataclass):
     success: bool = field(default=False)
