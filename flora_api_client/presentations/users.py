@@ -1,5 +1,5 @@
 from typing import List, Dict, Any, Optional
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 
 from marshmallow import ValidationError
 from marshmallow.validate import ContainsOnly, Length, Range, Email
