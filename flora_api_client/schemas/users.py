@@ -1,8 +1,8 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.users import (
-    DataForAuth, User, RegistrationUserData, ConfirmDataForAuthRequest,
-    ConfirmDataForAuthResponse
+    DataForAuth, User, RegistrationUserData, ConfirmDataForAuthRequest
 )
+from ..presentations.base import SuccessResponse
 
 
 DataForAuthSchema = marshmallow_dataclass.class_schema(DataForAuth)
@@ -14,5 +14,5 @@ ConfirmDataForAuthRequestSchema = marshmallow_dataclass.class_schema(
     ConfirmDataForAuthRequest
 )
 ConfirmDataForAuthResponseSchema = marshmallow_dataclass.class_schema(
-    ConfirmDataForAuthResponse
+    SuccessResponse
 )

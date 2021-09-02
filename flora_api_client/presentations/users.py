@@ -83,8 +83,3 @@ class RegistrationUserData(BaseDataclass):
 @dataclass(frozen=True)
 class ConfirmDataForAuthRequest(BaseDataclass):
     code: str = field(metadata={"validate": Length(min=4, max=20)})
-
-
-@dataclass(frozen=True)
-class ConfirmDataForAuthResponse(BaseDataclass):
-    success: bool = field(default=False)
