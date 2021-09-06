@@ -16,13 +16,13 @@ class DataForAuthNamespace(Namespace):
     @expectations(schema=SuccessResponseSchema,
                   expected_code=HTTPStatus.OK)
     async def confirm(
-        self, data_id: int, data: ConfirmDataForAuthRequest
+        self, data_id: int, data: ConfirmDataForAuthRequest, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponseSchema]):
         return await self._put(f'{self.URL}{data_id}/confirm/',
-                               json=data.as_dict())
+                               json=data.as_dict(), **kwargs)
 
     @expectations(schema=SuccessResponseSchema,
                   expected_code=HTTPStatus.OK)
-    async def resend(self, data_id: int
+    async def resend(self, data_id: int, **kwargs
                      ) -> (int, Union[SuccessResponse, ErrorResponseSchema]):
-        return await self._put(f'{self.URL}{data_id}/send/')
+        return await self._put(f'{self.URL}{data_id}/send/', **kwargs)

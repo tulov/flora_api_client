@@ -11,6 +11,6 @@ class InfoNamespace(Namespace):
 
     @expectations(schema=ApplicationInfoResponseSchema)
     async def get(
-        self
+        self, **kwargs
     ) -> (int, Union[ApplicationInfoResponse, ErrorResponseSchema]):
-        return await self._get(self.URL)
+        return await self._get(self.URL, **kwargs)

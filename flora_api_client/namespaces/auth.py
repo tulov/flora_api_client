@@ -13,6 +13,6 @@ class AuthNamespace(Namespace):
     @expectations(schema=AuthResponseSchema,
                   expected_code=HTTPStatus.OK)
     async def authenticate(
-        self, data: AuthRequest
+        self, data: AuthRequest, **kwargs
     ) -> (int, Union[AuthResponse, ErrorResponseSchema]):
-        return await self._post(self.URL, json=data.as_dict())
+        return await self._post(self.URL, json=data.as_dict(), **kwargs)

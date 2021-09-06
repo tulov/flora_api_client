@@ -13,6 +13,6 @@ class UsersNamespace(Namespace):
     @expectations(schema=UserSchema,
                   expected_code=HTTPStatus.CREATED)
     async def register(
-        self, data: RegistrationUserData
+        self, data: RegistrationUserData, **kwargs
     ) -> (int, Union[User, ErrorResponseSchema]):
-        return await self._post(self.URL, json=data.as_dict())
+        return await self._post(self.URL, json=data.as_dict(), **kwargs)
