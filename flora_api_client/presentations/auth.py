@@ -20,3 +20,14 @@ class AuthResponse(BaseDataclass):
     token: str = field()
     long_token: str = field()
     user: User = field()
+
+
+@dataclass(frozen=True)
+class RenewTokenRequest(BaseDataclass):
+    token: str = field()
+
+
+@dataclass(frozen=True)
+class RenewTokenResponse(BaseDataclass):
+    token: str = field()
+    long_token: str = field()
