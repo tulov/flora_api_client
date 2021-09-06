@@ -16,3 +16,10 @@ class UsersNamespace(Namespace):
         self, data: RegistrationUserData, **kwargs
     ) -> (int, Union[User, ErrorResponseSchema]):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
+
+    @expectations(schema=UserSchema,
+                  expected_code=HTTPStatus.OK)
+    async def get(
+        self, user_id: int, **kwargs
+    ) -> (int, Union[User, ErrorResponseSchema]):
+        return await self._get(f'{self.URL}{user_id}', **kwargs)

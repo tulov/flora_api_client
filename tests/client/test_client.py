@@ -20,33 +20,36 @@ async def test_info(async_api_client):
     assert isinstance(res, ApplicationInfoResponse)
 
 
+user_body = {
+    "id": 1,
+    "roles": ['user'],
+    "registration_date": "2021-01-12T12:15:15",
+    "name": "Lex",
+    "discount": 0,
+    "send_sms": True,
+    "send_email": True,
+    "language": "ru",
+    "currency": "rub",
+    "is_moderated": False,
+    "data_for_auth": [
+        {
+            "id": 1,
+            "service": "email",
+            "is_checked": False,
+            "value": "tulov.alex@gmail.com"
+        },
+        {
+            "id": 2,
+            "service": "phone",
+            "is_checked": False,
+            "value": "77077487125"
+        }
+    ]
+}
+
+
 @mock('aiohttp.ClientSession.post',
-      body={
-          "id": 1,
-          "roles": ['user'],
-          "registration_date": "2021-01-12T12:15:15",
-          "name": "Lex",
-          "discount": 0,
-          "send_sms": True,
-          "send_email": True,
-          "language": "ru",
-          "currency": "rub",
-          "is_moderated": False,
-          "data_for_auth": [
-              {
-                  "id": 1,
-                  "service": "email",
-                  "is_checked": False,
-                  "value": "tulov.alex@gmail.com"
-              },
-              {
-                  "id": 2,
-                  "service": "phone",
-                  "is_checked": False,
-                  "value": "77077487125"
-              }
-          ]
-      },
+      body=user_body,
       status=HTTPStatus.CREATED)
 async def test_registration_user(async_api_client):
     data = RegistrationUserData("cbvcbv", "77077487125",
@@ -132,3 +135,12 @@ async def test_auth_data_resend(async_api_client):
     status, res = await async_api_client.data_for_auth.resend(1)
     assert status == HTTPStatus.OK
     assert isinstance(res, SuccessResponse)
+
+
+@mock('aiohttp.ClientSession.get',
+      body=user_body,
+      status=HTTPStatus.OK)
+async def test_get_user(async_api_client):
+    status, res = await async_api_client.users.get(1)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, User)

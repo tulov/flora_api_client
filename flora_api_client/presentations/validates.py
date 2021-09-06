@@ -2,7 +2,7 @@ import re
 
 import typing
 
-from marshmallow import ValidationError
+from marshmallow import ValidationError, types
 from marshmallow.validate import Validator
 
 
@@ -60,4 +60,35 @@ class Filled(Validator):
     ) -> typing.Union[typing.List, typing.Tuple]:
         if not value:
             raise ValidationError(self._message)
+        return value
+
+
+class Or(Validator):
+    """Compose multiple validators and combine their error messages.
+    :param validators: Validators to combine.
+    :param error: Error message to use when a validator returns ``False``.
+    """
+
+    default_error_message = "Invalid value."
+
+    def __init__(
+        self, *validators: types.Validator, error: typing.Optional[str] = None
+    ):
+        self.validators = tuple(validators)
+        self.error = error or self.default_error_message  # type: str
+
+    def _repr_args(self) -> str:
+        return "validators={!r}".format(self.validators)
+
+    def __call__(self, value: typing.Any) -> typing.Any:
+        cnt = len(self.validators)
+        for validator in self.validators:
+            try:
+                r = validator(value)
+                if not isinstance(validator, Validator) and r is False:
+                    cnt -= 1
+            except ValidationError as err:
+                cnt -= 1
+        if cnt == 0:
+            raise ValidationError(self.error)
         return value
