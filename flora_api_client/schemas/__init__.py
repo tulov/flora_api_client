@@ -4,7 +4,10 @@ from .users import (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema
 )
-from .auth import AuthRequestSchema, AuthResponseSchema
+from .auth import (
+    AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
+    RenewTokenRequestSchema
+)
 from .base import SuccessResponseSchema
 
 DATE_FORMAT = '%d.%m.%Y'
@@ -16,5 +19,5 @@ __all__ = (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     DATETIME_FORMAT, DATE_FORMAT, AuthRequestSchema, AuthResponseSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
-    SuccessResponseSchema
+    SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema
 )

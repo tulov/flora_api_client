@@ -5,7 +5,9 @@ from flora_api_client.utils.testing import mock
 from flora_api_client.presentations.users import (
     RegistrationUserData, User
 )
-from flora_api_client.presentations.auth import AuthRequest, AuthResponse
+from flora_api_client.presentations.auth import (
+    AuthRequest, AuthResponse, RenewTokenResponse, RenewTokenRequest
+)
 from flora_api_client.presentations.users import (
     ConfirmDataForAuthRequest
 )
@@ -112,6 +114,19 @@ async def test_auth(async_api_client):
     status, res = await async_api_client.auth.authenticate(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, AuthResponse)
+
+
+@mock('aiohttp.ClientSession.post',
+      body={
+          "token": "token",
+          "long_token": "long_token"
+      },
+      status=HTTPStatus.OK)
+async def test_auth(async_api_client):
+    data = RenewTokenRequest("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    status, res = await async_api_client.auth.renew(data)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, RenewTokenResponse)
 
 
 @mock('aiohttp.ClientSession.put',
