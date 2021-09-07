@@ -9,4 +9,4 @@ class BaseDataclass:
 
 @dataclass(frozen=True)
 class SuccessResponse(BaseDataclass):
-    success: bool = field(default=False)
+    success: bool = field()
