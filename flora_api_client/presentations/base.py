@@ -25,3 +25,4 @@ class Querystring(BaseDataclass):
     f: Optional[str] = field()  # фильтр
     w: Optional[str] = field()  # добавочные поля, через запятую
     p: Optional[int] = field()  # страница
+    s: Optional[str] = field()  # сортировка
