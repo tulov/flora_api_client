@@ -8,6 +8,7 @@ from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
     RenewTokenRequestSchema
 )
+from .counters import CountersResponseSchema
 from .base import SuccessResponseSchema
 
 DATE_FORMAT = '%d.%m.%Y'
@@ -19,5 +20,6 @@ __all__ = (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     DATETIME_FORMAT, DATE_FORMAT, AuthRequestSchema, AuthResponseSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
-    SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema
+    SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
+    CountersResponseSchema
 )
