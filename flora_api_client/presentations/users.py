@@ -6,7 +6,7 @@ from marshmallow.validate import ContainsOnly, Length, Range, Email
 from datetime import datetime
 from .enums import Roles
 from .validates import UniqueItems, Filled, Phone
-from .base import BaseDataclass
+from .base import BaseDataclass, SuccessResponse, Pager
 
 
 @dataclass(frozen=True)
@@ -83,3 +83,12 @@ class RegistrationUserData(BaseDataclass):
 @dataclass(frozen=True)
 class ConfirmDataForAuthRequest(BaseDataclass):
     code: str = field(metadata={"validate": Length(min=4, max=20)})
+
+
+@dataclass(frozen=True)
+class UsersResponse(SuccessResponse):
+    pager: Pager = field()
+    result: List[User] = field(default_factory=list, metadata={
+        "validate": [UniqueItems()],
+        "required": True
+    })
