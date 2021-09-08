@@ -22,7 +22,9 @@ class Pager(BaseDataclass):
 
 @dataclass(frozen=True)
 class Querystring(BaseDataclass):
-    f: Optional[str] = field()  # фильтр
-    w: Optional[str] = field()  # добавочные поля, через запятую
-    p: Optional[int] = field()  # страница
-    s: Optional[str] = field()  # сортировка
+    filters: Optional[str] = field()  # фильтр
+    with_fields: Optional[str] = field()  # добавочные поля, через запятую
+    sorts: Optional[str] = field()  # сортировка
+    page: Optional[int] = field(default=1)  # страница
+    per_page: Optional[int] = field(
+        default=10)  # количество элементов на странице
