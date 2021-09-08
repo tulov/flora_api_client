@@ -3,7 +3,7 @@ from http import HTTPStatus
 from flora_api_client.presentations.main import ApplicationInfoResponse
 from flora_api_client.utils.testing import mock
 from flora_api_client.presentations.users import (
-    RegistrationUserData, User, ConfirmDataForAuthRequest
+    RegistrationUserData, User, ConfirmDataForAuthRequest, UsersResponse
 )
 from flora_api_client.presentations.auth import (
     AuthRequest, AuthResponse, RenewTokenResponse, RenewTokenRequest
@@ -160,6 +160,26 @@ async def test_get_user(async_api_client):
     status, res = await async_api_client.users.get(1)
     assert status == HTTPStatus.OK
     assert isinstance(res, User)
+
+
+@mock('aiohttp.ClientSession.get',
+      body={
+          "success": True,
+          "result": [
+              user_body
+          ],
+          "pager": {
+              "page": 1,
+              "per_page": 10,
+              "count_pages": 1
+          }
+      },
+      status=HTTPStatus.OK)
+async def test_all_user(async_api_client):
+    status, res = await async_api_client.users.all()
+    assert status == HTTPStatus.OK
+    assert isinstance(res, UsersResponse)
+
 
 
 @mock('aiohttp.ClientSession.get',
