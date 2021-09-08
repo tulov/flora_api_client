@@ -45,9 +45,7 @@ class User(BaseDataclass):
     is_moderated: bool = field()
     data: Dict[str, Any] = field(default_factory=dict)
     data_for_auth: Optional[List[DataForAuth]] = field(
-        default_factory=list, metadata={
-            "validate": UniqueItems(),
-        })
+        default_factory=list)
     roles: List[str] = field(default_factory=list, metadata={
         'validate': [
             ContainsOnly([role.value for role in Roles]),
