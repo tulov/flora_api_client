@@ -4,6 +4,7 @@ from .partners import PartnersNamespace
 from .auth import AuthNamespace
 from .data_for_auth import DataForAuthNamespace
 from .counters import CountersNamespace
+from .moderation import ModerationNamespace
 
 
 NAMESPACES = {
@@ -13,4 +14,5 @@ NAMESPACES = {
     'auth': AuthNamespace,
     'data_for_auth': DataForAuthNamespace,
     'counters': CountersNamespace,
+    'moderation': ModerationNamespace,
 }

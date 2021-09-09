@@ -31,9 +31,4 @@ class UsersNamespace(Namespace):
     async def all(
         self, query_params: Querystring = None,  **kwargs
     ) -> (int, Union[UsersResponse, ErrorResponseSchema]):
-        query_string = ''
-        if query_params:
-            d = query_params.as_dict()
-            p = {key: d[key] for key in d if d[key] is not None}
-            query_string = f'?{urlencode(p)}'
-        return await self._get(f'{self.URL}{query_string}', **kwargs)
+        return await self._get(self.build_url(query_params), **kwargs)
