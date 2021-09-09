@@ -4,6 +4,6 @@ from flora_api_client.presentations.moderation import (
 )
 
 
-RequestForModerationResponseSchema = marshmallow_dataclass.class_schema(
+RequestsForModerationResponseSchema = marshmallow_dataclass.class_schema(
     RequestsForModerationResponse
 )
