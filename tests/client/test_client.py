@@ -212,7 +212,7 @@ async def test_all_requests_for_moderation(async_api_client):
 
 
 @mock('aiohttp.ClientSession.get',
-      body={'success': True, 'result': {'users_moderate': 5}},
+      body={'success': True, 'result': {'moderate': 5}},
       status=HTTPStatus.OK)
 async def test_get_counters(async_api_client):
     status, res = await async_api_client.counters.get()

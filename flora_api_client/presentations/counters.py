@@ -4,7 +4,7 @@ from .base import SuccessResponse, BaseDataclass
 
 @dataclass(frozen=True)
 class CountersResult(BaseDataclass):
-    users_moderate: int = field(default=0)
+    moderate: int = field(default=0)
 
 
 @dataclass(frozen=True)
