@@ -5,6 +5,7 @@ from marshmallow.validate import Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import ModerationAction, ModerationResult
+from .users import User
 
 
 @dataclass(frozen=True)
@@ -24,6 +25,7 @@ class RequestForModeration(BaseDataclass):
         'validate': Length(max=1500)
     })
     data: str = field()
+    user: Optional[User] = field()
 
 
 @dataclass(frozen=True)
