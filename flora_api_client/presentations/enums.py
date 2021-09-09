@@ -6,3 +6,14 @@ class Roles(Enum):
     user = 'user'
     partner = 'partner'
     admin = 'admin'
+
+
+@unique
+class ModerationAction(Enum):
+    user_registration = 'user_registration'
+
+
+@unique
+class ModerationResult(Enum):
+    approved = 'approved'
+    denied = 'denied'
