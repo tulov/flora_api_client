@@ -63,3 +63,8 @@ class Querystring(BaseDataclass):
     page: Optional[int] = field(default=1)  # страница
     per_page: Optional[int] = field(
         default=10)  # количество элементов на странице
+
+
+@dataclass(frozen=True)
+class PagedResponse(SuccessResponse):
+    pager: Pager = field()

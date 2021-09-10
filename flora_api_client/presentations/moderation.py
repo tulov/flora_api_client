@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Optional, List
 from marshmallow.validate import Length, OneOf
 
-from .base import BaseDataclass, SuccessResponse, Pager
+from .base import BaseDataclass, PagedResponse, SuccessResponse
 from .enums import ModerationAction, ModerationResult
 from .users import User
 
@@ -29,9 +29,13 @@ class RequestForModeration(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class RequestsForModerationResponse(SuccessResponse):
-    pager: Pager = field()
+class RequestsForModerationResponse(PagedResponse):
     result: List[RequestForModeration] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class RequestForModerationResponse(SuccessResponse):
+    result: RequestForModeration = field()
 

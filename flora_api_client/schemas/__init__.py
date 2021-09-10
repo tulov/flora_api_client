@@ -11,7 +11,9 @@ from .auth import (
 )
 from .counters import CountersResponseSchema
 from .base import SuccessResponseSchema, QuerystringSchema
-from .moderation import RequestsForModerationResponseSchema
+from .moderation import (
+    RequestsForModerationResponseSchema, RequestForModerationResponseSchema
+)
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -24,5 +26,5 @@ __all__ = (
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
     SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
-    RequestsForModerationResponseSchema
+    RequestsForModerationResponseSchema, RequestForModerationResponseSchema
 )
