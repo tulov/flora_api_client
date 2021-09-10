@@ -10,7 +10,9 @@ from .auth import (
     RenewTokenRequestSchema
 )
 from .counters import CountersResponseSchema
-from .base import SuccessResponseSchema, QuerystringSchema
+from .base import (
+    SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystring
+)
 from .moderation import (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema
 )
@@ -26,5 +28,6 @@ __all__ = (
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
     SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
-    RequestsForModerationResponseSchema, RequestForModerationResponseSchema
+    RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
+    WithFieldsQuerystring
 )

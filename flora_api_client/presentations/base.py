@@ -53,12 +53,16 @@ class Pager(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class Querystring(BaseDataclass):
+class WithFieldsQuerystring(BaseDataclass):
+    with_fields: Optional[str] = field()  # добавочные поля, через запятую
+
+
+@dataclass(frozen=True)
+class Querystring(WithFieldsQuerystring):
     # фильтр. Допускает сложные условия.
     # Например: action:test|one|two,result:req
     # action in (test, one, two) and result in (req)
     filters: Optional[str] = field()  # фильтр
-    with_fields: Optional[str] = field()  # добавочные поля, через запятую
     sorts: Optional[str] = field()  # сортировка
     page: Optional[int] = field(default=1)  # страница
     per_page: Optional[int] = field(
