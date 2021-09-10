@@ -34,6 +34,8 @@ class Pager(BaseDataclass):
         return diapason1
 
     def get_visible_pages(self):
+        if self.count_pages == 0:
+            return []
         diapason1 = [1, 2]
         diapason2 = [self.page - 1, self.page, self.page + 1]
         diapason3 = [self.count_pages - 1, self.count_pages]
