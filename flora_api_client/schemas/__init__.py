@@ -11,7 +11,7 @@ from .auth import (
 )
 from .counters import CountersResponseSchema
 from .base import (
-    SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystring
+    SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystringSchema
 )
 from .moderation import (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema
@@ -29,5 +29,5 @@ __all__ = (
     SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
-    WithFieldsQuerystring
+    WithFieldsQuerystringSchema
 )
