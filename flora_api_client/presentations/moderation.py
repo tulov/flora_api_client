@@ -39,3 +39,12 @@ class RequestsForModerationResponse(PagedResponse):
 class RequestForModerationResponse(SuccessResponse):
     result: RequestForModeration = field()
 
+
+@dataclass(frozen=True)
+class ModerateRequest(BaseDataclass):
+    result: Optional[str] = field(metadata={
+        'validate': OneOf([r.value for r in ModerationResult]),
+    })
+    cause: Optional[str] = field(metadata={
+        'validate': Length(max=1500)
+    })

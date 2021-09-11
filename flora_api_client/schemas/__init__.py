@@ -14,7 +14,8 @@ from .base import (
     SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystringSchema
 )
 from .moderation import (
-    RequestsForModerationResponseSchema, RequestForModerationResponseSchema
+    RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
+    ModerateResultSchema
 )
 
 DATE_FORMAT = '%d.%m.%Y'
@@ -29,5 +30,5 @@ __all__ = (
     SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
-    WithFieldsQuerystringSchema
+    WithFieldsQuerystringSchema, ModerateResultSchema
 )
