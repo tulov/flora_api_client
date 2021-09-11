@@ -1,7 +1,7 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.moderation import (
     RequestsForModerationResponse, RequestForModerationResponse,
-    ModerationResult
+    ModerationUpdateRequest
 )
 
 
@@ -13,6 +13,6 @@ RequestForModerationResponseSchema = marshmallow_dataclass.class_schema(
     RequestForModerationResponse
 )
 
-ModerateResultSchema = marshmallow_dataclass.class_schema(
-    ModerationResult
+ModerationUpdateRequestSchema = marshmallow_dataclass.class_schema(
+    ModerationUpdateRequest
 )
