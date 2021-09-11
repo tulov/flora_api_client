@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, Union
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
@@ -60,10 +60,11 @@ class Namespace:
             kwargs['headers'] = headers
         return await self._run_query(url, 'delete', **kwargs)
 
-    def build_url(self, query_params: Querystring = None):
+    def build_url(self, query_params: Querystring = None, *,
+                  postfix_url: Union[str, int] = ''):
         query_string = ''
         if query_params:
             d = query_params.as_dict()
             p = {key: d[key] for key in d if d[key] is not None}
             query_string = f'?{urlencode(p)}'
-        return f'{self.URL}{query_string}'
+        return f'{self.URL}{postfix_url}{query_string}'

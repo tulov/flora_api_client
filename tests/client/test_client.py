@@ -12,7 +12,7 @@ from flora_api_client.presentations.counters import (
     CountersResponse
 )
 from flora_api_client.presentations.moderation import (
-    RequestsForModerationResponse
+    RequestsForModerationResponse, RequestForModerationResponse
 )
 
 from flora_api_client.presentations.base import SuccessResponse
@@ -208,6 +208,24 @@ async def test_all_requests_for_moderation(async_api_client):
     status, res = await async_api_client.moderation.all()
     assert status == HTTPStatus.OK
     assert isinstance(res, RequestsForModerationResponse)
+
+
+@mock('aiohttp.ClientSession.get',
+      body={
+          "success": True,
+          "result": {
+              'id': 1,
+              "action": "user_registration",
+              "date_added": "2021-01-12T12:15:15",
+              "data": '{"test": "one"}',
+              "user_id": 5
+          },
+      },
+      status=HTTPStatus.OK)
+async def test_get_request_for_moderation(async_api_client):
+    status, res = await async_api_client.moderation.get(1)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, RequestForModerationResponse)
 
 
 
