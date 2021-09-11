@@ -42,7 +42,7 @@ class RequestForModerationResponse(SuccessResponse):
 
 @dataclass(frozen=True)
 class ModerateRequest(BaseDataclass):
-    result: Optional[str] = field(metadata={
+    result: str = field(metadata={
         'validate': OneOf([r.value for r in ModerationResult]),
     })
     cause: Optional[str] = field(metadata={
