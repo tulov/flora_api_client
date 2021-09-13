@@ -3,7 +3,8 @@ from typing import Union
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.moderation import (
-    RequestsForModerationResponse, RequestForModerationResponse
+    RequestsForModerationResponse, RequestForModerationResponse,
+    ModerationUpdateRequest
 )
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..schemas import (
@@ -30,3 +31,11 @@ class ModerationNamespace(Namespace):
     ) -> (int, Union[RequestForModerationResponse, ErrorResponseSchema]):
         return await self._get(
             self.build_url(query_params, postfix_url=id_), **kwargs)
+
+    @expectations(schema=RequestForModerationResponseSchema,
+                  expected_code=HTTPStatus.OK)
+    async def update(
+        self, id_: int, data: ModerationUpdateRequest, **kwargs
+    ) -> (int, Union[RequestForModerationResponse, ErrorResponseSchema]):
+        return await self._put(
+            self.build_url(postfix_url=id_), json=data.as_dict(), **kwargs)
