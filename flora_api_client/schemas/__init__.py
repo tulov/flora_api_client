@@ -7,7 +7,8 @@ from .users import (
 )
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
-    RenewTokenRequestSchema
+    RenewTokenRequestSchema, SendRestoreAccessLinkRequestSchema,
+    RestoreAccessRequestSchema
 )
 from .counters import CountersResponseSchema
 from .base import (
@@ -30,5 +31,6 @@ __all__ = (
     SuccessResponseSchema, RenewTokenResponseSchema, RenewTokenRequestSchema,
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
-    WithFieldsQuerystringSchema, ModerationUpdateRequestSchema
+    WithFieldsQuerystringSchema, ModerationUpdateRequestSchema,
+    SendRestoreAccessLinkRequestSchema, RestoreAccessRequestSchema
 )

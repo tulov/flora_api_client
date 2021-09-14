@@ -31,3 +31,18 @@ class RenewTokenRequest(BaseDataclass):
 class RenewTokenResponse(BaseDataclass):
     token: str = field()
     long_token: str = field()
+
+
+@dataclass(frozen=True)
+class SendRestoreAccessLinkRequest(BaseDataclass):
+    auth_key: str = field(metadata={
+        'validate': Length(min=3, max=150)
+    })
+
+
+@dataclass(frozen=True)
+class RestoreAccessRequest(BaseDataclass):
+    token: str = field()
+    password: str = field(metadata={
+        'validate': Length(min=6, max=30)
+    })
