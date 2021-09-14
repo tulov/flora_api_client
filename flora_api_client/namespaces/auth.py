@@ -37,5 +37,5 @@ class AuthNamespace(Namespace):
     async def send_restore_access_link(
         self, data: SendRestoreAccessLinkRequest, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse]):
-        return await self._post(f'{self.URL}auth/send-restore-access-link/',
+        return await self._post(f'{self.URL}send-restore-access-link/',
                                 json=data.as_dict(), **kwargs)
