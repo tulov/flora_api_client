@@ -43,6 +43,7 @@ class User(BaseDataclass):
         "validate": Length(equal=3)
     })
     is_moderated: bool = field()
+    banned: bool = field()
     data: Dict[str, Any] = field(default_factory=dict)
     data_for_auth: Optional[List[DataForAuth]] = field(
         default_factory=list, metadata={
