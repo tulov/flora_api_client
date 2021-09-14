@@ -4,7 +4,7 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import (
     AuthResponse, AuthRequest, RenewTokenRequest, RenewTokenResponse,
-    SendRestoreAccessLinkRequest
+    SendRestoreAccessLinkRequest, RestoreAccessRequest
 )
 from ..presentations.error import ErrorResponse
 from ..presentations.base import SuccessResponse
@@ -39,3 +39,11 @@ class AuthNamespace(Namespace):
     ) -> (int, Union[SuccessResponse, ErrorResponse]):
         return await self._post(f'{self.URL}send-restore-access-link/',
                                 json=data.as_dict(), **kwargs)
+
+    @expectations(schema=SuccessResponseSchema,
+                  expected_code=HTTPStatus.OK)
+    async def restore_access(
+        self, data: RestoreAccessRequest, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse]):
+        return await self._put(f'{self.URL}restore-access/',
+                               json=data.as_dict(), **kwargs)
