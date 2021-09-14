@@ -6,7 +6,8 @@ from flora_api_client.presentations.users import (
     RegistrationUserData, User, ConfirmDataForAuthRequest, UsersResponse
 )
 from flora_api_client.presentations.auth import (
-    AuthRequest, AuthResponse, RenewTokenResponse, RenewTokenRequest
+    AuthRequest, AuthResponse, RenewTokenResponse, RenewTokenRequest,
+    SendRestoreAccessLinkRequest
 )
 from flora_api_client.presentations.counters import (
     CountersResponse
@@ -38,6 +39,7 @@ user_body = {
     "language": "ru",
     "currency": "rub",
     "is_moderated": False,
+    'banned': False,
     "data_for_auth": [
         {
             "id": 1,
@@ -78,6 +80,7 @@ user_data = {
     "language": "ru",
     "currency": "rub",
     "is_moderated": False,
+    "banned": False,
     "data_for_auth": [
         {
             "id": 1,
@@ -127,11 +130,23 @@ async def test_auth(async_api_client):
           "long_token": "long_token"
       },
       status=HTTPStatus.OK)
-async def test_auth(async_api_client):
+async def test_renew_tokens(async_api_client):
     data = RenewTokenRequest("xxxxxxxxxxxxxxxxxxxxxxxxx")
     status, res = await async_api_client.auth.renew(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, RenewTokenResponse)
+
+
+@mock('aiohttp.ClientSession.post',
+      body={
+          "success": True,
+      },
+      status=HTTPStatus.OK)
+async def test_send_restore_access_link(async_api_client):
+    data = SendRestoreAccessLinkRequest(auth_key='test@test.loc')
+    status, res = await async_api_client.auth.send_restore_access_link(data)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, SuccessResponse)
 
 
 @mock('aiohttp.ClientSession.put',
