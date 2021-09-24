@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 from urllib.parse import urlencode
+from http import HTTPStatus
 
 from aiohttp import ClientSession
 
@@ -20,13 +21,36 @@ class Namespace:
             'X-Request-App': self._signer.public_key
         }
 
-    async def _run_query(self, url, method="get", **kwargs):
+    async def _run_query(self, url, method="get", *,
+                         long_token: str = "", **kwargs):
         async with ClientSession() as session:
             m = getattr(session, method)
             async with m(
                 f'{self._host}{self._url_prefix}{url}', **kwargs
             ) as resp:
-                return resp.status, await resp.json()
+                # проверяем на необходимость обновления токена
+                if resp.status != HTTPStatus.FORBIDDEN:
+                    return resp.status, await resp.json(), None
+                body = await resp.json()
+                err = body.get('error', {})
+                err_code = err.get("error_code", 0)
+                first_resp_status = resp.status
+                if err_code != 8:
+                    return first_resp_status, body, None
+            async with session.post(
+                f'{self._host}{self._url_prefix}auth/renew/',
+                json={"token": long_token},
+                **kwargs
+            ) as r:
+                if r.status != HTTPStatus.OK:
+                    return first_resp_status, body, None
+                new_tokens = await r.json()
+            # повторяем запрос с новым токеном
+            kwargs['headers']['X-Auth-Token'] = new_tokens['token']
+            async with m(
+                f'{self._host}{self._url_prefix}{url}', **kwargs
+            ) as resp:
+                return resp.status, await resp.json(), new_tokens
 
     async def _get(self, url, **kwargs):
         headers = self.get_auth_headers({"url": f'{self._url_prefix}{url}'})
@@ -34,7 +58,9 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, **kwargs)
+        return await self._run_query(url,
+                                     long_token=kwargs.get('long_token', ''),
+                                     **kwargs)
 
     async def _post(self, url, **kwargs):
         headers = self.get_auth_headers(kwargs.get('json', {}))
@@ -42,7 +68,9 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'post', **kwargs)
+        return await self._run_query(url, 'post',
+                                     long_token=kwargs.get('long_token', ''),
+                                     **kwargs)
 
     async def _put(self, url, **kwargs):
         headers = self.get_auth_headers(kwargs.get('json', {}))
@@ -50,7 +78,9 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'put', **kwargs)
+        return await self._run_query(url, 'put',
+                                     long_token=kwargs.get('long_token', ''),
+                                     **kwargs)
 
     async def _delete(self, url, **kwargs):
         headers = self.get_auth_headers({"url": f'{self._url_prefix}{url}'})
@@ -58,7 +88,9 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'delete', **kwargs)
+        return await self._run_query(url, 'delete',
+                                     long_token=kwargs.get('long_token', ''),
+                                     **kwargs)
 
     def build_url(self, query_params: Querystring = None, *,
                   postfix_url: Union[str, int] = ''):

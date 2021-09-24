@@ -21,14 +21,14 @@ class AuthNamespace(Namespace):
                   expected_code=HTTPStatus.OK)
     async def authenticate(
         self, data: AuthRequest, **kwargs
-    ) -> (int, Union[AuthResponse, ErrorResponse]):
+    ) -> (int, Union[AuthResponse, ErrorResponse], RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
     @expectations(schema=RenewTokenResponseSchema,
                   expected_code=HTTPStatus.OK)
     async def renew(
         self, data: RenewTokenRequest, **kwargs
-    ) -> (int, Union[RenewTokenResponse, ErrorResponse]):
+    ) -> (int, Union[RenewTokenResponse, ErrorResponse], RenewTokenResponse):
         return await self._post(f'{self.URL}renew/',
                                 json=data.as_dict(), **kwargs)
 
@@ -36,7 +36,7 @@ class AuthNamespace(Namespace):
                   expected_code=HTTPStatus.OK)
     async def send_restore_access_link(
         self, data: SendRestoreAccessLinkRequest, **kwargs
-    ) -> (int, Union[SuccessResponse, ErrorResponse]):
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._post(f'{self.URL}send-restore-access-link/',
                                 json=data.as_dict(), **kwargs)
 
@@ -44,6 +44,6 @@ class AuthNamespace(Namespace):
                   expected_code=HTTPStatus.OK)
     async def restore_access(
         self, data: RestoreAccessRequest, **kwargs
-    ) -> (int, Union[SuccessResponse, ErrorResponse]):
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._put(f'{self.URL}restore-access/',
                                json=data.as_dict(), **kwargs)

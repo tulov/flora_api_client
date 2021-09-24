@@ -23,7 +23,7 @@ from flora_api_client.presentations.base import SuccessResponse
 @mock('aiohttp.ClientSession.get',
       body={"version": "1.0.0", "name": "Flora Api"})
 async def test_info(async_api_client):
-    status, res = await async_api_client.info.get()
+    status, res, _ = await async_api_client.info.get()
     assert status == HTTPStatus.OK
     assert isinstance(res, ApplicationInfoResponse)
 
@@ -64,7 +64,7 @@ async def test_registration_user(async_api_client):
     data = RegistrationUserData("cbvcbv", "77077487125",
                                 "tulov.alex@gmail.com",
                                 "lex", "ru", "rub", True, True)
-    status, res = await async_api_client.users.register(data)
+    status, res, _ = await async_api_client.users.register(data)
     assert status == HTTPStatus.CREATED
     assert isinstance(res, User)
 
@@ -105,7 +105,7 @@ async def test_registration_partner(async_api_client):
     data = RegistrationUserData("cbvcbv", "77077487125",
                                 "tulov.alex@gmail.com",
                                 "lex", "ru", "rub", True, True)
-    status, res = await async_api_client.partners.register(data)
+    status, res, _ = await async_api_client.partners.register(data)
     assert status == HTTPStatus.CREATED
     assert isinstance(res, User)
 
@@ -119,7 +119,7 @@ async def test_registration_partner(async_api_client):
       status=HTTPStatus.OK)
 async def test_auth(async_api_client):
     data = AuthRequest("77077487125", "cbvcbv")
-    status, res = await async_api_client.auth.authenticate(data)
+    status, res, _ = await async_api_client.auth.authenticate(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, AuthResponse)
 
@@ -132,7 +132,7 @@ async def test_auth(async_api_client):
       status=HTTPStatus.OK)
 async def test_renew_tokens(async_api_client):
     data = RenewTokenRequest("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    status, res = await async_api_client.auth.renew(data)
+    status, res, _ = await async_api_client.auth.renew(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, RenewTokenResponse)
 
@@ -144,7 +144,7 @@ async def test_renew_tokens(async_api_client):
       status=HTTPStatus.OK)
 async def test_send_restore_access_link(async_api_client):
     data = SendRestoreAccessLinkRequest(auth_key='test@test.loc')
-    status, res = await async_api_client.auth.send_restore_access_link(data)
+    status, res, _ = await async_api_client.auth.send_restore_access_link(data)
     assert status == HTTPStatus.OK
     assert isinstance(res, SuccessResponse)
 
@@ -156,7 +156,7 @@ async def test_send_restore_access_link(async_api_client):
       status=HTTPStatus.OK)
 async def test_auth_data_confirm(async_api_client):
     data = ConfirmDataForAuthRequest("0123")
-    status, res = await async_api_client.data_for_auth.confirm(1, data)
+    status, res, _ = await async_api_client.data_for_auth.confirm(1, data)
     assert status == HTTPStatus.OK
     assert isinstance(res, SuccessResponse)
 
@@ -167,7 +167,7 @@ async def test_auth_data_confirm(async_api_client):
       },
       status=HTTPStatus.OK)
 async def test_auth_data_resend(async_api_client):
-    status, res = await async_api_client.data_for_auth.resend(1)
+    status, res, _ = await async_api_client.data_for_auth.resend(1)
     assert status == HTTPStatus.OK
     assert isinstance(res, SuccessResponse)
 
@@ -176,7 +176,7 @@ async def test_auth_data_resend(async_api_client):
       body=user_body,
       status=HTTPStatus.OK)
 async def test_get_user(async_api_client):
-    status, res = await async_api_client.users.get(1)
+    status, res, _ = await async_api_client.users.get(1)
     assert status == HTTPStatus.OK
     assert isinstance(res, User)
 
@@ -195,7 +195,7 @@ async def test_get_user(async_api_client):
       },
       status=HTTPStatus.OK)
 async def test_all_user(async_api_client):
-    status, res = await async_api_client.users.all()
+    status, res, _ = await async_api_client.users.all()
     assert status == HTTPStatus.OK
     assert isinstance(res, UsersResponse)
 
@@ -221,7 +221,7 @@ async def test_all_user(async_api_client):
       },
       status=HTTPStatus.OK)
 async def test_all_requests_for_moderation(async_api_client):
-    status, res = await async_api_client.moderation.all()
+    status, res, _ = await async_api_client.moderation.all()
     assert status == HTTPStatus.OK
     assert isinstance(res, RequestsForModerationResponse)
 
@@ -239,7 +239,7 @@ async def test_all_requests_for_moderation(async_api_client):
       },
       status=HTTPStatus.OK)
 async def test_get_request_for_moderation(async_api_client):
-    status, res = await async_api_client.moderation.get(1)
+    status, res, _ = await async_api_client.moderation.get(1)
     assert status == HTTPStatus.OK
     assert isinstance(res, RequestForModerationResponse)
 
@@ -258,7 +258,7 @@ async def test_get_request_for_moderation(async_api_client):
       status=HTTPStatus.OK)
 async def test_update_request_for_moderation(async_api_client):
     d = ModerationUpdateRequest('denied', 'reason to denied')
-    status, res = await async_api_client.moderation.update(1, d)
+    status, res, _ = await async_api_client.moderation.update(1, d)
     assert status == HTTPStatus.OK
     assert isinstance(res, RequestForModerationResponse)
 
@@ -267,7 +267,7 @@ async def test_update_request_for_moderation(async_api_client):
       body={'success': True, 'result': {'moderate': 5}},
       status=HTTPStatus.OK)
 async def test_get_counters(async_api_client):
-    status, res = await async_api_client.counters.get()
+    status, res, _ = await async_api_client.counters.get()
     assert status == HTTPStatus.OK
     assert isinstance(res, CountersResponse)
 
