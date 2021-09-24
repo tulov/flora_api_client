@@ -38,7 +38,7 @@ class Namespace:
                 if err_code != 8:
                     return first_resp_status, body, None
             async with session.post(
-                f'{self._host}{self._url_prefix}auth/renew/',
+                f'{self._host}{self._url_prefix}/auth/renew/',
                 json={"token": long_token},
                 **kwargs
             ) as r:
