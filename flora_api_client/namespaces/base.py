@@ -58,9 +58,7 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url,
-                                     long_token=kwargs.get('long_token', ''),
-                                     **kwargs)
+        return await self._run_query(url, **kwargs)
 
     async def _post(self, url, **kwargs):
         headers = self.get_auth_headers(kwargs.get('json', {}))
@@ -68,9 +66,7 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'post',
-                                     long_token=kwargs.get('long_token', ''),
-                                     **kwargs)
+        return await self._run_query(url, 'post', **kwargs)
 
     async def _put(self, url, **kwargs):
         headers = self.get_auth_headers(kwargs.get('json', {}))
@@ -78,9 +74,7 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'put',
-                                     long_token=kwargs.get('long_token', ''),
-                                     **kwargs)
+        return await self._run_query(url, 'put', **kwargs)
 
     async def _delete(self, url, **kwargs):
         headers = self.get_auth_headers({"url": f'{self._url_prefix}{url}'})
@@ -88,9 +82,7 @@ class Namespace:
             kwargs['headers'].update(headers)
         else:
             kwargs['headers'] = headers
-        return await self._run_query(url, 'delete',
-                                     long_token=kwargs.get('long_token', ''),
-                                     **kwargs)
+        return await self._run_query(url, 'delete', **kwargs)
 
     def build_url(self, query_params: Querystring = None, *,
                   postfix_url: Union[str, int] = ''):
