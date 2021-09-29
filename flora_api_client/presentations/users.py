@@ -91,3 +91,17 @@ class UsersResponse(SuccessResponse):
     result: List[User] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class ChangePasswordRequest(BaseDataclass):
+    old_password: str = field(metadata={"validate": Length(min=6, max=30)})
+    new_password: str = field(metadata={"validate": Length(min=6, max=30)})
+
+    def __post_init__(self):
+        if self.old_password == self.new_password:
+            raise ValidationError(
+                {"_schema": [
+                    'New password should be different with old password'
+                ]}
+            )

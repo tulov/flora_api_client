@@ -3,7 +3,7 @@ from .main import ApplicationInfoResponseSchema
 from .users import (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
-    UsersResponseSchema
+    UsersResponseSchema, ChangePasswordRequestSchema
 )
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
@@ -32,5 +32,6 @@ __all__ = (
     CountersResponseSchema, UsersResponseSchema, QuerystringSchema,
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
     WithFieldsQuerystringSchema, ModerationUpdateRequestSchema,
-    SendRestoreAccessLinkRequestSchema, RestoreAccessRequestSchema
+    SendRestoreAccessLinkRequestSchema, RestoreAccessRequestSchema,
+    ChangePasswordRequestSchema
 )
