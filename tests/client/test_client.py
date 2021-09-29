@@ -3,7 +3,8 @@ from http import HTTPStatus
 from flora_api_client.presentations.main import ApplicationInfoResponse
 from flora_api_client.utils.testing import mock
 from flora_api_client.presentations.users import (
-    RegistrationUserData, User, ConfirmDataForAuthRequest, UsersResponse
+    RegistrationUserData, User, ConfirmDataForAuthRequest, UsersResponse,
+    ChangePasswordRequest
 )
 from flora_api_client.presentations.auth import (
     AuthRequest, AuthResponse, RenewTokenResponse, RenewTokenRequest,
@@ -270,4 +271,16 @@ async def test_get_counters(async_api_client):
     status, res, _ = await async_api_client.counters.get()
     assert status == HTTPStatus.OK
     assert isinstance(res, CountersResponse)
+
+
+@mock('aiohttp.ClientSession.put',
+      body={
+          "success": True,
+      },
+      status=HTTPStatus.OK)
+async def test_change_password(async_api_client):
+    d = ChangePasswordRequest(old_password="cbvcbv", new_password="testtest")
+    status, res, _ = await async_api_client.users.change_password(1, d)
+    assert status == HTTPStatus.OK
+    assert isinstance(res, SuccessResponse)
 
