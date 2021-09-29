@@ -43,4 +43,4 @@ class UsersNamespace(Namespace):
         self, user_id: int, data: ChangePasswordRequest, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._put(
-            f'{self.URL}{user_id}', json=data.as_dict(), **kwargs)
+            f'{self.URL}{user_id}/password/', json=data.as_dict(), **kwargs)
