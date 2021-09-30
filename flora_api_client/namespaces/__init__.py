@@ -5,6 +5,7 @@ from .auth import AuthNamespace
 from .data_for_auth import DataForAuthNamespace
 from .counters import CountersNamespace
 from .moderation import ModerationNamespace
+from .categories import CategoriesNamespace
 
 
 NAMESPACES = {
@@ -15,4 +16,5 @@ NAMESPACES = {
     'data_for_auth': DataForAuthNamespace,
     'counters': CountersNamespace,
     'moderation': ModerationNamespace,
+    'categories': CategoriesNamespace,
 }
