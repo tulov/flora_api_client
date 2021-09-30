@@ -14,7 +14,7 @@ class Category(BaseDataclass):
     name: str = field(metadata={
         'validate': Length(max=150, min=1)
     })
-    parent_id: int = field(metadata={
+    parent_id: Optional[int] = field(metadata={
         "strict": True,
     })
     is_visible: bool = field(default=True)
