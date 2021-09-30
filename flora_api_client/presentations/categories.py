@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, List
 
 from marshmallow.validate import Length
 
-from .base import SuccessResponse, BaseDataclass
+from .base import SuccessResponse, BaseDataclass, PagedResponse
 
 
 @dataclass(frozen=True)
@@ -34,3 +34,11 @@ class CreateCategoryRequest(BaseDataclass):
 @dataclass(frozen=True)
 class CategoryResponse(SuccessResponse):
     result: Category = field()
+
+
+@dataclass(frozen=True)
+class CategoriesResponse(PagedResponse):
+    result: List[Category] = field(default_factory=list, metadata={
+        "required": True
+    })
+
