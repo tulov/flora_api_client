@@ -17,6 +17,7 @@ class Category(BaseDataclass):
     parent_id: int = field(metadata={
         "strict": True,
     })
+    is_visible: bool = field(default=True)
 
 
 @dataclass(frozen=True)
@@ -27,6 +28,7 @@ class CreateCategoryRequest(BaseDataclass):
     parent_id: Optional[int] = field(metadata={
         "strict": True,
     })
+    is_visible: Optional[bool] = field()
 
 
 @dataclass(frozen=True)
