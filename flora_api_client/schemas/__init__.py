@@ -18,7 +18,7 @@ from .moderation import (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
     ModerationUpdateRequestSchema
 )
-from .categories import CategoryResponseSchema
+from .categories import CategoryResponseSchema, CreateCategoryRequestSchema
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -34,5 +34,6 @@ __all__ = (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
     WithFieldsQuerystringSchema, ModerationUpdateRequestSchema,
     SendRestoreAccessLinkRequestSchema, RestoreAccessRequestSchema,
-    ChangePasswordRequestSchema, CategoryResponseSchema
+    ChangePasswordRequestSchema, CategoryResponseSchema,
+    CreateCategoryRequestSchema
 )
