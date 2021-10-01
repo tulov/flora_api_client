@@ -4,6 +4,7 @@ from typing import Optional, List
 from marshmallow.validate import Length
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
+from .tags import Tag
 
 
 @dataclass(frozen=True)
@@ -18,6 +19,7 @@ class Category(BaseDataclass):
         "strict": True,
     })
     is_visible: bool = field(default=True)
+    tags: Optional[List[Tag]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
