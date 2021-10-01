@@ -23,6 +23,14 @@ class CategoriesNamespace(Namespace):
           RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
+    @expectations(schema=CategoryResponseSchema)
+    async def update(
+        self, id_: int, data: CreateCategoryRequest, **kwargs
+    ) -> (int, Union[CategoryResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=id_),
+                               json=data.as_dict(), **kwargs)
+
     @expectations(schema=CategoriesResponseSchema)
     async def all(
         self, query_params: Querystring = None, **kwargs
