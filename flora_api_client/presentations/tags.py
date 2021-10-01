@@ -18,6 +18,7 @@ class Tag(BaseDataclass):
         "strict": True,
     })
     is_visible: bool = field(default=True)
+    is_inherited: bool = field(default=False)
 
 
 @dataclass(frozen=True)
