@@ -71,4 +71,4 @@ class Querystring(WithFieldsQuerystring):
 
 @dataclass(frozen=True)
 class PagedResponse(SuccessResponse):
-    pager: Pager = field()
+    pager: Optional[Pager] = field()
