@@ -17,3 +17,8 @@ class ModerationAction(Enum):
 class ModerationResult(Enum):
     approved = 'approved'
     denied = 'denied'
+
+
+@unique
+class ImageTarget(Enum):
+    product = 'product'
