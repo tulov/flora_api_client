@@ -50,7 +50,7 @@ class CategoriesNamespace(Namespace):
             self.build_url(query_params, postfix_url=id_), **kwargs)
 
     @expectations(schema=TagsResponseSchema)
-    async def get(
+    async def tags(
         self, id_: int, **kwargs
     ) -> (int, Union[TagsResponse, ErrorResponse],
           RenewTokenResponse):
