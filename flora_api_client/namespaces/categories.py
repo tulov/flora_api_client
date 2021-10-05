@@ -51,8 +51,8 @@ class CategoriesNamespace(Namespace):
 
     @expectations(schema=TagsResponseSchema)
     async def tags(
-        self, id_: int, **kwargs
+        self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
     ) -> (int, Union[TagsResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(
-            self.build_url(postfix_url=f'{id_}/tags/'), **kwargs)
+            self.build_url(query_params, postfix_url=f'{id_}/tags/'), **kwargs)
