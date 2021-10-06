@@ -6,7 +6,7 @@ from marshmallow.validate import Length, OneOf
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
-from .enums import FieldType
+from .enums import FieldType, HTMLWidget
 
 
 @dataclass(frozen=True)
@@ -26,6 +26,9 @@ class FieldBaseDataclass(BaseDataclass):
 class Field(FieldBaseDataclass):
     id: int = field(metadata={
         "strict": True,
+    })
+    widget: Optional[str] = field(metadata={
+        'validate': OneOf([r.value for r in HTMLWidget]),
     })
     is_inherited: bool = field(default=False)
 
