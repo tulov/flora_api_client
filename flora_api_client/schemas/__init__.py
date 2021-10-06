@@ -25,6 +25,9 @@ from .categories import (
 from .tags import (
     TagResponseSchema, TagsResponseSchema, CreateTagRequestSchema
 )
+from .fields import (
+    FieldResponseSchema, FieldsResponseSchema, CreateFieldRequestSchema
+)
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -42,5 +45,6 @@ __all__ = (
     SendRestoreAccessLinkRequestSchema, RestoreAccessRequestSchema,
     ChangePasswordRequestSchema, CategoryResponseSchema,
     CreateCategoryRequestSchema, CategoriesResponseSchema, TagResponseSchema,
-    CreateTagRequestSchema, TagsResponseSchema
+    CreateTagRequestSchema, TagsResponseSchema, FieldsResponseSchema,
+    FieldResponseSchema, CreateFieldRequestSchema
 )
