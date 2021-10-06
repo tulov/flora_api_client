@@ -38,4 +38,10 @@ class FieldsNamespace(Namespace):
         return await self._get(
             self.build_url(query_params, postfix_url=id_), **kwargs)
 
-
+    @expectations(schema=FieldResponseSchema)
+    async def update(
+        self, id_: int, data: CreateFieldRequest, **kwargs
+    ) -> (int, Union[FieldResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=id_),
+                               json=data.as_dict(), **kwargs)
