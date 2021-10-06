@@ -26,7 +26,8 @@ from .tags import (
     TagResponseSchema, TagsResponseSchema, CreateTagRequestSchema
 )
 from .fields import (
-    FieldResponseSchema, FieldsResponseSchema, CreateFieldRequestSchema
+    FieldResponseSchema, FieldsResponseSchema, CreateFieldRequestSchema,
+    RelationshipSchema
 )
 
 DATE_FORMAT = '%d.%m.%Y'
@@ -46,5 +47,5 @@ __all__ = (
     ChangePasswordRequestSchema, CategoryResponseSchema,
     CreateCategoryRequestSchema, CategoriesResponseSchema, TagResponseSchema,
     CreateTagRequestSchema, TagsResponseSchema, FieldsResponseSchema,
-    FieldResponseSchema, CreateFieldRequestSchema
+    FieldResponseSchema, CreateFieldRequestSchema, RelationshipSchema
 )

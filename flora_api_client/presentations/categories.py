@@ -5,7 +5,7 @@ from marshmallow.validate import Length
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .tags import Tag
-from .fields import Field
+from .fields import Field, Relationship
 
 
 @dataclass(frozen=True)
@@ -34,7 +34,7 @@ class CreateCategoryRequest(BaseDataclass):
     })
     is_visible: Optional[bool] = field()
     tags: Optional[List[int]] = field(default_factory=list)
-    fields: Optional[List[int]] = field(default_factory=list)
+    fields: Optional[List[Relationship]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

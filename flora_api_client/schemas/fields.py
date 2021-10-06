@@ -1,6 +1,6 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.fields import (
-    FieldResponse, CreateFieldRequest, FieldsResponse
+    FieldResponse, CreateFieldRequest, FieldsResponse, Relationship
 )
 
 
@@ -12,4 +12,7 @@ FieldsResponseSchema = marshmallow_dataclass.class_schema(
 )
 CreateFieldRequestSchema = marshmallow_dataclass.class_schema(
     CreateFieldRequest
+)
+RelationshipSchema = marshmallow_dataclass.class_schema(
+    Relationship
 )

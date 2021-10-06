@@ -48,3 +48,13 @@ class FieldsResponse(PagedResponse):
     result: List[Field] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class Relationship(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True,
+    })
+    widget: str = field(metadata={
+        'validate': OneOf([r.value for r in HTMLWidget]),
+    })
