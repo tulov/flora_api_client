@@ -7,6 +7,7 @@ from .counters import CountersNamespace
 from .moderation import ModerationNamespace
 from .categories import CategoriesNamespace
 from .tags import TagsNamespace
+from .fields import FieldsNamespace
 
 
 NAMESPACES = {
@@ -19,4 +20,5 @@ NAMESPACES = {
     'moderation': ModerationNamespace,
     'categories': CategoriesNamespace,
     'tags': TagsNamespace,
+    'fields': FieldsNamespace,
 }
