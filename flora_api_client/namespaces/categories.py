@@ -7,10 +7,12 @@ from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.categories import (
     CategoryResponse, CreateCategoryRequest, CategoriesResponse
 )
+from ..presentations.fields import FieldsResponse
 from ..presentations.tags import TagsResponse
 from ..presentations.error import ErrorResponse
 from ..schemas import (
-    CategoryResponseSchema, CategoriesResponseSchema, TagsResponseSchema
+    CategoryResponseSchema, CategoriesResponseSchema, TagsResponseSchema,
+    FieldsResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -56,3 +58,11 @@ class CategoriesNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params, postfix_url=f'{id_}/tags/'), **kwargs)
+
+    @expectations(schema=FieldsResponseSchema)
+    async def fields(
+        self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
+    ) -> (int, Union[FieldsResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(query_params, postfix_url=f'{id_}/fields/'), **kwargs)
