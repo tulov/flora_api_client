@@ -27,6 +27,7 @@ class Field(FieldBaseDataclass):
     id: int = field(metadata={
         "strict": True,
     })
+    is_inherited: bool = field(default=False)
 
 
 @dataclass(frozen=True)
