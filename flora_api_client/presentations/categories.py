@@ -34,6 +34,7 @@ class CreateCategoryRequest(BaseDataclass):
     })
     is_visible: Optional[bool] = field()
     tags: Optional[List[int]] = field(default_factory=list)
+    fields: Optional[List[int]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
