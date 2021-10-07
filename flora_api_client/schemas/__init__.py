@@ -29,6 +29,7 @@ from .fields import (
     FieldResponseSchema, FieldsResponseSchema, CreateFieldRequestSchema,
     RelationshipSchema
 )
+from .images import ImageResponseSchema, ImageUploadRequestSchema
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -47,5 +48,6 @@ __all__ = (
     ChangePasswordRequestSchema, CategoryResponseSchema,
     CreateCategoryRequestSchema, CategoriesResponseSchema, TagResponseSchema,
     CreateTagRequestSchema, TagsResponseSchema, FieldsResponseSchema,
-    FieldResponseSchema, CreateFieldRequestSchema, RelationshipSchema
+    FieldResponseSchema, CreateFieldRequestSchema, RelationshipSchema,
+    ImageResponseSchema, ImageUploadRequestSchema
 )
