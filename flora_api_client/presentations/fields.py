@@ -59,3 +59,4 @@ class Relationship(BaseDataclass):
     widget: str = field(metadata={
         'validate': OneOf([r.value for r in HTMLWidget]),
     })
+    is_required: bool = field()
