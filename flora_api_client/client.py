@@ -2,7 +2,8 @@ from flora_api_client.auth.singer import Singer
 from flora_api_client.namespaces import (
     NAMESPACES, UsersNamespace, AuthNamespace, InfoNamespace, PartnersNamespace,
     DataForAuthNamespace, CountersNamespace, ModerationNamespace,
-    CategoriesNamespace, TagsNamespace, FieldsNamespace, ImagesNamespace
+    CategoriesNamespace, TagsNamespace, FieldsNamespace, ImagesNamespace,
+    ProductsNamespace
 )
 
 
@@ -18,6 +19,7 @@ class FloraApiClient:
     tags: TagsNamespace
     fields: FieldsNamespace
     images: ImagesNamespace
+    products: ProductsNamespace
 
     def __init__(self, *, app_id: str, app_key: str,
                  host: str, url_prefix: str = '/api/v1'):
