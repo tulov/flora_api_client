@@ -11,6 +11,7 @@ class Roles(Enum):
 @unique
 class ModerationAction(Enum):
     user_registration = 'user_registration'
+    product = 'product'
 
 
 @unique
