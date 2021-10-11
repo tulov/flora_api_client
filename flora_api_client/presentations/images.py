@@ -26,6 +26,9 @@ class Image(BaseDataclass):
     )
     is_moderated: Optional[bool] = field()
 
+    def build_url(self, *, width: int, height: int):
+        return f'/display?path={self.path}&w={width}&h={height}&op=resize'
+
 
 @dataclass(frozen=True)
 class ImageResponse(SuccessResponse):
