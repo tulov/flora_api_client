@@ -17,7 +17,7 @@ class ProductBaseDataclass(BaseDataclass):
         'validate': Length(max=150, min=1)
     })
     description: Optional[str] = field(metadata={
-        'validate': Length(max=1000, min=1)
+        'validate': Length(max=1000)
     })
     data: Optional[str] = field()
 
