@@ -36,6 +36,14 @@ class Product(ProductBaseDataclass):
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
 
+    @property
+    def main_image(self) -> Optional[Image]:
+        if not self.images:
+            return None
+        for i in self.images:
+            if i.position == 0:
+                return i
+
 
 @dataclass(frozen=True)
 class ProductRequest(ProductBaseDataclass):
