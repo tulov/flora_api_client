@@ -3,6 +3,8 @@ from typing import Optional, List
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse
 from .images import Image
+from .tags import Tag
+from .categories import Category
 from marshmallow.validate import Length
 
 
@@ -28,8 +30,11 @@ class Product(ProductBaseDataclass):
     owner_id: int = field(metadata={
         "strict": True,
     })
+    category: Optional[Category] = field()
     is_moderated: Optional[bool] = field()
     is_template: bool = field(default=False)
+    tags: Optional[List[Tag]] = field(default_factory=list)
+    images: Optional[List[Image]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
