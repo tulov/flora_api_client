@@ -3,7 +3,7 @@ from typing import Union
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
-from ..presentations.base import Querystring
+from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse
 )
@@ -29,3 +29,11 @@ class ProductsNamespace(Namespace):
     ) -> (int, Union[ProductsResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(self.build_url(query_params), **kwargs)
+
+    @expectations(schema=ProductResponseSchema)
+    async def get(
+        self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
+    ) -> (int, Union[ProductResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(query_params, postfix_url=id_), **kwargs)
