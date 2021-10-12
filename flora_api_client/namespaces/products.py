@@ -37,3 +37,12 @@ class ProductsNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params, postfix_url=id_), **kwargs)
+
+    @expectations(schema=ProductResponseSchema)
+    async def update(
+        self, id_: int, data: ProductRequest, **kwargs
+    ) -> (int, Union[ProductResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=id_),
+                               json=data.as_dict(), **kwargs)
+
