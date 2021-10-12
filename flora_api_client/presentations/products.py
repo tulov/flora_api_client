@@ -46,11 +46,21 @@ class Product(ProductBaseDataclass):
 
 
 @dataclass(frozen=True)
+class FilesData(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True,
+    })
+    position: int = field(metadata={
+        "strict": True,
+    })
+
+
+@dataclass(frozen=True)
 class ProductRequest(ProductBaseDataclass):
     tags: List[int] = field(default_factory=list, metadata={
         "required": True
     })
-    files: List[Image] = field(default_factory=list, metadata={
+    files: List[FilesData] = field(default_factory=list, metadata={
         "required": True
     })
 
