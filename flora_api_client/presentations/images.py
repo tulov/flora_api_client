@@ -29,6 +29,14 @@ class Image(BaseDataclass):
     def build_url(self, *, width: int, height: int):
         return f'/display?path={self.path}&w={width}&h={height}&op=resize'
 
+    @property
+    def mime_type(self):
+        if self.path.endswith('.png'):
+            return "image/png"
+        if self.path.endswith('.jpeg'):
+            return "image/jpeg"
+        raise RuntimeError("Not supported file type")
+
 
 @dataclass(frozen=True)
 class ImageResponse(SuccessResponse):
