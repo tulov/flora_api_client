@@ -37,6 +37,11 @@ class Image(BaseDataclass):
             return "image/jpeg"
         raise RuntimeError("Not supported file type")
 
+    @property
+    def extension(self):
+        m = self.mime_type
+        return m.split('/')[1]
+
 
 @dataclass(frozen=True)
 class ImageResponse(SuccessResponse):
