@@ -5,7 +5,7 @@ from .base import BaseDataclass, SuccessResponse, PagedResponse
 from .images import Image
 from .tags import Tag
 from .categories import Category
-from marshmallow.validate import Length
+from marshmallow.validate import Length, OneOf
 
 
 @dataclass(frozen=True)
@@ -31,6 +31,9 @@ class Product(ProductBaseDataclass):
         "strict": True,
     })
     category: Optional[Category] = field()
+    source: Optional[str] = field(metadata={
+        'validate': OneOf(['product', 'moderation']),
+    })
     is_template: bool = field(default=False)
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
