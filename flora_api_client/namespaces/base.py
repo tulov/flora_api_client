@@ -85,10 +85,12 @@ class Namespace:
         return await self._run_query(url, 'delete', **kwargs)
 
     def build_url(self, query_params: Querystring = None, *,
-                  postfix_url: Union[str, int] = ''):
+                  postfix_url: Union[str, int] = '', url: str = None):
         query_string = ''
         if query_params:
             d = query_params.as_dict()
             p = {key: d[key] for key in d if d[key] is not None}
             query_string = f'?{urlencode(p)}'
-        return f'{self.URL}{postfix_url}{query_string}'
+        if url is None:
+            url = self.URL
+        return f'{url}{postfix_url}{query_string}'
