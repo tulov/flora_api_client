@@ -8,7 +8,8 @@ from ..presentations.moderation import (
     RequestsForModerationResponse, RequestForModerationResponse,
     ModerationUpdateRequest
 )
-from ..presentations.products import ProductsResponse, ProductResponse
+from ..presentations.products import ProductsResponse, ProductResponse, \
+    ProductRequest
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..schemas import (
     RequestsForModerationResponseSchema,
@@ -66,3 +67,12 @@ class ModerationNamespace(Namespace):
             self.build_url(query_params, url="/moderation/products/",
                            postfix_url=id_),
             **kwargs)
+
+    @expectations(schema=ProductResponseSchema)
+    async def update_product(
+        self, id_: int, data: ProductRequest, **kwargs
+    ) -> (int, Union[ProductResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(self.build_url(url="/moderation/products/",
+                                              postfix_url=id_),
+                               json=data.as_dict(), **kwargs)
