@@ -7,19 +7,23 @@ from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse
 )
+from ..presentations.moderation import RequestForModerationResponse
 from ..presentations.error import ErrorResponse
-from ..schemas import ProductResponseSchema, ProductsResponseSchema
+from ..schemas import (
+    ProductResponseSchema, ProductsResponseSchema,
+    RequestForModerationResponseSchema
+)
 from ..namespaces.base import Namespace
 
 
 class ProductsNamespace(Namespace):
     URL = '/products/'
 
-    @expectations(schema=ProductResponseSchema,
+    @expectations(schema=RequestForModerationResponseSchema,
                   expected_code=HTTPStatus.CREATED)
     async def create(
         self, data: ProductRequest, **kwargs
-    ) -> (int, Union[ProductResponse, ErrorResponse],
+    ) -> (int, Union[RequestForModerationResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
@@ -38,10 +42,10 @@ class ProductsNamespace(Namespace):
         return await self._get(
             self.build_url(query_params, postfix_url=id_), **kwargs)
 
-    @expectations(schema=ProductResponseSchema)
+    @expectations(schema=RequestForModerationResponseSchema)
     async def update(
         self, id_: int, data: ProductRequest, **kwargs
-    ) -> (int, Union[ProductResponse, ErrorResponse],
+    ) -> (int, Union[RequestForModerationResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(self.build_url(postfix_url=id_),
                                json=data.as_dict(), **kwargs)
