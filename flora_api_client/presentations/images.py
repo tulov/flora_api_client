@@ -24,7 +24,6 @@ class Image(BaseDataclass):
             'validate': OneOf([r.value for r in ImageTarget]),
         }
     )
-    is_moderated: Optional[bool] = field()
 
     def build_url(self, *, width: int, height: int):
         return f'/display?path={self.path}&w={width}&h={height}&op=resize'
