@@ -8,12 +8,12 @@ from ..presentations.moderation import (
     RequestsForModerationResponse, RequestForModerationResponse,
     ModerationUpdateRequest
 )
-from ..presentations.products import ProductsResponse
+from ..presentations.products import ProductsResponse, ProductResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..schemas import (
     RequestsForModerationResponseSchema,
     RequestForModerationResponseSchema,
-    ProductsResponseSchema
+    ProductsResponseSchema, ProductResponseSchema, WithFieldsQuerystringSchema
 )
 from ..namespaces.base import Namespace
 
@@ -54,4 +54,15 @@ class ModerationNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params, url="/moderation/products/"),
+            **kwargs)
+
+    @expectations(schema=ProductResponseSchema)
+    async def product(
+        self, id_: int, query_params: WithFieldsQuerystringSchema = None,
+        **kwargs
+    ) -> (int, Union[ProductResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(query_params, url="/moderation/products/",
+                           postfix_url=id_),
             **kwargs)
