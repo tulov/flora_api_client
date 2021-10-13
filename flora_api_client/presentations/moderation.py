@@ -26,6 +26,7 @@ class RequestForModeration(BaseDataclass):
     })
     data: str = field()
     user: Optional[User] = field()
+    obj_id: Optional[int] = field()
 
 
 @dataclass(frozen=True)
