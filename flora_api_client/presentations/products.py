@@ -34,6 +34,9 @@ class Product(ProductBaseDataclass):
     source: Optional[str] = field(metadata={
         'validate': OneOf(['product', 'moderation']),
     })
+    moderation_id: Optional[int] = field(metadata={
+        "strict": True,
+    })
     is_template: bool = field(default=False)
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
