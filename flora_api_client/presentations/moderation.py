@@ -52,3 +52,6 @@ class ModerationUpdateRequest(BaseDataclass):
     cause: Optional[str] = field(metadata={
         'validate': Length(max=1500)
     })
+    revision: int = field(metadata={
+        "strict": True,
+    })
