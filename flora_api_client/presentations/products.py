@@ -20,6 +20,9 @@ class ProductBaseDataclass(BaseDataclass):
         'validate': Length(max=1000)
     })
     data: Optional[str] = field()
+    revision: int = field(metadata={
+        "strict": True,
+    })
 
 
 @dataclass(frozen=True)
@@ -35,9 +38,6 @@ class Product(ProductBaseDataclass):
         'validate': OneOf(['product', 'moderation']),
     })
     moderation_id: Optional[int] = field(metadata={
-        "strict": True,
-    })
-    revision: int = field(metadata={
         "strict": True,
     })
     is_template: bool = field(default=False)
