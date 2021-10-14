@@ -5,6 +5,7 @@ from .base import BaseDataclass, SuccessResponse, PagedResponse
 from .images import Image
 from .tags import Tag
 from .categories import Category
+from .moderation import RequestForModeration
 from marshmallow.validate import Length, OneOf
 
 
@@ -34,12 +35,7 @@ class Product(ProductBaseDataclass):
         "strict": True,
     })
     category: Optional[Category] = field()
-    source: Optional[str] = field(metadata={
-        'validate': OneOf(['product', 'moderation']),
-    })
-    moderation_id: Optional[int] = field(metadata={
-        "strict": True,
-    })
+    request_for_moderation: Optional[RequestForModeration] = field()
     is_template: bool = field(default=False)
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
