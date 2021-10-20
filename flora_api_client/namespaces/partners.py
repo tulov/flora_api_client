@@ -6,7 +6,7 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.error import ErrorResponse
 from ..presentations.users import RegistrationUserData, User
 from ..presentations.partners import BindCityRequestDataclass
-from ..presentations.base import SuccessResponse
+from ..presentations.base import SuccessResponse, Querystring
 from ..presentations.cities import CitiesResponse
 from ..schemas import UserSchema, SuccessResponseSchema, CitiesResponseSchema
 from ..namespaces.base import Namespace
@@ -34,9 +34,9 @@ class PartnersNamespace(Namespace):
 
     @expectations(schema=CitiesResponseSchema)
     async def cities(
-        self, id_: int, **kwargs
+        self, id_: int, query_params: Querystring = None, **kwargs
     ) -> (int, Union[CitiesResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(
-            self.build_url(postfix_url=f'{id_}/cities/'),
+            self.build_url(query_params, postfix_url=f'{id_}/cities/'),
             **kwargs)
