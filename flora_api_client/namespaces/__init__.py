@@ -10,6 +10,7 @@ from .tags import TagsNamespace
 from .fields import FieldsNamespace
 from .images import ImagesNamespace
 from .products import ProductsNamespace
+from .cities import CitiesNamespace
 
 
 NAMESPACES = {
@@ -25,4 +26,5 @@ NAMESPACES = {
     'fields': FieldsNamespace,
     'images': ImagesNamespace,
     'products': ProductsNamespace,
+    'cities': CitiesNamespace,
 }
