@@ -31,11 +31,11 @@ class City(BaseDataclass):
     subdivision_1_iso_code: Optional[str] = field(metadata={
         "validate": Length(max=3)
     })
-    subdivision_1_iso_name: Optional[str] = field()
+    subdivision_1_name: Optional[str] = field()
     subdivision_2_iso_code: Optional[str] = field(metadata={
         "validate": Length(max=3)
     })
-    subdivision_2_iso_name: Optional[str] = field()
+    subdivision_2_name: Optional[str] = field()
     city_name: Optional[str] = field()
     metro_code: Optional[int] = field()
     time_zone: Optional[str] = field()
