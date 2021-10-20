@@ -50,7 +50,7 @@ class City(BaseDataclass):
         s1 = f', {self.subdivision_1_name}' if self.subdivision_1_name else ''
         s2 = f', {self.subdivision_2_name}' if self.subdivision_2_name else ''
         c = f', {self.city_name}' if self.city_name else ''
-        return f'{self.country_name}{s1},{s2}{c}'
+        return f'{self.country_name}{s1}{s2}{c}'
 
 
 @dataclass(frozen=True)
