@@ -43,6 +43,8 @@ class City(BaseDataclass):
     postal_code: Optional[str] = field()
     latitude: Optional[float] = field()
     longitude: Optional[float] = field()
+    delivery_price: Optional[int] = field()
+    delivery_currency: Optional[str] = field()
 
 
 @dataclass(frozen=True)
