@@ -3,7 +3,7 @@ from .main import ApplicationInfoResponseSchema
 from .users import (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
-    UsersResponseSchema, ChangePasswordRequestSchema
+    UsersResponseSchema, ChangePasswordRequestSchema, BindCityRequestSchema
 )
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
@@ -55,5 +55,5 @@ __all__ = (
     FieldResponseSchema, CreateFieldRequestSchema, RelationshipSchema,
     ImageResponseSchema, ImageUploadRequestSchema, ProductResponseSchema,
     ProductsResponseSchema, ProductRequestSchema, CitiesResponseSchema,
-    CityResponseSchema
+    CityResponseSchema, BindCityRequestSchema
 )

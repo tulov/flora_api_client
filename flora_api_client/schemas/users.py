@@ -4,6 +4,7 @@ from flora_api_client.presentations.users import (
     UsersResponse, ChangePasswordRequest
 )
 from ..presentations.base import SuccessResponse
+from ..presentations.partners import BindCityRequestDataclass
 
 
 DataForAuthSchema = marshmallow_dataclass.class_schema(DataForAuth)
@@ -22,4 +23,8 @@ UsersResponseSchema = marshmallow_dataclass.class_schema(
 )
 ChangePasswordRequestSchema = marshmallow_dataclass.class_schema(
     ChangePasswordRequest
+)
+
+BindCityRequestSchema = marshmallow_dataclass.class_schema(
+    BindCityRequestDataclass
 )
