@@ -24,7 +24,8 @@ class PartnersNamespace(Namespace):
     ) -> (int, Union[User, ErrorResponse], RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
-    @expectations(schema=CityResponseSchema)
+    @expectations(schema=CityResponseSchema,
+                  expected_code=HTTPStatus.CREATED)
     async def bind_city(
         self, id_: int, data: BindCityRequestDataclass, **kwargs
     ) -> (int, Union[CityResponse, ErrorResponse],
