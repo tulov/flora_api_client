@@ -65,7 +65,7 @@ class PartnersNamespace(Namespace):
             **kwargs)
 
     @expectations(schema=SuccessResponseSchema)
-    async def city_detail(
+    async def delete_city(
         self, id_: int, geoname_id: int, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse],
           RenewTokenResponse):
