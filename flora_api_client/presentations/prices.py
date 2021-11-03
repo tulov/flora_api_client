@@ -13,6 +13,9 @@ from .cities import City
 
 @dataclass(frozen=True)
 class Price(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True,
+    })
     product_id: int = field(metadata={
         "strict": True,
     })
