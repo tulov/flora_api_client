@@ -7,8 +7,6 @@ from marshmallow.validate import Length, OneOf
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
-from .products import Product
-from .cities import City
 
 
 @dataclass(frozen=True)
@@ -26,8 +24,6 @@ class Price(BaseDataclass):
     currency: str = field(metadata={
         "validate": Length(equal=3)
     })
-    product: Optional[Product] = field()
-    city: Optional[City] = field()
 
 
 @dataclass(frozen=True)

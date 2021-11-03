@@ -3,7 +3,7 @@ from flora_api_client.namespaces import (
     NAMESPACES, UsersNamespace, AuthNamespace, InfoNamespace, PartnersNamespace,
     DataForAuthNamespace, CountersNamespace, ModerationNamespace,
     CategoriesNamespace, TagsNamespace, FieldsNamespace, ImagesNamespace,
-    ProductsNamespace, CitiesNamespace
+    ProductsNamespace, CitiesNamespace, PricesNamespace
 )
 
 
@@ -21,6 +21,7 @@ class FloraApiClient:
     images: ImagesNamespace
     products: ProductsNamespace
     cities: CitiesNamespace
+    prices: PricesNamespace
 
     def __init__(self, *, app_id: str, app_key: str,
                  host: str, url_prefix: str = '/api/v1'):
