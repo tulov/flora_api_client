@@ -1,3 +1,4 @@
 aiohttp~=3.7.4.post0
 marshmallow==3.13.0
 marshmallow_dataclass==8.5.3
+simplejson==3.17.5

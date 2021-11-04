@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 from urllib.parse import urlencode
 from http import HTTPStatus
+from simplejson import dumps
 
 from aiohttp import ClientSession
 
@@ -23,7 +24,7 @@ class Namespace:
 
     async def _run_query(self, url, method="get", *,
                          long_token: str = "", **kwargs):
-        async with ClientSession() as session:
+        async with ClientSession(json_serialize=dumps) as session:
             m = getattr(session, method)
             async with m(
                 f'{self._host}{self._url_prefix}{url}', **kwargs
