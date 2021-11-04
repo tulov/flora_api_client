@@ -34,7 +34,9 @@ from .products import (
     ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema
 )
 from .cities import CitiesResponseSchema, CityResponseSchema
-from .prices import PricesResponseSchema, PriceResponseSchema
+from .prices import (
+    PricesResponseSchema, PriceResponseSchema, PricesRequestSchema
+)
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -57,5 +59,5 @@ __all__ = (
     ImageResponseSchema, ImageUploadRequestSchema, ProductResponseSchema,
     ProductsResponseSchema, ProductRequestSchema, CitiesResponseSchema,
     CityResponseSchema, BindCityRequestSchema, PricesResponseSchema,
-    PriceResponseSchema
+    PriceResponseSchema, PricesRequestSchema
 )
