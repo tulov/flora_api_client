@@ -41,3 +41,15 @@ class HTMLWidget(Enum):
     checkbox = 'checkbox'
     radio = 'radio'
     textarea = 'textarea'
+
+
+@unique
+class ProgramType(Enum):
+    percent = 'percent'
+    amount = 'amount'
+
+
+@unique
+class ProgramAction(Enum):
+    discount = 'discount'
+    markup = 'markup'
