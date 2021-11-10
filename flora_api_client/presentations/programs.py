@@ -54,11 +54,11 @@ class ProgramDetail(Program):
 
 @dataclass(frozen=True)
 class ProgramResponse(SuccessResponse):
-    result: Program = field()
+    result: ProgramDetail = field()
 
 
 @dataclass(frozen=True)
 class ProgramsResponse(PagedResponse):
-    result: List[Program] = field(default_factory=list, metadata={
+    result: List[ProgramDetail] = field(default_factory=list, metadata={
         "required": True
     })
