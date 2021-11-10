@@ -40,12 +40,16 @@ class Program(BaseDataclass):
     end: Optional[datetime] = field()
     product_ids: List[int] = field(default_factory=list)
     geoname_ids: List[int] = field(default_factory=list)
-    products: Optional[List[Product]] = field(default_factory=list)
-    cities: Optional[List[City]] = field(default_factory=list)
 
     def __post_init__(self):
         if self.start and self.end and self.start > self.end:
             raise ValidationError("'Start' should be less then 'end'")
+
+
+@dataclass(frozen=True)
+class ProgramDetail(Program):
+    products: Optional[List[Product]] = field(default_factory=list)
+    cities: Optional[List[City]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
