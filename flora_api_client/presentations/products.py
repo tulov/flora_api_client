@@ -48,6 +48,9 @@ class Product(ProductBaseDataclass):
             if i.position == 0:
                 return i
 
+    def __str__(self):
+        return f'#{self.id} {self.name}'
+
 
 @dataclass(frozen=True)
 class FilesData(BaseDataclass):
