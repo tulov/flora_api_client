@@ -20,6 +20,7 @@ class Category(BaseDataclass):
         "strict": True,
     })
     is_visible: bool = field(default=True)
+    weight: int = field(default=0)
     tags: Optional[List[Tag]] = field(default_factory=list)
     fields: Optional[List[Field]] = field(default_factory=list)
 
@@ -33,6 +34,7 @@ class CreateCategoryRequest(BaseDataclass):
         "strict": True,
     })
     is_visible: Optional[bool] = field()
+    weight: int = field(default=0)
     tags: Optional[List[int]] = field(default_factory=list)
     fields: Optional[List[Relationship]] = field(default_factory=list)
 
