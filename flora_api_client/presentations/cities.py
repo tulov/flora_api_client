@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Optional, List
+from decimal import Decimal
 
 from marshmallow.validate import Length, OneOf
 
@@ -9,48 +10,120 @@ from .base import (
 
 
 @dataclass(frozen=True)
+class Continent(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    iso: str = field(metadata={
+        'validate': Length(equal=2)
+    })
+    name: str = field(metadata={
+        'validate': Length(max=30)
+    })
+    slug: str = field(metadata={
+        'validate': Length(max=100)
+    })
+
+
+@dataclass(frozen=True)
+class Subcontinent(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    continent_id: int = field(metadata={
+        "strict": True
+    })
+    iso: str = field(metadata={
+        'validate': Length(equal=3)
+    })
+    name: str = field(metadata={
+        'validate': Length(max=30)
+    })
+    slug: str = field(metadata={
+        'validate': Length(max=100)
+    })
+    continent: Optional[Continent] = field()
+
+
+@dataclass(frozen=True)
+class Country(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    subcontinent_id: int = field(metadata={
+        "strict": True
+    })
+    iso: str = field(metadata={
+        'validate': Length(equal=2)
+    })
+    populations: int = field(metadata={
+        "strict": True,
+    })
+    name: str = field(metadata={
+        'validate': Length(max=30)
+    })
+    slug: str = field(metadata={
+        'validate': Length(max=100)
+    })
+    capital_id: Optional[int] = field(metadata={
+        "strict": True
+    })
+    subcontinent: Optional[Subcontinent] = field()
+
+
+@dataclass(frozen=True)
+class Region(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    country_id: int = field(metadata={
+        "strict": True
+    })
+    iso: str = field(metadata={
+        'validate': Length(equal=4)
+    })
+    populations: Optional[int] = field(metadata={
+        "strict": True,
+    })
+    name: str = field(metadata={
+        'validate': Length(max=50)
+    })
+    slug: str = field(metadata={
+        'validate': Length(max=100)
+    })
+    country: Optional[Country] = field()
+
+
+@dataclass(frozen=True)
 class City(BaseDataclass):
     id: int = field(metadata={
         "strict": True,
     })
-    locale_code: str = field(metadata={
-        'validate': Length(max=5, min=2)
+    country_id: int = field(metadata={
+        "strict": True
     })
-    continent_code: str = field(metadata={
-        "validate": Length(equal=2)
+    region_id: Optional[int] = field(metadata={
+        "strict": True
     })
-    continent_name: str = field(metadata={
-        "validate": Length(max=30)
+    parent_city_id: Optional[int] = field(metadata={
+        "strict": True
     })
-    country_iso_code: Optional[str] = field(metadata={
-        "validate": Length(max=2)
-    })
-    country_name: Optional[str] = field(metadata={
+    lat: Decimal = field()
+    lng: Decimal = field()
+    name: str = field(metadata={
         "validate": Length(max=50)
     })
-    subdivision_1_iso_code: Optional[str] = field(metadata={
-        "validate": Length(max=3)
+    slug: str = field(metadata={
+        "validate": Length(max=100)
     })
-    subdivision_1_name: Optional[str] = field()
-    subdivision_2_iso_code: Optional[str] = field(metadata={
-        "validate": Length(max=3)
+    gmt: Optional[Decimal] = field()
+    timezone: Optional[str] = field(metadata={
+        "validate": Length(max=100)
     })
-    subdivision_2_name: Optional[str] = field()
-    city_name: Optional[str] = field()
-    metro_code: Optional[int] = field()
-    time_zone: Optional[str] = field()
-    is_in_european_union: bool = field()
-    postal_code: Optional[str] = field()
-    latitude: Optional[float] = field()
-    longitude: Optional[float] = field()
-    delivery_price: Optional[int] = field()
-    delivery_currency: Optional[str] = field()
+    country: Optional[Country] = field()
 
     def __str__(self):
-        s1 = f', {self.subdivision_1_name}' if self.subdivision_1_name else ''
-        s2 = f', {self.subdivision_2_name}' if self.subdivision_2_name else ''
-        c = f', {self.city_name}' if self.city_name else ''
-        return f'{self.country_name}{s1}{s2}{c}'
+        return f'#{self.id}: {self.name}'
 
 
 @dataclass(frozen=True)
