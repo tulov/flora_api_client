@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from typing import Optional, List
 from decimal import Decimal
@@ -121,6 +123,7 @@ class City(BaseDataclass):
         "validate": Length(max=100)
     })
     country: Optional[Country] = field()
+    parent: Optional[City] = field()
 
     def __str__(self):
         return f'#{self.id}: {self.name}'
@@ -134,5 +137,20 @@ class CityResponse(SuccessResponse):
 @dataclass(frozen=True)
 class CitiesResponse(PagedResponse):
     result: List[City] = field(default_factory=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
+class SearchCity(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    name: str = field()
+
+
+@dataclass(frozen=True)
+class SearchCitiesResponse(SuccessResponse):
+    result: List[SearchCity] = field(default_factory=list, metadata={
         "required": True
     })
