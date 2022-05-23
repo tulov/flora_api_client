@@ -33,7 +33,9 @@ from .images import ImageResponseSchema, ImageUploadRequestSchema
 from .products import (
     ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema
 )
-from .cities import CitiesResponseSchema, CityResponseSchema
+from .cities import (
+    CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
+)
 from .prices import (
     PricesResponseSchema, PriceResponseSchema, PricesRequestSchema
 )
