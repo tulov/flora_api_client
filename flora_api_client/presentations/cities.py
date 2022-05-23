@@ -123,10 +123,18 @@ class City(BaseDataclass):
         "validate": Length(max=100)
     })
     country: Optional[Country] = field()
-    parent: Optional[Any] = field()
+    parent_city: Optional[Any] = field()
+    region: Optional[Region] = field()
 
     def __str__(self):
-        return f'#{self.id}: {self.name}'
+        s = self.name
+        if self.parent_city:
+            s += ", " + self.parent_city.name
+        if self.region:
+            s += ", " + self.region.name
+        if self.country:
+            s += ", " + self.country.name
+        return s
 
 
 @dataclass(frozen=True)
