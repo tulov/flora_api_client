@@ -31,7 +31,7 @@ class CitiesNamespace(Namespace):
             self.build_url(postfix_url=f'search/{term}'), **kwargs
         )
 
-    @expectations(schema=CitiesResponseSchema)
+    @expectations(schema=CityResponseSchema)
     async def get(
         self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
     ) -> (int, Union[CityResponse, ErrorResponse],
