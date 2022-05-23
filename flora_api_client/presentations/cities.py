@@ -82,7 +82,7 @@ class Region(BaseDataclass):
         "strict": True
     })
     iso: str = field(metadata={
-        'validate': Length(equal=4)
+        'validate': Length(max=4)
     })
     populations: Optional[int] = field(metadata={
         "strict": True,
