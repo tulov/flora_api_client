@@ -130,7 +130,7 @@ class City(BaseDataclass):
         s = self.name
         if self.parent_city:
             s += ", " + self.parent_city.name
-        if self.region:
+        if self.region and self.region.name not in self.name:
             s += ", " + self.region.name
         if self.country:
             s += ", " + self.country.name
