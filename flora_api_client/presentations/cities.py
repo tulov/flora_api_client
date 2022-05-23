@@ -1,7 +1,7 @@
-from __future__ import annotations
+# from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import Optional, List, Any
 from decimal import Decimal
 
 from marshmallow.validate import Length, OneOf
@@ -123,7 +123,7 @@ class City(BaseDataclass):
         "validate": Length(max=100)
     })
     country: Optional[Country] = field()
-    parent: Optional[City] = field()
+    parent: Optional[Any] = field()
 
     def __str__(self):
         return f'#{self.id}: {self.name}'
