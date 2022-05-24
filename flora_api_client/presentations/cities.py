@@ -135,7 +135,10 @@ class City(BaseDataclass):
     def __str__(self):
         s = self.name
         if self.parent_city:
-            s += ", " + self.parent_city.name
+            if type(self.parent_city) == dict:
+                s += ", " + self.parent_city["name"]
+            else:
+                s += ", " + self.parent_city.name
         if self.region and self.region.name not in self.name:
             s += ", " + self.region.name
         if self.country:
