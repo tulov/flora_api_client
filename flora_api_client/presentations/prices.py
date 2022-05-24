@@ -28,6 +28,9 @@ class Price(PriceBase):
     currency: str = field(metadata={
         "validate": Length(equal=3)
     })
+    partner_id: int = field(metadata={
+        "strict": True,
+    })
 
 
 @dataclass(frozen=True)
