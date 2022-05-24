@@ -9,7 +9,7 @@ from .base import (
 
 @dataclass(frozen=True)
 class BindCityRequestDataclass(BaseDataclass):
-    geoname_id: int = field(metadata={
+    city_id: int = field(metadata={
         'strict': True
     })
     delivery_price: int = field(metadata={
