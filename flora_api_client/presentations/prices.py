@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Optional, List
+from typing import List
 
-from marshmallow.validate import Length, OneOf
+from marshmallow.validate import Length
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
@@ -14,7 +14,7 @@ class PriceBase(BaseDataclass):
     product_id: int = field(metadata={
         "strict": True,
     })
-    geoname_id: int = field(metadata={
+    city_id: int = field(metadata={
         "strict": True,
     })
     price: Decimal = field()
