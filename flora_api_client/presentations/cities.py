@@ -122,6 +122,12 @@ class City(BaseDataclass):
     timezone: Optional[str] = field(metadata={
         "validate": Length(max=100)
     })
+    delivery_currency: Optional[str] = field(metadata={
+        "validate": Length(equal=3)
+    })
+    delivery_price: Optional[int] = field(metadata={
+        "strict": True
+    })
     country: Optional[Country] = field()
     parent_city: Optional[Any] = field()
     region: Optional[Region] = field()
