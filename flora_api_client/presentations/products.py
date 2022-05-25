@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from decimal import Decimal
 from typing import Optional, List
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse
@@ -6,7 +7,7 @@ from .images import Image
 from .tags import Tag
 from .categories import Category
 from .moderation import RequestForModeration
-from marshmallow.validate import Length, OneOf
+from marshmallow.validate import Length
 
 
 @dataclass(frozen=True)
@@ -27,6 +28,17 @@ class ProductBaseDataclass(BaseDataclass):
 
 
 @dataclass(frozen=True)
+class Price(BaseDataclass):
+    currency: str = field(metadata={
+        "validate": Length(equal=3)
+    })
+    current: Decimal = field()
+    old: Optional[Decimal] = field()
+    discount: Decimal = field()
+    discount_percent: int = field()
+
+
+@dataclass(frozen=True)
 class Product(ProductBaseDataclass):
     id: int = field(metadata={
         "strict": True,
@@ -36,6 +48,7 @@ class Product(ProductBaseDataclass):
     })
     category: Optional[Category] = field()
     request_for_moderation: Optional[RequestForModeration] = field()
+    price: Optional[Price] = field()
     is_template: bool = field(default=False)
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
