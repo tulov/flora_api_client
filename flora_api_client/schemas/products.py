@@ -1,6 +1,6 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.products import (
-    ProductResponse, ProductRequest, ProductsResponse
+    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse
 )
 
 
@@ -12,4 +12,7 @@ ProductsResponseSchema = marshmallow_dataclass.class_schema(
 )
 ProductRequestSchema = marshmallow_dataclass.class_schema(
     ProductRequest
+)
+FeaturedProductsResponseSchema = marshmallow_dataclass.class_schema(
+    FeaturedProductsResponse
 )

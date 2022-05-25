@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Optional, List
+from typing import Optional, List, Any
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse
 from .images import Image
@@ -28,17 +28,6 @@ class ProductBaseDataclass(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class Price(BaseDataclass):
-    currency: str = field(metadata={
-        "validate": Length(equal=3)
-    })
-    current: Decimal = field()
-    old: Optional[Decimal] = field()
-    discount: Decimal = field()
-    discount_percent: int = field()
-
-
-@dataclass(frozen=True)
 class Product(ProductBaseDataclass):
     id: int = field(metadata={
         "strict": True,
@@ -48,7 +37,6 @@ class Product(ProductBaseDataclass):
     })
     category: Optional[Category] = field()
     request_for_moderation: Optional[RequestForModeration] = field()
-    price: Optional[Price] = field()
     is_template: bool = field(default=False)
     tags: Optional[List[Tag]] = field(default_factory=list)
     images: Optional[List[Image]] = field(default_factory=list)
@@ -93,5 +81,59 @@ class ProductResponse(SuccessResponse):
 @dataclass(frozen=True)
 class ProductsResponse(PagedResponse):
     result: List[Product] = field(default_factory=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
+class FeaturedProductPrice(BaseDataclass):
+    currency: str = field(metadata={
+        "validate": Length(equal=3)
+    })
+    current: Decimal = field()
+    old: Optional[Decimal] = field()
+    discount: Decimal = field()
+    discount_percent: int = field()
+
+
+@dataclass(frozen=True)
+class FeaturedProductImage(BaseDataclass):
+    path: str = field()
+    description: Optional[str] = field()
+
+
+@dataclass(frozen=True)
+class FeaturedProductExecutor(BaseDataclass):
+    name: str = field(metadata={
+        'validate': Length(max=150)
+    })
+    url: str = field()
+    price: FeaturedProductPrice = field()
+
+
+@dataclass(frozen=True)
+class FeaturedProduct(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True,
+    })
+    name: str = field(metadata={
+        'validate': Length(max=150, min=1)
+    })
+    description: Optional[str] = field(metadata={
+        'validate': Length(max=1000)
+    })
+    data: Any = field()
+    images: List[FeaturedProductImage] = field(default_factory=list, metadata={
+        "required": True
+    })
+    executors: List[FeaturedProductExecutor] = field(
+        default_factory=list, metadata={
+            "required": True
+        })
+
+
+@dataclass(frozen=True)
+class FeaturedProductsResponse(PagedResponse):
+    result: List[FeaturedProduct] = field(default_factory=list, metadata={
         "required": True
     })

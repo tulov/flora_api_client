@@ -31,7 +31,8 @@ from .fields import (
 )
 from .images import ImageResponseSchema, ImageUploadRequestSchema
 from .products import (
-    ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema
+    ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema,
+    FeaturedProductsResponseSchema
 )
 from .cities import (
     CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
