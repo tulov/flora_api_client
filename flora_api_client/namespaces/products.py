@@ -5,10 +5,13 @@ from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
-    ProductResponse, ProductRequest, ProductsResponse
+    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse
 )
 from ..presentations.error import ErrorResponse
-from ..schemas import ProductResponseSchema, ProductsResponseSchema
+from ..schemas import (
+    ProductResponseSchema, ProductsResponseSchema,
+    FeaturedProductsResponseSchema
+)
 from ..namespaces.base import Namespace
 
 
@@ -45,4 +48,16 @@ class ProductsNamespace(Namespace):
           RenewTokenResponse):
         return await self._put(self.build_url(postfix_url=id_),
                                json=data.as_dict(), **kwargs)
+
+    @expectations(schema=FeaturedProductsResponseSchema)
+    async def featured(
+        self, city_id: int, category_id: int,
+        query_params: Querystring = None, **kwargs
+    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
+          RenewTokenResponse):
+        postfix_url = 'featured/{}/{}'.format(city_id, category_id)
+        return await self._get(self.build_url(query_params,
+                                              postfix_url=postfix_url),
+                               **kwargs)
+
 
