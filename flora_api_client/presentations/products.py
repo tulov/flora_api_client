@@ -97,12 +97,6 @@ class FeaturedProductPrice(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class FeaturedProductImage(BaseDataclass):
-    path: str = field()
-    description: Optional[str] = field()
-
-
-@dataclass(frozen=True)
 class FeaturedProductExecutor(BaseDataclass):
     name: str = field(metadata={
         'validate': Length(max=150)
@@ -123,7 +117,7 @@ class FeaturedProduct(BaseDataclass):
         'validate': Length(max=1000)
     })
     data: Any = field()
-    images: List[FeaturedProductImage] = field(default_factory=list, metadata={
+    images: List[Image] = field(default_factory=list, metadata={
         "required": True
     })
     executors: List[FeaturedProductExecutor] = field(
