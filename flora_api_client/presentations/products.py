@@ -98,6 +98,9 @@ class FeaturedProductPrice(BaseDataclass):
 
 @dataclass(frozen=True)
 class FeaturedProductExecutor(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True,
+    })
     name: str = field(metadata={
         'validate': Length(max=150)
     })
