@@ -74,3 +74,10 @@ class UnitOfSize(Enum):
     sm = 'sm'
     mm = 'mm'
     m = 'm'
+
+
+@unique
+class UnitOfCount(Enum):
+    thing = 'thing'
+    meter = 'meter'
+    unit = 'unit'
