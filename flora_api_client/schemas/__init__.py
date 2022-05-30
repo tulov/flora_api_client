@@ -32,7 +32,7 @@ from .fields import (
 from .images import ImageResponseSchema, ImageUploadRequestSchema
 from .products import (
     ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema,
-    FeaturedProductsResponseSchema
+    FeaturedProductsResponseSchema, FeaturedProductsQuerystringSchema
 )
 from .cities import (
     CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
@@ -66,5 +66,6 @@ __all__ = (
     ProductsResponseSchema, ProductRequestSchema, CitiesResponseSchema,
     CityResponseSchema, BindCityRequestSchema, PricesResponseSchema,
     PriceResponseSchema, PricesRequestSchema, ProgramsResponseSchema,
-    ProgramRequestSchema, ProgramResponseSchema
+    ProgramRequestSchema, ProgramResponseSchema,
+    FeaturedProductsQuerystringSchema
 )
