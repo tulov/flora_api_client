@@ -53,3 +53,11 @@ class ProgramType(Enum):
 class ProgramAction(Enum):
     discount = 'discount'
     markup = 'markup'
+
+
+@unique
+class Currency(Enum):
+    usd = 'usd'
+    rub = 'rub'
+    kzt = 'kzt'
+    eur = 'eur'

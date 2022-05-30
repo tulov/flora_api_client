@@ -3,11 +3,12 @@ from decimal import Decimal
 from typing import Optional, List, Any
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse
+from .enums import Currency
 from .images import Image
 from .tags import Tag
 from .categories import Category
 from .moderation import RequestForModeration
-from marshmallow.validate import Length
+from marshmallow.validate import Length, OneOf
 
 
 @dataclass(frozen=True)
@@ -134,3 +135,14 @@ class FeaturedProductsResponse(PagedResponse):
     result: List[FeaturedProduct] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class FeaturedProductsQuerystring(BaseDataclass):
+    currency: str = field(metadata={
+        "validate": OneOf([r.value for r in Currency])
+    })
+    page: Optional[int] = field(default=1)  # страница
+    per_page: Optional[int] = field(
+        default=10)  # количество элементов на странице
+
