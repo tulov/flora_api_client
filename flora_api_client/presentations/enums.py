@@ -61,3 +61,16 @@ class Currency(Enum):
     rub = 'rub'
     kzt = 'kzt'
     eur = 'eur'
+
+
+@unique
+class UnitOfWeight(Enum):
+    kg = 'kg'
+    g = 'g'
+
+
+@unique
+class UnitOfSize(Enum):
+    sm = 'sm'
+    mm = 'mm'
+    m = 'm'
