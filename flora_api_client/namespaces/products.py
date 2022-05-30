@@ -5,7 +5,8 @@ from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
-    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse
+    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
+    FeaturedProductsQuerystring
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
@@ -52,7 +53,7 @@ class ProductsNamespace(Namespace):
     @expectations(schema=FeaturedProductsResponseSchema)
     async def featured(
         self, city_id: int, category_id: int,
-        query_params: Querystring = None, **kwargs
+        query_params: FeaturedProductsQuerystring = None, **kwargs
     ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
           RenewTokenResponse):
         postfix_url = 'featured/{}/{}'.format(city_id, category_id)
