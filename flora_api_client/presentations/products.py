@@ -156,18 +156,12 @@ class FeaturedProduct(BaseDataclass):
     weight_unit: str = field(metadata={
         "validate": OneOf([r.value for r in UnitOfWeight])
     })
-    images: List[Image] = field(default_factory=list, metadata={
-        "required": True
-    })
+    images: Optional[List[Image]] = field(default_factory=list)
     executors: List[FeaturedProductExecutor] = field(
         default_factory=list, metadata={
             "required": True
         })
-    items: List[ProductItem] = field(
-        default_factory=list, metadata={
-            "required": True
-        }
-    )
+    items: Optional[List[ProductItem]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
