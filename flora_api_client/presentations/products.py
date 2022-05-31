@@ -112,24 +112,6 @@ class ProductsResponse(PagedResponse):
 
 
 @dataclass(frozen=True)
-class Sizes(BaseDataclass):
-    length: Decimal = field()
-    width: Decimal = field()
-    height: Decimal = field()
-    unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfSize])
-    })
-
-
-@dataclass(frozen=True)
-class WeightData(BaseDataclass):
-    weight: Decimal = field()
-    unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfWeight])
-    })
-
-
-@dataclass(frozen=True)
 class FeaturedProductPrice(BaseDataclass):
     currency: str = field(metadata={
         "validate": Length(equal=3)
@@ -164,8 +146,16 @@ class FeaturedProduct(BaseDataclass):
         'validate': Length(max=1000)
     })
     data: Any = field()
-    sizes: Sizes = field()
-    weight: WeightData = field()
+    length: Decimal = field()
+    width: Decimal = field()
+    height: Decimal = field()
+    size_unit: str = field(metadata={
+        "validate": OneOf([r.value for r in UnitOfSize])
+    })
+    weight: Decimal = field()
+    weight_unit: str = field(metadata={
+        "validate": OneOf([r.value for r in UnitOfWeight])
+    })
     images: List[Image] = field(default_factory=list, metadata={
         "required": True
     })
