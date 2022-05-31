@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Optional, List, Any
 
-from .base import BaseDataclass, SuccessResponse, PagedResponse
+from .base import BaseDataclass, SuccessResponse, PagedResponse, Querystring
 from .enums import Currency, UnitOfWeight, UnitOfSize, UnitOfCount
 from .images import Image
 from .tags import Tag
@@ -172,11 +172,7 @@ class FeaturedProductsResponse(PagedResponse):
 
 
 @dataclass(frozen=True)
-class FeaturedProductsQuerystring(BaseDataclass):
+class FeaturedProductsQuerystring(Querystring):
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
-    })
-    page: Optional[int] = field(default=1)  # страница
-    per_page: Optional[int] = field(
-        default=10)  # количество элементов на странице
-
+    }, default="rub")
