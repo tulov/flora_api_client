@@ -173,6 +173,11 @@ class FeaturedProduct(BaseDataclass):
         default_factory=list, metadata={
             "required": True
         })
+    items: List[ProductItem] = field(
+        default_factory=list, metadata={
+            "required": True
+        }
+    )
 
 
 @dataclass(frozen=True)
