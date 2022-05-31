@@ -28,6 +28,13 @@ class Image(BaseDataclass):
     def build_url(self, *, width: int, height: int):
         return f'/display?path={self.path}&w={width}&h={height}&op=resize'
 
+    def full_url(self, *, width: int, height: int) -> str:
+        r = self.url.split('/', 3)
+        url = self.build_url(width=width, height=height)
+        if len(r) < 3:
+            return url
+        return "/".join(r[:3]) + url
+
     @property
     def mime_type(self):
         if self.path.endswith('.png'):
