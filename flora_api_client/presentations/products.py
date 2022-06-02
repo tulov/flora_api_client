@@ -22,7 +22,7 @@ class ProductBaseDataclass(BaseDataclass):
     description: Optional[str] = field(metadata={
         'validate': Length(max=1000)
     })
-    data: Optional[str] = field()
+    data: Optional[Any] = field()
     revision: int = field(metadata={
         "strict": True,
     })
