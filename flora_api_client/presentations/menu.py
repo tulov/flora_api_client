@@ -56,3 +56,9 @@ class MenuResponse(SuccessResponse):
 @dataclass(frozen=True)
 class MenuRequest(Menu):
     pass
+
+
+@dataclass(frozen=True)
+class MenuQuerystring(BaseDataclass):
+    only_enabled: Optional[bool] = field()
+

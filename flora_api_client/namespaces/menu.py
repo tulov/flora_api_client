@@ -3,7 +3,7 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.menu import (
-    MenuResponse, MenuRequest
+    MenuResponse, MenuRequest, MenuQuerystring
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import MenuResponseSchema
@@ -15,10 +15,10 @@ class MenuNamespace(Namespace):
 
     @expectations(schema=MenuResponseSchema)
     async def all(
-        self, **kwargs
+        self, query_params: MenuQuerystring = None, **kwargs
     ) -> (int, Union[MenuResponse, ErrorResponse],
           RenewTokenResponse):
-        return await self._get(self.build_url(), **kwargs)
+        return await self._get(self.build_url(query_params), **kwargs)
 
     @expectations(schema=MenuResponseSchema)
     async def apply(
