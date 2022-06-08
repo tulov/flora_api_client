@@ -47,7 +47,10 @@ class Menu(BaseDataclass):
 
 @dataclass(frozen=True)
 class MenuResponse(SuccessResponse):
-    result: Menu = field()
+    result: List[MenuItem] = field(
+        default_factory=list, metadata={
+            "required": True
+        })
 
 
 @dataclass(frozen=True)
