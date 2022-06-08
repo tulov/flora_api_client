@@ -14,6 +14,13 @@ class MenuNamespace(Namespace):
     URL = '/menu/'
 
     @expectations(schema=MenuResponseSchema)
+    async def all(
+        self, **kwargs
+    ) -> (int, Union[MenuResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(self.build_url(), **kwargs)
+
+    @expectations(schema=MenuResponseSchema)
     async def apply(
         self, data: MenuRequest, **kwargs
     ) -> (int, Union[MenuResponse, ErrorResponse],
