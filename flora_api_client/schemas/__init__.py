@@ -45,7 +45,7 @@ from .programs import (
 )
 
 from .menu import (
-    MenuResponseSchema, MenuItemResponseSchema, MenuItemRequestSchema
+    MenuResponseSchema, MenuResponseSchema, MenuRequestSchema
 )
 
 DATE_FORMAT = '%d.%m.%Y'
@@ -72,5 +72,5 @@ __all__ = (
     PriceResponseSchema, PricesRequestSchema, ProgramsResponseSchema,
     ProgramRequestSchema, ProgramResponseSchema,
     FeaturedProductsQuerystringSchema, MenuResponseSchema,
-    MenuItemResponseSchema, MenuItemRequestSchema
+    MenuResponseSchema, MenuRequestSchema
 )
