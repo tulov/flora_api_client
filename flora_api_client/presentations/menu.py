@@ -18,12 +18,17 @@ class MenuItemBase(BaseDataclass):
     parent_id: Optional[int] = field(metadata={
         "strict": True
     })
+    image_id: Optional[int] = field(metadata={
+        "strict": True
+    })
     position: int = field(metadata={
         "strict": True
     })
     link: str = field(metadata={
         "validate": Length(max=250)
     })
+    open_in_new_window: bool = field()
+    enabled: bool = field()
 
 
 @dataclass(frozen=True)
@@ -46,10 +51,5 @@ class MenuResponse(SuccessResponse):
 
 
 @dataclass(frozen=True)
-class MenuItemRequest(MenuItemBase):
+class MenuRequest(Menu):
     pass
-
-
-@dataclass(frozen=True)
-class MenuItemResponse(SuccessResponse):
-    result: MenuItem = field()
