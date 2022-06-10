@@ -19,6 +19,9 @@ class Category(BaseDataclass):
     parent_id: Optional[int] = field(metadata={
         "strict": True,
     })
+    slug: str = field(metadata={
+        "validate": Length(max=100, min=1)
+    })
     is_visible: bool = field(default=True)
     weight: int = field(default=0)
     tags: Optional[List[Tag]] = field(default_factory=list)
