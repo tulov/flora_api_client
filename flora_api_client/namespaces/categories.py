@@ -66,3 +66,11 @@ class CategoriesNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params, postfix_url=f'{id_}/fields/'), **kwargs)
+
+    @expectations(schema=CategoriesResponseSchema)
+    async def tree(
+        self, id_or_slug: Union[int, str], **kwargs
+    ) -> (int, Union[CategoriesResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f'{id_or_slug}/tree/'), **kwargs)
