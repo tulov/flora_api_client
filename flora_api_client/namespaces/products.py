@@ -52,11 +52,11 @@ class ProductsNamespace(Namespace):
 
     @expectations(schema=FeaturedProductsResponseSchema)
     async def featured(
-        self, city_id: int, category_id: int,
+        self, city_id: int, category: Union[int, str],
         query_params: FeaturedProductsQuerystring = None, **kwargs
     ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
           RenewTokenResponse):
-        postfix_url = 'featured/{}/{}'.format(city_id, category_id)
+        postfix_url = 'featured/{}/{}'.format(city_id, category)
         return await self._get(self.build_url(query_params,
                                               postfix_url=postfix_url),
                                **kwargs)
