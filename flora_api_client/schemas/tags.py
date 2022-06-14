@@ -1,6 +1,6 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.tags import (
-    TagResponse, CreateTagRequest, TagsResponse
+    TagResponse, CreateTagRequest, TagsResponse, TagsTreeResponse
 )
 
 
@@ -12,4 +12,7 @@ TagsResponseSchema = marshmallow_dataclass.class_schema(
 )
 CreateTagRequestSchema = marshmallow_dataclass.class_schema(
     CreateTagRequest
+)
+TagsTreeResponseSchema = marshmallow_dataclass.class_schema(
+    TagsTreeResponse
 )

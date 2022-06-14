@@ -7,13 +7,17 @@ from .base import SuccessResponse, BaseDataclass, PagedResponse
 
 
 @dataclass(frozen=True)
-class Tag(BaseDataclass):
+class TagBase(BaseDataclass):
     id: int = field(metadata={
         "strict": True,
     })
     name: str = field(metadata={
         'validate': Length(max=150, min=1)
     })
+
+
+@dataclass(frozen=True)
+class Tag(TagBase):
     parent_id: Optional[int] = field(metadata={
         "strict": True,
     })
@@ -40,6 +44,18 @@ class TagResponse(SuccessResponse):
 @dataclass(frozen=True)
 class TagsResponse(PagedResponse):
     result: List[Tag] = field(default_factory=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
+class TagsTreeItem(TagBase):
+    children: Optional[List[TagBase]] = field()
+
+
+@dataclass(frozen=True)
+class TagsTreeResponse(SuccessResponse):
+    result: List[TagsTreeItem] = field(default_factory=list, metadata={
         "required": True
     })
 

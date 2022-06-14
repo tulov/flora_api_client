@@ -8,11 +8,11 @@ from ..presentations.categories import (
     CategoryResponse, CreateCategoryRequest, CategoriesResponse
 )
 from ..presentations.fields import FieldsResponse
-from ..presentations.tags import TagsResponse
+from ..presentations.tags import TagsResponse, TagsTreeResponse
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     CategoryResponseSchema, CategoriesResponseSchema, TagsResponseSchema,
-    FieldsResponseSchema
+    FieldsResponseSchema, TagsTreeResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -74,3 +74,12 @@ class CategoriesNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f'{id_or_slug}/tree/'), **kwargs)
+
+    @expectations(schema=TagsTreeResponseSchema)
+    async def tree(
+        self, id_or_slug: Union[int, str], **kwargs
+    ) -> (int, Union[TagsTreeResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f'{id_or_slug}/visible-tags-tree/'),
+            **kwargs)

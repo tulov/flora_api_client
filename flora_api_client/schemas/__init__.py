@@ -23,7 +23,8 @@ from .categories import (
     CategoriesResponseSchema
 )
 from .tags import (
-    TagResponseSchema, TagsResponseSchema, CreateTagRequestSchema
+    TagResponseSchema, TagsResponseSchema, CreateTagRequestSchema,
+    TagsTreeResponseSchema
 )
 from .fields import (
     FieldResponseSchema, FieldsResponseSchema, CreateFieldRequestSchema,
@@ -72,5 +73,5 @@ __all__ = (
     PriceResponseSchema, PricesRequestSchema, ProgramsResponseSchema,
     ProgramRequestSchema, ProgramResponseSchema,
     FeaturedProductsQuerystringSchema, MenuResponseSchema,
-    MenuRequestSchema, MenuQuerystringSchema
+    MenuRequestSchema, MenuQuerystringSchema, TagsTreeResponseSchema
 )
