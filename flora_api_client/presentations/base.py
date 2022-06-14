@@ -16,6 +16,7 @@ class SuccessResponse(BaseDataclass):
 @dataclass(frozen=True)
 class Pager(BaseDataclass):
     count_pages: int = field()
+    count_objects: Optional[int] = field()
     page: int = field(default=1)
     per_page: int = field(default=10)
 
