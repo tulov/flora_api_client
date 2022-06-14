@@ -76,7 +76,7 @@ class CategoriesNamespace(Namespace):
             self.build_url(postfix_url=f'{id_or_slug}/tree/'), **kwargs)
 
     @expectations(schema=TagsTreeResponseSchema)
-    async def tree(
+    async def visible_tags_tree(
         self, id_or_slug: Union[int, str], **kwargs
     ) -> (int, Union[TagsTreeResponse, ErrorResponse],
           RenewTokenResponse):
