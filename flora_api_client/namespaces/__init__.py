@@ -14,6 +14,7 @@ from .cities import CitiesNamespace
 from .prices import PricesNamespace
 from .programs import ProgramsNamespace
 from .menu import MenuNamespace
+from .slider import SliderItemsNamespace
 
 
 NAMESPACES = {
@@ -33,4 +34,5 @@ NAMESPACES = {
     'prices': PricesNamespace,
     'programs': ProgramsNamespace,
     'menu': MenuNamespace,
+    'slider_items': SliderItemsNamespace
 }

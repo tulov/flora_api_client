@@ -48,6 +48,10 @@ from .programs import (
 from .menu import (
     MenuResponseSchema, MenuRequestSchema, MenuQuerystringSchema
 )
+from .slider import (
+    SliderResponseSchema, SliderItemRequestSchema, SliderQuerystringSchema,
+    SliderItemResponseSchema
+)
 
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
@@ -73,5 +77,7 @@ __all__ = (
     PriceResponseSchema, PricesRequestSchema, ProgramsResponseSchema,
     ProgramRequestSchema, ProgramResponseSchema,
     FeaturedProductsQuerystringSchema, MenuResponseSchema,
-    MenuRequestSchema, MenuQuerystringSchema, TagsTreeResponseSchema
+    MenuRequestSchema, MenuQuerystringSchema, TagsTreeResponseSchema,
+    SliderResponseSchema, SliderItemRequestSchema, SliderQuerystringSchema,
+    SliderItemResponseSchema
 )
