@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
-from typing import List, Optional, Any
+from typing import List, Optional
 
 from marshmallow.validate import Length
 
-from .base import SuccessResponse, BaseDataclass
+from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .images import Image
 
 
@@ -46,7 +46,7 @@ class Slider(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class SliderResponse(SuccessResponse):
+class SliderResponse(PagedResponse):
     result: List[SliderItem] = field(
         default_factory=list, metadata={
             "required": True
