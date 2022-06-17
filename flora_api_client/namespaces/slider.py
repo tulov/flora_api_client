@@ -4,9 +4,9 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.slider import (
-    SliderResponse, SliderItemRequest, SliderQuerystring, SliderItemResponse
+    SliderResponse, SliderItemRequest, SliderItemResponse
 )
-from ..presentations.base import WithFieldsQuerystring
+from ..presentations.base import WithFieldsQuerystring, Querystring
 from ..presentations.error import ErrorResponse
 from ..schemas import SliderResponseSchema, SliderItemResponseSchema
 from ..namespaces.base import Namespace
@@ -17,7 +17,7 @@ class SliderItemsNamespace(Namespace):
 
     @expectations(schema=SliderResponseSchema)
     async def all(
-        self, query_params: SliderQuerystring = None, **kwargs
+        self, query_params: Querystring = None, **kwargs
     ) -> (int, Union[SliderResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(self.build_url(query_params), **kwargs)

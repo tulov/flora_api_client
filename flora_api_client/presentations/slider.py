@@ -61,8 +61,3 @@ class SliderItemRequest(SliderItemBase):
 @dataclass(frozen=True)
 class SliderItemResponse(SuccessResponse):
     result: SliderItem = field()
-
-
-@dataclass(frozen=True)
-class SliderQuerystring(BaseDataclass):
-    only_enabled: Optional[bool] = field()

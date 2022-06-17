@@ -49,7 +49,7 @@ from .menu import (
     MenuResponseSchema, MenuRequestSchema, MenuQuerystringSchema
 )
 from .slider import (
-    SliderResponseSchema, SliderItemRequestSchema, SliderQuerystringSchema,
+    SliderResponseSchema, SliderItemRequestSchema,
     SliderItemResponseSchema
 )
 
@@ -78,6 +78,6 @@ __all__ = (
     ProgramRequestSchema, ProgramResponseSchema,
     FeaturedProductsQuerystringSchema, MenuResponseSchema,
     MenuRequestSchema, MenuQuerystringSchema, TagsTreeResponseSchema,
-    SliderResponseSchema, SliderItemRequestSchema, SliderQuerystringSchema,
+    SliderResponseSchema, SliderItemRequestSchema,
     SliderItemResponseSchema
 )
