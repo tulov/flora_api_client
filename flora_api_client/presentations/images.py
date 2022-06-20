@@ -48,6 +48,25 @@ class Image(BaseDataclass):
         m = self.mime_type
         return m.split('/')[1]
 
+    def get_file_uploader_dict(self, file_width: int, file_height: int,
+                               url_width: int, url_height: int,
+                               thumb_width: int, thumb_height: int):
+        return {
+          "name": f'{self.id}.{self.extension}',
+          "type": f'image/{self.extension}',
+          "size": 0,
+          "file": self.full_url(width=file_width, height=file_height),
+          "local": "",
+          "data": {
+            "url": self.full_url(width=url_width, height=url_height),
+            "thumbnail": self.full_url(width=thumb_width, height=thumb_height),
+            "readerForce": True,
+            "listProps": {
+              "id": self.id
+            }
+          }
+        }
+
 
 @dataclass(frozen=True)
 class ImageResponse(SuccessResponse):
