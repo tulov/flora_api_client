@@ -6,7 +6,8 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
-    FeaturedProductsQuerystring, PreferredExecutorResponse
+    FeaturedProductsQuerystring, PreferredExecutorResponse,
+    PreferredExecutorQuerystring
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
@@ -64,7 +65,7 @@ class ProductsNamespace(Namespace):
     @expectations(schema=PreferredExecutorResponseSchema)
     async def preferred_executor(
         self, id_: int, city_id: int,
-        query_params: FeaturedProductsQuerystring = None, **kwargs
+        query_params: PreferredExecutorQuerystring = None, **kwargs
     ) -> (int, Union[PreferredExecutorResponse, ErrorResponse],
           RenewTokenResponse):
         postfix_url = '{}/preferred-executor/{}'.format(id_, city_id)

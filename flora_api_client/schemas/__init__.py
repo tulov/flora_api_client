@@ -34,7 +34,7 @@ from .images import ImageResponseSchema, ImageUploadRequestSchema
 from .products import (
     ProductsResponseSchema, ProductResponseSchema, ProductRequestSchema,
     FeaturedProductsResponseSchema, FeaturedProductsQuerystringSchema,
-    PreferredExecutorResponseSchema
+    PreferredExecutorResponseSchema, PreferredExecutorQuerystringSchema
 )
 from .cities import (
     CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
@@ -80,5 +80,6 @@ __all__ = (
     FeaturedProductsQuerystringSchema, MenuResponseSchema,
     MenuRequestSchema, MenuQuerystringSchema, TagsTreeResponseSchema,
     SliderResponseSchema, SliderItemRequestSchema,
-    SliderItemResponseSchema, PreferredExecutorResponseSchema
+    SliderItemResponseSchema, PreferredExecutorResponseSchema,
+    PreferredExecutorQuerystringSchema
 )

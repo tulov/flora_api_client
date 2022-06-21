@@ -181,5 +181,12 @@ class FeaturedProductsQuerystring(Querystring):
 
 
 @dataclass(frozen=True)
+class PreferredExecutorQuerystring(BaseDataclass):
+    currency: str = field(metadata={
+        "validate": OneOf([r.value for r in Currency])
+    }, default="rub")
+
+
+@dataclass(frozen=True)
 class PreferredExecutorResponse(SuccessResponse):
     result: FeaturedProductExecutor
