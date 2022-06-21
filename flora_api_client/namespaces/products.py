@@ -63,11 +63,13 @@ class ProductsNamespace(Namespace):
 
     @expectations(schema=PreferredExecutorResponseSchema)
     async def preferred_executor(
-        self, id_: int, city_id: int, **kwargs
+        self, id_: int, city_id: int,
+        query_params: FeaturedProductsQuerystring = None, **kwargs
     ) -> (int, Union[PreferredExecutorResponse, ErrorResponse],
           RenewTokenResponse):
         postfix_url = '{}/preferred-executor/{}'.format(id_, city_id)
-        return await self._get(self.build_url(postfix_url=postfix_url),
+        return await self._get(self.build_url(query_params,
+                                              postfix_url=postfix_url),
                                **kwargs)
 
 
