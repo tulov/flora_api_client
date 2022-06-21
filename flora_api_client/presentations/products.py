@@ -40,6 +40,8 @@ class ProductBaseDataclass(BaseDataclass):
 
 @dataclass(frozen=True)
 class ProductItem(BaseDataclass):
+    id: Optional[int] = field()
+    product_id: Optional[int] = field()
     name: str = field(metadata={
         "validate": Length(max=150)
     })
