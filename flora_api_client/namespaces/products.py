@@ -6,12 +6,12 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
-    FeaturedProductsQuerystring
+    FeaturedProductsQuerystring, PreferredExecutorResponse
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     ProductResponseSchema, ProductsResponseSchema,
-    FeaturedProductsResponseSchema
+    FeaturedProductsResponseSchema, PreferredExecutorResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -59,6 +59,15 @@ class ProductsNamespace(Namespace):
         postfix_url = 'featured/{}/{}'.format(city_id, category)
         return await self._get(self.build_url(query_params,
                                               postfix_url=postfix_url),
+                               **kwargs)
+
+    @expectations(schema=PreferredExecutorResponseSchema)
+    async def preferred_executor(
+        self, id_: int, city_id: int, **kwargs
+    ) -> (int, Union[PreferredExecutorResponse, ErrorResponse],
+          RenewTokenResponse):
+        postfix_url = '{}/preferred-executor/{}'.format(id_, city_id)
+        return await self._get(self.build_url(postfix_url=postfix_url),
                                **kwargs)
 
 
