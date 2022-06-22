@@ -73,4 +73,13 @@ class ProductsNamespace(Namespace):
                                               postfix_url=postfix_url),
                                **kwargs)
 
-
+    @expectations(schema=FeaturedProductsResponseSchema)
+    async def simular(
+        self, id_: int, city_id: int,
+        query_params: PreferredExecutorQuerystring = None, **kwargs
+    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
+          RenewTokenResponse):
+        postfix_url = '{}/simular/{}'.format(id_, city_id)
+        return await self._get(self.build_url(query_params,
+                                              postfix_url=postfix_url),
+                               **kwargs)
