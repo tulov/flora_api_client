@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Any
 from marshmallow.validate import Length, OneOf
 
 from .base import BaseDataclass, PagedResponse, SuccessResponse
@@ -24,7 +24,7 @@ class RequestForModeration(BaseDataclass):
     cause: Optional[str] = field(metadata={
         'validate': Length(max=1500)
     })
-    data: str = field()
+    data: Any = field()
     user: Optional[User] = field()
     admin: Optional[User] = field()
     obj_id: Optional[int] = field()
