@@ -83,3 +83,14 @@ class ProductsNamespace(Namespace):
         return await self._get(self.build_url(query_params,
                                               postfix_url=postfix_url),
                                **kwargs)
+
+    @expectations(schema=FeaturedProductsResponseSchema)
+    async def concomitant_presents(
+        self, executor_id: int, city_id: int,
+        query_params: FeaturedProductsQuerystring = None, **kwargs
+    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
+          RenewTokenResponse):
+        postfix_url = 'concomitant-presents/{}/{}'.format(executor_id, city_id)
+        return await self._get(self.build_url(query_params,
+                                              postfix_url=postfix_url),
+                               **kwargs)
