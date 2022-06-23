@@ -7,12 +7,14 @@ from ..presentations.base import Querystring, WithFieldsQuerystring
 from ..presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
     FeaturedProductsQuerystring, PreferredExecutorResponse,
-    PreferredExecutorQuerystring
+    PreferredExecutorQuerystring, IdsFeaturedProductsQuerystring,
+    SuccessFeaturedProductsResponse
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     ProductResponseSchema, ProductsResponseSchema,
-    FeaturedProductsResponseSchema, PreferredExecutorResponseSchema
+    FeaturedProductsResponseSchema, PreferredExecutorResponseSchema,
+    SuccessFeaturedProductsResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -94,3 +96,15 @@ class ProductsNamespace(Namespace):
         return await self._get(self.build_url(query_params,
                                               postfix_url=postfix_url),
                                **kwargs)
+
+    @expectations(schema=SuccessFeaturedProductsResponseSchema)
+    async def ids_featured(
+        self, city_id: int,
+        query_params: IdsFeaturedProductsQuerystring = None, **kwargs
+    ) -> (int, Union[SuccessFeaturedProductsResponse, ErrorResponse],
+          RenewTokenResponse):
+        postfix_url = 'featured/{}'.format(city_id)
+        return await self._get(self.build_url(query_params,
+                                              postfix_url=postfix_url),
+                               **kwargs)
+

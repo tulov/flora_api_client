@@ -174,7 +174,22 @@ class FeaturedProductsResponse(PagedResponse):
 
 
 @dataclass(frozen=True)
+class SuccessFeaturedProductsResponse(SuccessResponse):
+    result: List[FeaturedProduct] = field(default_factory=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
 class FeaturedProductsQuerystring(Querystring):
+    currency: str = field(metadata={
+        "validate": OneOf([r.value for r in Currency])
+    }, default="rub")
+
+
+@dataclass(frozen=True)
+class IdsFeaturedProductsQuerystring(BaseDataclass):
+    filters: Optional[str] = field()  # фильтр
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")
