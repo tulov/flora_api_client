@@ -158,6 +158,7 @@ class FeaturedProduct(BaseDataclass):
     weight_unit: str = field(metadata={
         "validate": OneOf([r.value for r in UnitOfWeight])
     })
+    is_concomitant_present: bool = field(default=False)
     images: Optional[List[Image]] = field(default_factory=list)
     executors: List[FeaturedProductExecutor] = field(
         default_factory=list, metadata={
