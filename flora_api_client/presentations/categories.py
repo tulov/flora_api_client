@@ -56,3 +56,40 @@ class CategoriesResponse(PagedResponse):
         "required": True
     })
 
+
+@dataclass(frozen=True)
+class TagCounter(BaseDataclass):
+    tag_id: int = field(metadata={
+        "strict": True
+    })
+    count: int = field(metadata={
+        "strict": True
+    })
+
+
+@dataclass(frozen=True)
+class FilterCounterResult(BaseDataclass):
+    count: int = field(metadata={
+        "strict": True
+    })
+    tags: List[TagCounter] = field(default_factory=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
+class FilterCounterResponse(SuccessResponse):
+    result: FilterCounterResult = field()
+
+
+@dataclass(frozen=True)
+class FilterCounterRequest(BaseDataclass):
+    price_from: Optional[int] = field(metadata={
+        "strict": True
+    })
+    price_to: Optional[int] = field(metadata={
+        "strict": True
+    })
+    selected: List[int] = field(default_factory=list, metadata={
+        "required": True
+    })

@@ -20,7 +20,8 @@ from .moderation import (
 )
 from .categories import (
     CategoryResponseSchema, CreateCategoryRequestSchema,
-    CategoriesResponseSchema
+    CategoriesResponseSchema, FilterCounterResponseSchema,
+    FilterCounterRequestSchema
 )
 from .tags import (
     TagResponseSchema, TagsResponseSchema, CreateTagRequestSchema,

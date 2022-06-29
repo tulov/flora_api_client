@@ -4,11 +4,17 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
+from ..presentations.categories import (
+    FilterCounterResponse, FilterCounterRequest
+)
 from ..presentations.tags import (
     TagResponse, CreateTagRequest, TagsResponse
 )
 from ..presentations.error import ErrorResponse
-from ..schemas import TagResponseSchema, TagsResponseSchema
+from ..schemas import (
+    TagResponseSchema, TagsResponseSchema, FilterCounterResponseSchema,
+    FilterCounterRequestSchema
+)
 from ..namespaces.base import Namespace
 
 
@@ -37,5 +43,12 @@ class TagsNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params, postfix_url=id_), **kwargs)
+
+    @expectations(schema=FilterCounterResponseSchema)
+    async def filter_counters(
+        self, data: FilterCounterRequest, **kwargs
+    ) -> (int, Union[FilterCounterResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
 
