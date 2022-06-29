@@ -49,6 +49,8 @@ class TagsNamespace(Namespace):
         self, data: FilterCounterRequest, **kwargs
     ) -> (int, Union[FilterCounterResponse, ErrorResponse],
           RenewTokenResponse):
-        return await self._post(self.URL, json=data.as_dict(), **kwargs)
+        return await self._post(
+            self.build_url(postfix_url='filter-counter/'),
+            json=data.as_dict(), **kwargs)
 
 
