@@ -1,9 +1,10 @@
 from dataclasses import dataclass, field
 from typing import Optional, List
 
-from marshmallow.validate import Length
+from marshmallow.validate import Length, OneOf
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
+from .enums import Currency
 from .tags import Tag
 from .fields import Field, Relationship
 
@@ -84,12 +85,21 @@ class FilterCounterResponse(SuccessResponse):
 
 @dataclass(frozen=True)
 class FilterCounterRequest(BaseDataclass):
+    city_id: int = field(metadata={
+        "strict": True
+    })
+    category_id: int = field(metadata={
+        "strict": True
+    })
     price_from: Optional[int] = field(metadata={
         "strict": True
     })
     price_to: Optional[int] = field(metadata={
         "strict": True
     })
+    currency: str = field(metadata={
+        "validate": OneOf([r.value for r in Currency])
+    }, default="rub")
     selected: List[int] = field(default_factory=list, metadata={
         "required": True
     })
