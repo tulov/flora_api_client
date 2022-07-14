@@ -103,3 +103,6 @@ class FilterCounterRequest(BaseDataclass):
     selected: List[int] = field(default_factory=list, metadata={
         "required": True
     })
+    ids: List[int] = field(default_factory=list, metadata={
+        "required": True
+    })
