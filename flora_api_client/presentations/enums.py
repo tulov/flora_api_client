@@ -82,3 +82,14 @@ class UnitOfCount(Enum):
     thing = 'thing'
     meter = 'meter'
     unit = 'unit'
+
+
+@unique
+class OrderState(Enum):
+    new = "new"
+    payed = "payed"
+    accepted = "accepted"
+    on_delivery = "on_delivery"
+    delivered = "delivered"
+    closed = "closed"
+    claim = "claim"
