@@ -126,4 +126,4 @@ class CreateOrderRequest(BaseDataclass):
 
 @dataclass(frozen=True)
 class OrderResponse(SuccessResponse):
-    order: Order = field()
+    result: Order = field()
