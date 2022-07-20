@@ -93,3 +93,4 @@ class OrderState(Enum):
     delivered = "delivered"
     closed = "closed"
     claim = "claim"
+    canceled = "canceled"

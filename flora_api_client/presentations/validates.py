@@ -14,7 +14,7 @@ class Phone(Validator):
     """
 
     PHONE_REGEX = re.compile(
-        r"[0-9]{11,15}",
+        r"\+?\d{11,15}",
     )
 
     default_message = "Not a valid phone number."

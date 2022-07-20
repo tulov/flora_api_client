@@ -56,6 +56,8 @@ from .slider import (
     SliderItemResponseSchema
 )
 
+from .orders import OrderResponseSchema, CreateOrderRequestSchema
+
 DATE_FORMAT = '%d.%m.%Y'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
@@ -84,5 +86,6 @@ __all__ = (
     SliderResponseSchema, SliderItemRequestSchema,
     SliderItemResponseSchema, PreferredExecutorResponseSchema,
     PreferredExecutorQuerystringSchema, SuccessFeaturedProductsResponseSchema,
-    IdsFeaturedProductsQuerystringSchema
+    IdsFeaturedProductsQuerystringSchema, CreateOrderRequestSchema,
+    OrderResponseSchema
 )
