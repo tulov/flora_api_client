@@ -91,6 +91,7 @@ class Order(BaseDataclass):
 
 @dataclass(frozen=True)
 class CreateOrderRequest(BaseDataclass):
+    guid: str = field()
     delivery_date: date = field()
     city_id: int = field(metadata={
         "strict": True
