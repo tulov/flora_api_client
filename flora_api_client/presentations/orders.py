@@ -71,6 +71,9 @@ class Order(BaseDataclass):
     user_id: int = field(metadata={
         "strict": True
     })
+    provider_id: int = field(metadata={
+        "strict": True
+    })
     state: str = field(metadata={
         "validate": OneOf([r.value for r in OrderState])
     })
