@@ -82,6 +82,11 @@ class Order(BaseDataclass):
         default_factory=list, metadata={
             "required": True
         })
+    children: List[Any] = field(
+        default_factory=list, metadata={
+            "required": True
+        }
+    )
 
 
 @dataclass(frozen=True)
