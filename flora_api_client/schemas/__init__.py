@@ -58,7 +58,7 @@ from .slider import (
 
 from .orders import OrderResponseSchema, CreateOrderRequestSchema
 
-DATE_FORMAT = '%d.%m.%Y'
+DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
 

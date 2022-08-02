@@ -58,13 +58,13 @@ class Order(BaseDataclass):
         "validate": Length(max=150)
     })
     receiver_phone: str = field(metadata={
-        "validate": Length(100)
+        "validate": Length(max=100)
     })
     delivery_address: str = field(metadata={
-        "validate": Length(1000)
+        "validate": Length(max=1000)
     })
     card_text: str = field(metadata={
-        "validate": Length(1000)
+        "validate": Length(max=1000)
     })
     take_photo_with_receiver: bool = field()
     send_sms_about_delivery: bool = field()
@@ -76,6 +76,9 @@ class Order(BaseDataclass):
     })
     state: str = field(metadata={
         "validate": OneOf([r.value for r in OrderState])
+    })
+    promo_code: str = field(metadata={
+        "validate": Length(max=100)
     })
     amount: Decimal = field()
     currency: str = field(metadata={
