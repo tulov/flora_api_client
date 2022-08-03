@@ -8,7 +8,7 @@ from .users import User
 from .cities import City
 
 from .base import (
-    SuccessResponse, BaseDataclass
+    SuccessResponse, BaseDataclass, PagedResponse
 )
 from .validates import Phone
 from .enums import OrderState
@@ -144,3 +144,10 @@ class CreateOrderRequest(BaseDataclass):
 @dataclass(frozen=True)
 class OrderResponse(SuccessResponse):
     result: Order = field()
+
+
+@dataclass(frozen=True)
+class OrdersResponse(PagedResponse):
+    result: List[Order] = field(default_factory=list, metadata={
+        "required": True
+    })
