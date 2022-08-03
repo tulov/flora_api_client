@@ -44,6 +44,10 @@ class User(BaseDataclass):
     })
     is_moderated: bool = field()
     banned: bool = field()
+    percent_us: int = field(metadata={
+        "strict": True,
+        "validate": Range(min=0, max=100),
+    })
     data: Dict[str, Any] = field(default_factory=dict)
     data_for_auth: Optional[List[DataForAuth]] = field(
         default_factory=list, metadata={
