@@ -4,6 +4,8 @@ from typing import Optional, List, Any
 from datetime import date, datetime
 
 from marshmallow.validate import Length, OneOf, Email
+from .users import User
+from .cities import City
 
 from .base import (
     SuccessResponse, BaseDataclass
@@ -84,6 +86,9 @@ class Order(BaseDataclass):
     currency: str = field(metadata={
         "validate": Length(equal=3)
     })
+    city: Optional[City] = field()
+    provider: Optional[User] = field()
+    user: Optional[User] = field()
     items: List[OrderItem] = field(
         default_factory=list, metadata={
             "required": True
