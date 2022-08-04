@@ -89,6 +89,7 @@ class Order(BaseDataclass):
     city: Optional[City] = field()
     provider: Optional[User] = field()
     user: Optional[User] = field()
+    is_complicated: Optional[bool] = field(default=False)
     items: List[OrderItem] = field(
         default_factory=list, metadata={
             "required": True
