@@ -29,6 +29,12 @@ class OrderItem(OrderProduct):
     order_id: int = field(metadata={
         "strict": True
     })
+    product_id: int = field(metadata={
+        "strict": True
+    })
+    cnt: int = field(metadata={
+        "strict": True
+    })
     price: Decimal = field()
     currency: str = field(metadata={
         "validate": Length(equal=3)
@@ -91,7 +97,7 @@ class Order(BaseDataclass):
     user: Optional[User] = field()
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
-    children: Optional[List[Any]]= field(default_factory=list)
+    children: Optional[List[Any]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
