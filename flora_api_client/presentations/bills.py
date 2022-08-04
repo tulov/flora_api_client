@@ -1,14 +1,30 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import List, Any, Dict, Optional
-from datetime import datetime
-from .orders import Order
+from datetime import datetime, date
 
 from marshmallow.validate import Length
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
+
+
+@dataclass(frozen=True)
+class BillOrderData(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    city_id: int = field(metadata={
+        "strict": True
+    })
+    delivery_date: date = field()
+    amount: Decimal = field()
+    currency: str = field(metadata={
+        "validate": Length(equal=3)
+    })
+    state: str = field()
+    city_name: str = field()
 
 
 @dataclass(frozen=True)
@@ -26,7 +42,7 @@ class Bill(BaseDataclass):
         "validate": Length(equal=3)
     })
     is_payed: bool = field()
-    order: Optional[Order] = field()
+    order_data: Optional[BillOrderData] = field()
     data: Dict[str, Any] = field(default_factory=dict)
 
 
