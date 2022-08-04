@@ -90,15 +90,8 @@ class Order(BaseDataclass):
     provider: Optional[User] = field()
     user: Optional[User] = field()
     is_complicated: Optional[bool] = field(default=False)
-    items: List[OrderItem] = field(
-        default_factory=list, metadata={
-            "required": True
-        })
-    children: List[Any] = field(
-        default_factory=list, metadata={
-            "required": True
-        }
-    )
+    items: Optional[List[OrderItem]] = field(default_factory=list)
+    children: Optional[List[Any]]= field(default_factory=list)
 
 
 @dataclass(frozen=True)
