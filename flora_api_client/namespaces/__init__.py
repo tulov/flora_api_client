@@ -16,6 +16,7 @@ from .programs import ProgramsNamespace
 from .menu import MenuNamespace
 from .slider import SliderItemsNamespace
 from .orders import OrdersNamespace
+from .bills import BillsNamespace
 
 
 NAMESPACES = {
@@ -37,4 +38,5 @@ NAMESPACES = {
     'menu': MenuNamespace,
     'slider_items': SliderItemsNamespace,
     "orders": OrdersNamespace,
+    "bills": BillsNamespace,
 }
