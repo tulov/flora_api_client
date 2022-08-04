@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import List, Any, Dict
+from typing import List, Any, Dict, Optional
 from datetime import datetime
+from .orders import Order
 
 from marshmallow.validate import Length
 
@@ -25,6 +26,7 @@ class Bill(BaseDataclass):
         "validate": Length(equal=3)
     })
     is_payed: bool = field()
+    order: Optional[Order] = field()
     data: Dict[str, Any] = field(default_factory=dict)
 
 
