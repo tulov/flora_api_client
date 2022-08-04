@@ -6,6 +6,7 @@ from datetime import date, datetime
 from marshmallow.validate import Length, OneOf, Email
 from .users import User
 from .cities import City
+from .products import Product
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
@@ -43,6 +44,8 @@ class OrderItem(OrderProduct):
         "strict": True
     })
     data: Any = field()
+    product: Optional[Product] = field()
+    provider: Optional[User] = field()
 
 
 @dataclass(frozen=True)
