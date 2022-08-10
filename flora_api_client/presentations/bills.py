@@ -24,6 +24,7 @@ class BillOrderDataItem(BaseDataclass):
     length: Decimal = field()
     height: Decimal = field()
     width: Decimal = field()
+    product_id: int = field()
     size_unit: str = field(metadata={
         "validate": OneOf([r.value for r in UnitOfSize])
     })
