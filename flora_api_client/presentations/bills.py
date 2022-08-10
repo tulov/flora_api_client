@@ -19,12 +19,25 @@ class BillOrderData(BaseDataclass):
         "strict": True
     })
     delivery_date: date = field()
+    delivery_time: int = field()
     amount: Decimal = field()
     currency: str = field(metadata={
         "validate": Length(equal=3)
     })
     state: str = field()
     city_name: str = field()
+    receiver_name: str = field(metadata={
+        'validate': Length(max=150)
+    })
+    receiver_phone: str = field(metadata={
+        "validate": Length(max=100)
+    })
+    delivery_address: str = field(metadata={
+        "validate": Length(max=1000)
+    })
+    card_text: str = field(metadata={
+        "validate": Length(max=1000)
+    })
 
 
 @dataclass(frozen=True)
