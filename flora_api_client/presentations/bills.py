@@ -58,7 +58,7 @@ class BillOrderData(BaseDataclass):
     card_text: str = field(metadata={
         "validate": Length(max=1000)
     })
-    items: Optional[BillOrderDataItem] = field(default_factory=list)
+    items: Optional[List[BillOrderDataItem]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
