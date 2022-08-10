@@ -3,11 +3,30 @@ from decimal import Decimal
 from typing import List, Any, Dict, Optional
 from datetime import datetime, date
 
-from marshmallow.validate import Length
+from marshmallow.validate import Length, OneOf
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
+from .enums import UnitOfSize
+from .images import Image
+
+
+@dataclass(frozen=True)
+class BillOrderDataItem(BaseDataclass):
+    image: Image = field()
+    cnt: int = field(metadata={
+        "strict": True
+    })
+    name: str = field()
+    old_price: Decimal = field()
+    price: Decimal = field()
+    length: Decimal = field()
+    height: Decimal = field()
+    width: Decimal = field()
+    size_unit: str = field(metadata={
+        "validate": OneOf([r.value for r in UnitOfSize])
+    })
 
 
 @dataclass(frozen=True)
@@ -38,6 +57,7 @@ class BillOrderData(BaseDataclass):
     card_text: str = field(metadata={
         "validate": Length(max=1000)
     })
+    items: Optional[BillOrderDataItem] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
