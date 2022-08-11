@@ -31,6 +31,8 @@ class Price(PriceBase):
     partner_id: int = field(metadata={
         "strict": True,
     })
+    current_usd_price: Decimal = field()
+    discount_percent: int = field()
 
 
 @dataclass(frozen=True)
