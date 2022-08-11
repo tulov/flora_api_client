@@ -90,3 +90,14 @@ class BillsResponse(PagedResponse):
     result: List[Bill] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class BillPayRequest(BaseDataclass):
+    pass
+
+
+@dataclass(frozen=True)
+class CloudpaymentsBillPayRequest(BillPayRequest):
+    cryptogram: str = field()
+    holder_name: str = field()
