@@ -38,10 +38,11 @@ class Namespace:
                 first_resp_status = resp.status
                 if err_code != 8:
                     return first_resp_status, body, None
+            renew_kwargs = {"headers": kwargs.get("headers")}
             async with session.post(
                 f'{self._host}{self._url_prefix}/auth/renew/',
                 json={"token": long_token},
-                **kwargs
+                **renew_kwargs
             ) as r:
                 if r.status != HTTPStatus.OK:
                     return first_resp_status, body, None
