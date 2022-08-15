@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass, field
-from typing import Optional
+from typing import Optional, Any
 
 
 @dataclass(frozen=True)
@@ -73,3 +73,8 @@ class Querystring(WithFieldsQuerystring):
 @dataclass(frozen=True)
 class PagedResponse(SuccessResponse):
     pager: Optional[Pager] = field()
+
+
+@dataclass(frozen=True)
+class ResultResponse(SuccessResponse):
+    result: Any = field()

@@ -12,7 +12,8 @@ from .auth import (
 )
 from .counters import CountersResponseSchema
 from .base import (
-    SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystringSchema
+    SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystringSchema,
+    ResultResponseSchema
 )
 from .moderation import (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
@@ -95,5 +96,5 @@ __all__ = (
     IdsFeaturedProductsQuerystringSchema, CreateOrderRequestSchema,
     OrderResponseSchema, OrdersResponseSchema, BillResponseSchema,
     BillsResponseSchema, BillPayRequestSchema,
-    CloudpaymentsBillPayRequestSchema
+    CloudpaymentsBillPayRequestSchema, ResultResponseSchema
 )

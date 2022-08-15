@@ -1,7 +1,7 @@
 import marshmallow_dataclass
 
 from flora_api_client.presentations.base import (
-    SuccessResponse, Querystring, WithFieldsQuerystring
+    SuccessResponse, Querystring, WithFieldsQuerystring, ResultResponse
 )
 
 SuccessResponseSchema = marshmallow_dataclass.class_schema(
@@ -14,4 +14,7 @@ QuerystringSchema = marshmallow_dataclass.class_schema(
 
 WithFieldsQuerystringSchema = marshmallow_dataclass.class_schema(
     WithFieldsQuerystring
+)
+ResultResponseSchema = marshmallow_dataclass.class_schema(
+    ResultResponse
 )
