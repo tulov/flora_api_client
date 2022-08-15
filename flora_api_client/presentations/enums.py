@@ -94,3 +94,25 @@ class OrderState(Enum):
     closed = "closed"
     claim = "claim"
     canceled = "canceled"
+
+
+@unique
+class EventObjects(Enum):
+    bill = "bill"
+    application = "application"
+    category = "category"
+    field = "field"
+    city = "city"
+    continent = "continent"
+    country = "country"
+    region = "region"
+    subcontinent = "subcontinent"
+    image = "image"
+    menu = "menu"
+    order = "order"
+    price = "price"
+    product = "product"
+    program = "program"
+    slider = "slider"
+    tag = "tag"
+    user = "user"
