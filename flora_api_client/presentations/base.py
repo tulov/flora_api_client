@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass, field
-from typing import Optional, Any
+from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -11,7 +11,6 @@ class BaseDataclass:
 @dataclass(frozen=True)
 class SuccessResponse(BaseDataclass):
     success: bool = field()
-    result: Optional[Any] = field()
 
 
 @dataclass(frozen=True)
