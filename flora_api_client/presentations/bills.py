@@ -63,6 +63,9 @@ class BillOrderData(BaseDataclass):
 
 @dataclass(frozen=True)
 class Bill(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
     guid: str = field()
     created_at: datetime = field()
     user_id: int = field(metadata={
