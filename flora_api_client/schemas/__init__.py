@@ -66,7 +66,6 @@ from .bills import (
     CloudpaymentsBillPayRequestSchema, CloudpaymentsBillAfter3dRequestSchema
 )
 
-Schema.Meta.unknown = EXCLUDE
 DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
