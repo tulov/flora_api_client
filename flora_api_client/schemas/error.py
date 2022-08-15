@@ -7,6 +7,9 @@
 """
 import marshmallow_dataclass
 from flora_api_client.presentations.error import Error, ErrorResponse
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 ErrorSchema = marshmallow_dataclass.class_schema(Error)

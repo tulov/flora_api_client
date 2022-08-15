@@ -5,6 +5,9 @@ from flora_api_client.presentations.products import (
     PreferredExecutorQuerystring, SuccessFeaturedProductsResponse,
     IdsFeaturedProductsQuerystring
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 ProductResponseSchema = marshmallow_dataclass.class_schema(

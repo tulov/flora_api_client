@@ -3,6 +3,9 @@ from flora_api_client.presentations.auth import (
     AuthRequest, AuthResponse, RenewTokenRequest, RenewTokenResponse,
     SendRestoreAccessLinkRequest, RestoreAccessRequest
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 AuthRequestSchema = marshmallow_dataclass.class_schema(AuthRequest)

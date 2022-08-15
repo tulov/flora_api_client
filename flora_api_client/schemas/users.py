@@ -5,6 +5,9 @@ from flora_api_client.presentations.users import (
 )
 from ..presentations.base import SuccessResponse
 from ..presentations.partners import BindCityRequestDataclass
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 DataForAuthSchema = marshmallow_dataclass.class_schema(DataForAuth)

@@ -2,6 +2,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.tags import (
     TagResponse, CreateTagRequest, TagsResponse, TagsTreeResponse
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 TagResponseSchema = marshmallow_dataclass.class_schema(

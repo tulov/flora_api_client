@@ -3,6 +3,9 @@ from flora_api_client.presentations.categories import (
     CategoryResponse, CreateCategoryRequest, CategoriesResponse,
     FilterCounterRequest, FilterCounterResponse
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 CategoryResponseSchema = marshmallow_dataclass.class_schema(

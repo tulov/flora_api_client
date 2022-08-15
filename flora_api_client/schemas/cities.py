@@ -2,6 +2,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.cities import (
     CityResponse, CitiesResponse, SearchCitiesResponse
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 CityResponseSchema = marshmallow_dataclass.class_schema(

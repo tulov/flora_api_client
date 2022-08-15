@@ -3,6 +3,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.base import (
     SuccessResponse, Querystring, WithFieldsQuerystring, ResultResponse
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 SuccessResponseSchema = marshmallow_dataclass.class_schema(
     SuccessResponse

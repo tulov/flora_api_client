@@ -2,6 +2,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.fields import (
     FieldResponse, CreateFieldRequest, FieldsResponse, Relationship
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 FieldResponseSchema = marshmallow_dataclass.class_schema(

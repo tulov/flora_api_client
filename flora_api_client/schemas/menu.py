@@ -2,6 +2,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.menu import (
     MenuRequest, MenuResponse, MenuQuerystring
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 MenuResponseSchema = marshmallow_dataclass.class_schema(

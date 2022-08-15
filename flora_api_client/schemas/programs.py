@@ -2,6 +2,9 @@ import marshmallow_dataclass
 from flora_api_client.presentations.programs import (
     ProgramResponse, ProgramsResponse, Program
 )
+from marshmallow import Schema, EXCLUDE
+
+Schema.Meta.unknown = EXCLUDE
 
 
 ProgramResponseSchema = marshmallow_dataclass.class_schema(
