@@ -1,6 +1,7 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.bills import (
-    BillsResponse, BillResponse, BillPayRequest, CloudpaymentsBillPayRequest
+    BillsResponse, BillResponse, BillPayRequest, CloudpaymentsBillPayRequest,
+    CloudpaymentsBillAfter3dRequest
 )
 
 
@@ -15,4 +16,7 @@ BillPayRequestSchema = marshmallow_dataclass.class_schema(
 )
 CloudpaymentsBillPayRequestSchema = marshmallow_dataclass.class_schema(
     CloudpaymentsBillPayRequest
+)
+CloudpaymentsBillAfter3dRequestSchema = marshmallow_dataclass.class_schema(
+    CloudpaymentsBillAfter3dRequest
 )

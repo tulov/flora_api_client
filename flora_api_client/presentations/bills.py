@@ -101,3 +101,9 @@ class BillPayRequest(BaseDataclass):
 class CloudpaymentsBillPayRequest(BillPayRequest):
     cryptogram: str = field()
     holder_name: str = field()
+
+
+@dataclass(frozen=True)
+class CloudpaymentsBillAfter3dRequest(BillPayRequest):
+    TransactionId: int = field()
+    PaRes: str = field()
