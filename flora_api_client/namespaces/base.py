@@ -94,6 +94,8 @@ class Namespace:
             d = query_params.as_dict()
             p = {key: d[key] for key in d if d[key] is not None}
             query_string = f'?{urlencode(p)}'
+            if query_string == '?':
+                query_string = ''
         if url is None:
             url = self.URL
         return f'{url}{postfix_url}{query_string}'
