@@ -4,6 +4,8 @@ from typing import Optional, List, Any
 from datetime import date, datetime
 
 from marshmallow.validate import Length, OneOf, Email
+
+from .bills import Bill
 from .users import User
 from .cities import City
 from .products import Product
@@ -98,6 +100,7 @@ class Order(BaseDataclass):
     city: Optional[City] = field()
     provider: Optional[User] = field()
     user: Optional[User] = field()
+    bill: Optional[Bill] = field()
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
     children: Optional[List[Any]] = field(default_factory=list)
