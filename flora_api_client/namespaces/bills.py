@@ -50,3 +50,11 @@ class BillsNamespace(Namespace):
         return await self._post(
             self.build_url(postfix_url=f"{guid}/after3d/{pay_service}"),
             json=data.as_dict(), **kwargs)
+
+    @expectations(schema=ResultResponseSchema)
+    async def sign(
+        self, guid: str, pay_service: str, **kwargs
+    ) -> (int, Union[ResultResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{guid}/sign/{pay_service}"), **kwargs)
