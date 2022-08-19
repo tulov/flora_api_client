@@ -89,6 +89,22 @@ class Bill(BaseDataclass):
     user_contacts: Optional[List[BillUserContact]] = field(default_factory=list)
     data: Dict[str, Any] = field(default_factory=dict)
 
+    def _get_contact(self, contact_type: str) -> str:
+        if not self.user_contacts:
+            return ""
+        for c in self.user_contacts:
+            if c.service == contact_type:
+                return c.auth_key
+        return ""
+
+    @property
+    def user_phone(self) -> str:
+        return self._get_contact("phone")
+
+    @property
+    def user_email(self) -> str:
+        return self._get_contact("email")
+
 
 @dataclass(frozen=True)
 class BillResponse(SuccessResponse):
