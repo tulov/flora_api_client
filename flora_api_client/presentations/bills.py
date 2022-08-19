@@ -62,6 +62,12 @@ class BillOrderData(BaseDataclass):
 
 
 @dataclass(frozen=True)
+class BillUserContact(BaseDataclass):
+    service: str = field()
+    auth_key: str = field()
+
+
+@dataclass(frozen=True)
 class Bill(BaseDataclass):
     id: int = field(metadata={
         "strict": True
@@ -80,6 +86,7 @@ class Bill(BaseDataclass):
     })
     is_payed: bool = field()
     order_data: Optional[BillOrderData] = field()
+    user_contacts: Optional[List[BillUserContact]] = field(default_factory=list)
     data: Dict[str, Any] = field(default_factory=dict)
 
 
