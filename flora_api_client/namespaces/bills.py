@@ -3,14 +3,15 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
-    WithFieldsQuerystring, Querystring, ResultResponse
+    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
 )
 from ..presentations.bills import (
     BillsResponse, BillResponse, BillPayRequest
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
-    BillsResponseSchema, BillResponseSchema, ResultResponseSchema
+    BillsResponseSchema, BillResponseSchema, ResultResponseSchema,
+    SuccessResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -58,3 +59,12 @@ class BillsNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f"{guid}/sign/{pay_service}"), **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def post_pay(
+        self, guid: str, pay_service: str, flag: str, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{guid}/post/{pay_service}/{flag}"),
+            **kwargs)
