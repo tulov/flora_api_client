@@ -63,7 +63,8 @@ from .orders import (
 )
 from .bills import (
     BillResponseSchema, BillsResponseSchema, BillPayRequestSchema,
-    CloudpaymentsBillPayRequestSchema, CloudpaymentsBillAfter3dRequestSchema
+    CloudpaymentsBillPayRequestSchema, CloudpaymentsBillAfter3dRequestSchema,
+    BillPDFResponseSchema
 )
 
 DATE_FORMAT = '%Y-%m-%d'
@@ -98,5 +99,5 @@ __all__ = (
     OrderResponseSchema, OrdersResponseSchema, BillResponseSchema,
     BillsResponseSchema, BillPayRequestSchema,
     CloudpaymentsBillPayRequestSchema, ResultResponseSchema,
-    CloudpaymentsBillAfter3dRequestSchema
+    CloudpaymentsBillAfter3dRequestSchema, BillPDFResponseSchema
 )

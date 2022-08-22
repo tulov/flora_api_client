@@ -133,3 +133,15 @@ class CloudpaymentsBillPayRequest(BillPayRequest):
 class CloudpaymentsBillAfter3dRequest(BillPayRequest):
     TransactionId: int = field()
     PaRes: str = field()
+
+
+@dataclass(frozen=True)
+class File(BaseDataclass):
+    content: str = field()
+    file_name: str = field()
+    file_type: str = field()
+
+
+@dataclass(frozen=True)
+class BillPDFResponse(SuccessResponse):
+    result: File = field()
