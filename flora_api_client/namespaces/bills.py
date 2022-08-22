@@ -6,12 +6,12 @@ from ..presentations.base import (
     WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
 )
 from ..presentations.bills import (
-    BillsResponse, BillResponse, BillPayRequest
+    BillsResponse, BillResponse, BillPayRequest, BillPDFResponse
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     BillsResponseSchema, BillResponseSchema, ResultResponseSchema,
-    SuccessResponseSchema
+    SuccessResponseSchema, BillPDFResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -67,4 +67,22 @@ class BillsNamespace(Namespace):
           RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f"{guid}/post/{pay_service}/{flag}"),
+            **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def pdf_send_to_email(
+        self, guid: str, pay_service: str, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{guid}/pdf/{pay_service}/send-email"),
+            **kwargs)
+
+    @expectations(schema=BillPDFResponseSchema)
+    async def pdf(
+        self, guid: str, pay_service: str, **kwargs
+    ) -> (int, Union[BillPDFResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{guid}/pdf/{pay_service}"),
             **kwargs)
