@@ -3,7 +3,8 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
-    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
+    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse,
+    DataRequest
 )
 from ..presentations.bills import (
     BillsResponse, BillResponse, BillPayRequest, BillPDFResponse
@@ -71,18 +72,20 @@ class BillsNamespace(Namespace):
 
     @expectations(schema=SuccessResponseSchema)
     async def pdf_send_to_email(
-        self, guid: str, pay_service: str, **kwargs
+        self, guid: str, pay_service: str, data: DataRequest, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse],
           RenewTokenResponse):
-        return await self._get(
+        return await self._post(
             self.build_url(postfix_url=f"{guid}/pdf/{pay_service}/send-email"),
+            json=data.as_dict(),
             **kwargs)
 
     @expectations(schema=BillPDFResponseSchema)
     async def pdf(
-        self, guid: str, pay_service: str, **kwargs
+        self, guid: str, pay_service: str, data: DataRequest, **kwargs
     ) -> (int, Union[BillPDFResponse, ErrorResponse],
           RenewTokenResponse):
-        return await self._get(
+        return await self._post(
             self.build_url(postfix_url=f"{guid}/pdf/{pay_service}"),
+            json=data.as_dict(),
             **kwargs)
