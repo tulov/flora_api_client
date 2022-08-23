@@ -78,3 +78,9 @@ class PagedResponse(SuccessResponse):
 @dataclass(frozen=True)
 class ResultResponse(SuccessResponse):
     result: Any = field()
+
+
+@dataclass(frozen=True)
+class DataRequest(BaseDataclass):
+    data: Any = field()
+
