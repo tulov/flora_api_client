@@ -1,7 +1,8 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.auth import (
     AuthRequest, AuthResponse, RenewTokenRequest, RenewTokenResponse,
-    SendRestoreAccessLinkRequest, RestoreAccessRequest
+    SendRestoreAccessLinkRequest, RestoreAccessRequest, EnterCodeRequest,
+    AuthCodeRequest, AuthCodeResponse
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -19,4 +20,13 @@ SendRestoreAccessLinkRequestSchema = marshmallow_dataclass.class_schema(
 )
 RestoreAccessRequestSchema = marshmallow_dataclass.class_schema(
     RestoreAccessRequest
+)
+EnterCodeRequestSchema = marshmallow_dataclass.class_schema(
+    EnterCodeRequest
+)
+AuthCodeRequestSchema = marshmallow_dataclass.class_schema(
+    AuthCodeRequest
+)
+AuthCodeResponseSchema = marshmallow_dataclass.class_schema(
+    AuthCodeResponse
 )
