@@ -116,3 +116,11 @@ class EventObjects(Enum):
     slider = "slider"
     tag = "tag"
     user = "user"
+
+
+@unique
+class CommunicationTransports(Enum):
+    whatsapp = "whatsapp"
+    sms = "sms"
+    telegram = "telegram"
+    email = "email"
