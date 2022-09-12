@@ -4,7 +4,8 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import (
     AuthResponse, AuthRequest, RenewTokenRequest, RenewTokenResponse,
-    SendRestoreAccessLinkRequest, RestoreAccessRequest
+    SendRestoreAccessLinkRequest, RestoreAccessRequest, EnterCodeRequest,
+    AuthCodeRequest
 )
 from ..presentations.error import ErrorResponse
 from ..presentations.base import SuccessResponse
@@ -47,3 +48,18 @@ class AuthNamespace(Namespace):
     ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._put(f'{self.URL}restore-access/',
                                json=data.as_dict(), **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def code(
+        self, data: EnterCodeRequest, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
+        return await self._post(f'{self.URL}code/',
+                                json=data.as_dict(), **kwargs)
+
+    @expectations(schema=AuthResponseSchema)
+    async def auth_with_code(
+        self, data: AuthCodeRequest, **kwargs
+    ) -> (int, Union[AuthResponse, ErrorResponse], RenewTokenResponse):
+        return await self._post(f'{self.URL}with-code/',
+                                json=data.as_dict(), **kwargs)
+

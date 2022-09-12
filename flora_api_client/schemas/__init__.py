@@ -9,8 +9,7 @@ from .users import (
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
     RenewTokenRequestSchema, SendRestoreAccessLinkRequestSchema,
-    RestoreAccessRequestSchema, EnterCodeRequestSchema, AuthCodeRequestSchema,
-    AuthCodeResponseSchema
+    RestoreAccessRequestSchema, EnterCodeRequestSchema, AuthCodeRequestSchema
 )
 from .counters import CountersResponseSchema
 from .base import (
@@ -101,6 +100,6 @@ __all__ = (
     BillsResponseSchema, BillPayRequestSchema,
     CloudpaymentsBillPayRequestSchema, ResultResponseSchema,
     CloudpaymentsBillAfter3dRequestSchema, BillPDFResponseSchema,
-    DataRequestSchema, AuthCodeRequestSchema, AuthCodeResponseSchema,
+    DataRequestSchema, AuthCodeRequestSchema,
     EnterCodeRequestSchema
 )

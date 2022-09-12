@@ -1,9 +1,8 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 from marshmallow.validate import Length, OneOf
 from .users import User
-from .base import BaseDataclass, SuccessResponse
+from .base import BaseDataclass
 from .enums import CommunicationTransports
 
 
@@ -68,8 +67,3 @@ class AuthCodeRequest(BaseDataclass):
     code: str = field(metadata={
         'validate': Length(equal=4)
     })
-
-
-@dataclass(frozen=True)
-class AuthCodeResponse(SuccessResponse):
-    result: Optional[User] = field()
