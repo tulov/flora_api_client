@@ -60,10 +60,14 @@ class PricesRequest(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class PriceData(FeaturedProductExecutor):
+class PriceData(BaseDataclass):
     product_id: int = field(metadata={
         "strict": True
     })
+    executors: List[FeaturedProductExecutor] = field(
+        default_factory=list, metadata={
+            "required": True
+        })
 
 
 @dataclass(frozen=True)
@@ -76,9 +80,7 @@ class PricesCurrentResponse(SuccessResponse):
 @dataclass(frozen=True)
 class PricesCurrentQuerystring(BaseDataclass):
     ids: str = field()
-    city_id: int = field(metadata={
-        "strict": True
-    })
+    city_id: int = field()
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")
