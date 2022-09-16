@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import List
+from typing import List, Optional
 
-from marshmallow.validate import Length
+from marshmallow.validate import Length, OneOf
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
+from .enums import Currency
+from .products import FeaturedProductExecutor
 
 
 @dataclass(frozen=True)
@@ -55,3 +57,28 @@ class PricesRequest(BaseDataclass):
     prices: List[PriceBase] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class PriceData(FeaturedProductExecutor):
+    product_id: int = field(metadata={
+        "strict": True
+    })
+
+
+@dataclass(frozen=True)
+class PricesCurrentResponse(SuccessResponse):
+    result: List[PriceData] = field(default=list, metadata={
+        "required": True
+    })
+
+
+@dataclass(frozen=True)
+class PricesCurrentQuerystring(BaseDataclass):
+    ids: str = field()
+    city_id: int = field(metadata={
+        "strict": True
+    })
+    currency: str = field(metadata={
+        "validate": OneOf([r.value for r in Currency])
+    }, default="rub")

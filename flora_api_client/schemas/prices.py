@@ -1,6 +1,7 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.prices import (
-    PriceResponse, PricesResponse, PricesRequest
+    PriceResponse, PricesResponse, PricesRequest, PricesCurrentResponse,
+    PricesCurrentQuerystring
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -15,4 +16,10 @@ PricesResponseSchema = marshmallow_dataclass.class_schema(
 )
 PricesRequestSchema = marshmallow_dataclass.class_schema(
     PricesRequest
+)
+PricesCurrentResponseSchema = marshmallow_dataclass.class_schema(
+    PricesCurrentResponse
+)
+PricesCurrentQuerystringSchema = marshmallow_dataclass.class_schema(
+    PricesCurrentQuerystring
 )

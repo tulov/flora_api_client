@@ -1,4 +1,3 @@
-from marshmallow import Schema, EXCLUDE
 from .error import ErrorResponseSchema, ErrorSchema
 from .main import ApplicationInfoResponseSchema
 from .users import (
@@ -44,7 +43,8 @@ from .cities import (
     CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
 )
 from .prices import (
-    PricesResponseSchema, PriceResponseSchema, PricesRequestSchema
+    PricesResponseSchema, PriceResponseSchema, PricesRequestSchema,
+    PricesCurrentQuerystringSchema, PricesCurrentResponseSchema
 )
 from .programs import (
     ProgramResponseSchema, ProgramsResponseSchema, ProgramRequestSchema
@@ -101,5 +101,6 @@ __all__ = (
     CloudpaymentsBillPayRequestSchema, ResultResponseSchema,
     CloudpaymentsBillAfter3dRequestSchema, BillPDFResponseSchema,
     DataRequestSchema, AuthCodeRequestSchema,
-    EnterCodeRequestSchema
+    EnterCodeRequestSchema, PricesCurrentQuerystringSchema,
+    PricesCurrentResponseSchema
 )
