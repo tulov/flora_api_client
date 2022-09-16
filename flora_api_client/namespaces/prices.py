@@ -4,10 +4,14 @@ from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, SuccessResponse
 from ..presentations.prices import (
-    PricesResponse, PricesRequest
+    PricesResponse, PricesRequest, PricesCurrentResponse,
+    PricesCurrentQuerystring
 )
 from ..presentations.error import ErrorResponse
-from ..schemas import PricesResponseSchema, SuccessResponseSchema
+from ..schemas import (
+    PricesResponseSchema, SuccessResponseSchema, PricesCurrentResponseSchema,
+    PricesCurrentQuerystringSchema
+)
 from ..namespaces.base import Namespace
 
 
@@ -26,3 +30,11 @@ class PricesNamespace(Namespace):
         self, data: PricesRequest, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
+
+    @expectations(schema=PricesCurrentResponseSchema)
+    async def current(
+        self, query_params: PricesCurrentQuerystring = None, **kwargs
+    ) -> (int, Union[PricesCurrentResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._get(self.build_url(
+            query_params, postfix_url="current/"), **kwargs)
