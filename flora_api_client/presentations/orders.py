@@ -116,12 +116,6 @@ class CreateOrderRequest(BaseDataclass):
     delivery_time: int = field(metadata={
         "strict": True
     })
-    sender_email: Optional[str] = field(metadata={
-        "validate": Email()
-    })
-    sender_phone: Optional[str] = field(metadata={
-        "validate": Phone()
-    })
     receiver_name: str = field(metadata={
         'validate': Length(max=150)
     })
