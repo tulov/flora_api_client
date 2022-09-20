@@ -122,6 +122,7 @@ class FeaturedProductPrice(BaseDataclass):
     old: Optional[Decimal] = field()
     discount: Decimal = field()
     discount_percent: int = field()
+    executor_discount_percent: int = field()
 
 
 @dataclass(frozen=True)
