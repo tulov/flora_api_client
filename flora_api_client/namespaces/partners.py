@@ -46,13 +46,13 @@ class PartnersNamespace(Namespace):
 
     @expectations(schema=CityResponseSchema)
     async def city_detail(
-        self, id_: int, geoname_id: int,
+        self, id_: int, city_id: int,
         query_params: Querystring = None, **kwargs
     ) -> (int, Union[CityResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(
             self.build_url(query_params,
-                           postfix_url=f'{id_}/cities/{geoname_id}'),
+                           postfix_url=f'{id_}/cities/{city_id}'),
             **kwargs)
 
     @expectations(schema=CityResponseSchema)
@@ -61,15 +61,15 @@ class PartnersNamespace(Namespace):
     ) -> (int, Union[CityResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(
-            self.build_url(postfix_url=f'{id_}/cities/{data.geoname_id}'),
+            self.build_url(postfix_url=f'{id_}/cities/{data.city_id}'),
             json=data.as_dict(),
             **kwargs)
 
     @expectations(schema=SuccessResponseSchema)
     async def delete_city(
-        self, id_: int, geoname_id: int, **kwargs
+        self, id_: int, city_id: int, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._delete(
-            self.build_url(postfix_url=f'{id_}/cities/{geoname_id}'),
+            self.build_url(postfix_url=f'{id_}/cities/{city_id}'),
             **kwargs)
