@@ -85,6 +85,8 @@ class Bill(BaseDataclass):
         "validate": Length(equal=3)
     })
     is_payed: bool = field()
+    parent_id: Optional[int] = field()
+    comment: Optional[str] = field()
     order_data: Optional[BillOrderData] = field()
     user_contacts: Optional[List[BillUserContact]] = field(default_factory=list)
     data: Dict[str, Any] = field(default_factory=dict)
