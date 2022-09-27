@@ -101,6 +101,7 @@ class Order(BaseDataclass):
     provider: Optional[User] = field()
     user: Optional[User] = field()
     bill: Optional[Bill] = field()
+    bills: Optional[List[Bill]] = field(default_factory=list)
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
     children: Optional[List[Any]] = field(default_factory=list)
