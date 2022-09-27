@@ -51,6 +51,23 @@ class OrderItem(OrderProduct):
 
 
 @dataclass(frozen=True)
+class OrderComment(BaseDataclass):
+    id: int = field(metadata={
+        "strict": True
+    })
+    created_at: datetime = field()
+    user_id: int = field(metadata={
+        "strict": True
+    })
+    order_id: int = field(metadata={
+        "strict": True
+    })
+    comment: str = field(metadata={
+        "validate": Length(max=300, min=1)
+    })
+
+
+@dataclass(frozen=True)
 class Order(BaseDataclass):
     id: int = field(metadata={
         "strict": True
@@ -105,6 +122,7 @@ class Order(BaseDataclass):
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
     children: Optional[List[Any]] = field(default_factory=list)
+    comments: Optional[List[OrderComment]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
