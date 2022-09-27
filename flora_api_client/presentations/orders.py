@@ -51,7 +51,14 @@ class OrderItem(OrderProduct):
 
 
 @dataclass(frozen=True)
-class OrderComment(BaseDataclass):
+class OrderCommentBase(BaseDataclass):
+    comment: str = field(metadata={
+        "validate": Length(max=300, min=1)
+    })
+
+
+@dataclass(frozen=True)
+class OrderComment(OrderCommentBase):
     id: int = field(metadata={
         "strict": True
     })
@@ -61,9 +68,6 @@ class OrderComment(BaseDataclass):
     })
     order_id: int = field(metadata={
         "strict": True
-    })
-    comment: str = field(metadata={
-        "validate": Length(max=300, min=1)
     })
 
 
@@ -163,6 +167,11 @@ class CreateOrderRequest(BaseDataclass):
 @dataclass(frozen=True)
 class OrderResponse(SuccessResponse):
     result: Order = field()
+
+
+@dataclass(frozen=True)
+class OrderCommentResponse(SuccessResponse):
+    result: OrderComment = field()
 
 
 @dataclass(frozen=True)
