@@ -69,6 +69,7 @@ class OrderComment(OrderCommentBase):
     order_id: int = field(metadata={
         "strict": True
     })
+    user_name: Optional[str] = field()
 
 
 @dataclass(frozen=True)
