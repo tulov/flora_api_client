@@ -89,3 +89,11 @@ class BillsNamespace(Namespace):
             self.build_url(postfix_url=f"{guid}/pdf/{pay_service}"),
             json=data.as_dict(),
             **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def send_link(
+        self, guid: str, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url=f"{guid}/send-pay-link"), **kwargs)
