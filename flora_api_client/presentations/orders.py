@@ -63,7 +63,7 @@ class OrderComment(OrderCommentBase):
         "strict": True
     })
     created_at: datetime = field()
-    user_id: int = field(metadata={
+    user_id: Optional[int] = field(metadata={
         "strict": True
     })
     order_id: int = field(metadata={
