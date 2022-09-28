@@ -6,11 +6,12 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import WithFieldsQuerystring, Querystring
 from ..presentations.orders import (
     OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
-    OrderCommentResponse
+    OrderCommentResponse, OrderBillResponse, OrderBillRequest
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
-    OrderResponseSchema, OrdersResponseSchema, OrderCommentResponseSchema
+    OrderResponseSchema, OrdersResponseSchema, OrderCommentResponseSchema,
+    OrderBillResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -51,3 +52,12 @@ class OrdersNamespace(Namespace):
             self.build_url(postfix_url=f"{order_id}/comments/"),
             json=data.as_dict(), **kwargs)
 
+    @expectations(schema=OrderBillResponseSchema,
+                  expected_code=HTTPStatus.CREATED)
+    async def bill(
+        self, order_id: int, data: OrderBillRequest, **kwargs
+    ) -> (int, Union[OrderBillResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url=f"{order_id}/bills/"),
+            json=data.as_dict(), **kwargs)

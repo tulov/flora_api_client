@@ -176,6 +176,19 @@ class OrderCommentResponse(SuccessResponse):
 
 
 @dataclass(frozen=True)
+class OrderBillResponse(SuccessResponse):
+    result: Bill = field()
+
+
+@dataclass(frozen=True)
+class OrderBillRequest(BaseDataclass):
+    amount: Decimal = field()
+    comment: Optional[str] = field(metadata={
+        "validate": Length(max=150)
+    })
+
+
+@dataclass(frozen=True)
 class OrdersResponse(PagedResponse):
     result: List[Order] = field(default_factory=list, metadata={
         "required": True

@@ -60,7 +60,8 @@ from .slider import (
 
 from .orders import (
     OrderResponseSchema, CreateOrderRequestSchema, OrdersResponseSchema,
-    OrderCommentRequestSchema, OrderCommentResponseSchema
+    OrderCommentRequestSchema, OrderCommentResponseSchema,
+    OrderBillRequestSchema, OrderBillResponseSchema
 )
 from .bills import (
     BillResponseSchema, BillsResponseSchema, BillPayRequestSchema,
@@ -104,5 +105,5 @@ __all__ = (
     DataRequestSchema, AuthCodeRequestSchema,
     EnterCodeRequestSchema, PricesCurrentQuerystringSchema,
     PricesCurrentResponseSchema, OrderCommentResponseSchema,
-    OrderCommentRequestSchema
+    OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema
 )
