@@ -88,6 +88,7 @@ class UnitOfCount(Enum):
 class OrderState(Enum):
     new = "new"
     payed = "payed"
+    transferred = "transferred"
     accepted = "accepted"
     on_delivery = "on_delivery"
     delivered = "delivered"
