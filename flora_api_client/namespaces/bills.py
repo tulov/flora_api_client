@@ -1,4 +1,5 @@
-from typing import Union
+import json
+from typing import Union, Any
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
@@ -63,11 +64,12 @@ class BillsNamespace(Namespace):
 
     @expectations(schema=SuccessResponseSchema)
     async def post_pay(
-        self, guid: str, pay_service: str, flag: str, **kwargs
+        self, guid: str, pay_service: str, flag: str, data: Any = {}, **kwargs
     ) -> (int, Union[SuccessResponse, ErrorResponse],
           RenewTokenResponse):
-        return await self._get(
+        return await self._post(
             self.build_url(postfix_url=f"{guid}/post/{pay_service}/{flag}"),
+            json=json.dumps(data),
             **kwargs)
 
     @expectations(schema=SuccessResponseSchema)
