@@ -69,7 +69,7 @@ class BillsNamespace(Namespace):
           RenewTokenResponse):
         return await self._post(
             self.build_url(postfix_url=f"{guid}/post/{pay_service}/{flag}"),
-            json=json.dumps(data),
+            json=data,
             **kwargs)
 
     @expectations(schema=SuccessResponseSchema)
