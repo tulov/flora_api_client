@@ -102,7 +102,6 @@ class Order(BaseDataclass):
         "validate": Length(max=1000)
     })
     take_photo_with_receiver: bool = field()
-    send_sms_about_delivery: bool = field()
     user_id: int = field(metadata={
         "strict": True
     })
@@ -158,7 +157,6 @@ class CreateOrderRequest(BaseDataclass):
         "validate": Length(equal=3)
     })
     take_photo_with_receiver: bool = field(default=False),
-    send_sms_about_delivery: bool = field(default=False),
     products: List[OrderProduct] = field(
         default_factory=list, metadata={
             "required": True
