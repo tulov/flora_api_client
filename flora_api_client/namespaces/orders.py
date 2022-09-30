@@ -70,4 +70,5 @@ class OrdersNamespace(Namespace):
     ) -> (int, Union[ResultResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(
-            self.build_url(postfix_url=f"{order_id}/accept/"), **kwargs)
+            self.build_url(postfix_url=f"{order_id}/accept/"), json={},
+            **kwargs)
