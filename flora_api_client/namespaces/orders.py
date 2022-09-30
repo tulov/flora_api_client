@@ -3,7 +3,9 @@ from typing import Union
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
-from ..presentations.base import WithFieldsQuerystring, Querystring
+from ..presentations.base import (
+    WithFieldsQuerystring, Querystring, ResultResponse
+)
 from ..presentations.orders import (
     OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
     OrderCommentResponse, OrderBillResponse, OrderBillRequest
@@ -11,7 +13,7 @@ from ..presentations.orders import (
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     OrderResponseSchema, OrdersResponseSchema, OrderCommentResponseSchema,
-    OrderBillResponseSchema
+    OrderBillResponseSchema, ResultResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -61,3 +63,11 @@ class OrdersNamespace(Namespace):
         return await self._post(
             self.build_url(postfix_url=f"{order_id}/bills/"),
             json=data.as_dict(), **kwargs)
+
+    @expectations(schema=ResultResponseSchema)
+    async def accept(
+        self, order_id: int, **kwargs
+    ) -> (int, Union[ResultResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/accept/"), **kwargs)
