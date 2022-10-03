@@ -102,7 +102,7 @@ class Order(BaseDataclass):
         "validate": Length(max=1000)
     })
     take_photo_with_receiver: bool = field()
-    user_id: int = field(metadata={
+    user_id: Optional[int] = field(metadata={
         "strict": True
     })
     provider_id: int = field(metadata={
