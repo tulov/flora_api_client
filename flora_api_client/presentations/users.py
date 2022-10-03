@@ -71,6 +71,7 @@ class RegistrationUserData(BaseDataclass):
     name: Optional[str] = field(metadata={"validate": Length(min=1, max=150)})
     language: str = field(metadata={"validate": Length(equal=2)})
     currency: str = field(metadata={"validate": Length(equal=3)})
+    address: str = field(metadata={"validate": Length(max=200)})
     send_sms: bool = field(default=True)
     send_email: bool = field(default=True)
 
