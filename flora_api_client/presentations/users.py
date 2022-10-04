@@ -22,6 +22,13 @@ class DataForAuth(BaseDataclass):
 
 
 @dataclass(frozen=True)
+class Contacts(BaseDataclass):
+    phone: Optional[str] = field(metadata={"validate": Phone})
+    email: Optional[str] = field(metadata={"validate": Email})
+    whatsapp: Optional[str] = field(metadata={"validate": Phone})
+
+
+@dataclass(frozen=True)
 class User(BaseDataclass):
     id: int = field(metadata={
         "strict": True,
@@ -48,6 +55,7 @@ class User(BaseDataclass):
         "strict": True,
         "validate": Range(min=0, max=100),
     })
+    contacts: Optional[Contacts] = field()
     data: Dict[str, Any] = field(default_factory=dict)
     data_for_auth: Optional[List[DataForAuth]] = field(
         default_factory=list, metadata={
