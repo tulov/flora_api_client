@@ -23,9 +23,9 @@ class DataForAuth(BaseDataclass):
 
 @dataclass(frozen=True)
 class Contacts(BaseDataclass):
-    phone: Optional[str] = field(metadata={"validate": Phone})
-    email: Optional[str] = field(metadata={"validate": Email})
-    whatsapp: Optional[str] = field(metadata={"validate": Phone})
+    phone: Optional[str] = field(metadata={"validate": Phone()})
+    email: Optional[str] = field(metadata={"validate": Email()})
+    whatsapp: Optional[str] = field(metadata={"validate": Phone()})
 
 
 @dataclass(frozen=True)
