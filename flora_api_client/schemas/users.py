@@ -5,7 +5,7 @@ from flora_api_client.presentations.users import (
 )
 from ..presentations.base import SuccessResponse
 from ..presentations.partners import (
-    BindCityRequestDataclass, PartnerSettingsRequest
+    BindCityRequestDataclass, PartnerSettingsRequest, PartnerSettingsResponse
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -35,4 +35,7 @@ BindCityRequestSchema = marshmallow_dataclass.class_schema(
 )
 PartnerSettingsRequestSchema = marshmallow_dataclass.class_schema(
     PartnerSettingsRequest
+)
+PartnerSettingsResponseSchema = marshmallow_dataclass.class_schema(
+    PartnerSettingsResponse
 )

@@ -1,9 +1,10 @@
 from dataclasses import dataclass, field
+from typing import Optional
 
 from marshmallow.validate import Range, Length
 
 from .base import (
-    BaseDataclass
+    BaseDataclass, SuccessResponse
 )
 
 
@@ -21,5 +22,23 @@ class BindCityRequestDataclass(BaseDataclass):
 
 
 @dataclass(frozen=True)
-class PartnerSettingsRequest(BaseDataclass):
+class PartnerSettings(BaseDataclass):
     address: str = field(metadata={"validate": Length(max=200)})
+
+
+@dataclass(frozen=True)
+class PartnerSettingsRequest(BaseDataclass):
+    settings: PartnerSettings = field()
+    revision: int = field(metadata={"strict": True})
+
+
+@dataclass(frozen=True)
+class PartnerSettingsR(BaseDataclass):
+    on_moderation: Optional[PartnerSettings] = field()
+    on_site: PartnerSettings = field()
+    revision: int = field(metadata={"strict": True})
+
+
+@dataclass(frozen=True)
+class PartnerSettingsResponse(SuccessResponse):
+    result: PartnerSettingsR = field()

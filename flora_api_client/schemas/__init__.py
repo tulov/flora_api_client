@@ -4,7 +4,7 @@ from .users import (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
     UsersResponseSchema, ChangePasswordRequestSchema, BindCityRequestSchema,
-    PartnerSettingsRequestSchema
+    PartnerSettingsRequestSchema, PartnerSettingsResponseSchema
 )
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
@@ -107,5 +107,5 @@ __all__ = (
     EnterCodeRequestSchema, PricesCurrentQuerystringSchema,
     PricesCurrentResponseSchema, OrderCommentResponseSchema,
     OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema,
-    PartnerSettingsRequestSchema
+    PartnerSettingsRequestSchema, PartnerSettingsResponseSchema
 )
