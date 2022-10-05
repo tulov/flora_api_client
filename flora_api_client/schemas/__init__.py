@@ -3,7 +3,8 @@ from .main import ApplicationInfoResponseSchema
 from .users import (
     UserSchema, DataForAuthSchema, RegistrationUserSchema,
     ConfirmDataForAuthResponseSchema, ConfirmDataForAuthRequestSchema,
-    UsersResponseSchema, ChangePasswordRequestSchema, BindCityRequestSchema
+    UsersResponseSchema, ChangePasswordRequestSchema, BindCityRequestSchema,
+    PartnerSettingsRequestSchema
 )
 from .auth import (
     AuthRequestSchema, AuthResponseSchema, RenewTokenResponseSchema,
@@ -105,5 +106,6 @@ __all__ = (
     DataRequestSchema, AuthCodeRequestSchema,
     EnterCodeRequestSchema, PricesCurrentQuerystringSchema,
     PricesCurrentResponseSchema, OrderCommentResponseSchema,
-    OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema
+    OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema,
+    PartnerSettingsRequestSchema
 )

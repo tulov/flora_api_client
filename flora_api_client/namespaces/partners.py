@@ -5,11 +5,14 @@ from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.error import ErrorResponse
 from ..presentations.users import RegistrationUserData, User
-from ..presentations.partners import BindCityRequestDataclass
+from ..presentations.partners import (
+    BindCityRequestDataclass, PartnerSettingsRequest
+)
 from ..presentations.base import SuccessResponse, Querystring
 from ..presentations.cities import CitiesResponse, CityResponse
 from ..schemas import (
-    UserSchema, SuccessResponseSchema, CitiesResponseSchema, CityResponseSchema
+    UserSchema, SuccessResponseSchema, CitiesResponseSchema, CityResponseSchema,
+    PartnerSettingsRequestSchema
 )
 from ..namespaces.base import Namespace
 
@@ -23,6 +26,13 @@ class PartnersNamespace(Namespace):
         self, data: RegistrationUserData, **kwargs
     ) -> (int, Union[User, ErrorResponse], RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def settings(
+        self, id_: int, data: PartnerSettingsRequest, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=f'{id_}/settings/'),
+                               json=data.as_dict(), **kwargs)
 
     @expectations(schema=CityResponseSchema,
                   expected_code=HTTPStatus.CREATED)

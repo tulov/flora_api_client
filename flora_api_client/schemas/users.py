@@ -4,7 +4,9 @@ from flora_api_client.presentations.users import (
     UsersResponse, ChangePasswordRequest
 )
 from ..presentations.base import SuccessResponse
-from ..presentations.partners import BindCityRequestDataclass
+from ..presentations.partners import (
+    BindCityRequestDataclass, PartnerSettingsRequest
+)
 from marshmallow import Schema, EXCLUDE
 
 Schema.Meta.unknown = EXCLUDE
@@ -30,4 +32,7 @@ ChangePasswordRequestSchema = marshmallow_dataclass.class_schema(
 
 BindCityRequestSchema = marshmallow_dataclass.class_schema(
     BindCityRequestDataclass
+)
+PartnerSettingsRequestSchema = marshmallow_dataclass.class_schema(
+    PartnerSettingsRequest
 )

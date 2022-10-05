@@ -18,3 +18,8 @@ class BindCityRequestDataclass(BaseDataclass):
     delivery_currency: str = field(metadata={
         'validate': Length(equal=3)
     })
+
+
+@dataclass(frozen=True)
+class PartnerSettingsRequest(BaseDataclass):
+    address: str = field(metadata={"validate": Length(max=200)})
