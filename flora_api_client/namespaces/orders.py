@@ -4,7 +4,7 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
-    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
+    WithFieldsQuerystring, Querystring, ResultResponse
 )
 from ..presentations.orders import (
     OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
@@ -13,7 +13,7 @@ from ..presentations.orders import (
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     OrderResponseSchema, OrdersResponseSchema, OrderCommentResponseSchema,
-    OrderBillResponseSchema, ResultResponseSchema, SuccessResponseSchema
+    OrderBillResponseSchema, ResultResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -73,10 +73,10 @@ class OrdersNamespace(Namespace):
             self.build_url(postfix_url=f"{order_id}/accept/"), json={},
             **kwargs)
 
-    @expectations(schema=SuccessResponseSchema)
+    @expectations(schema=ResultResponseSchema)
     async def reject(
         self, order_id: int, **kwargs
-    ) -> (int, Union[SuccessResponse, ErrorResponse],
+    ) -> (int, Union[ResultResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=f"{order_id}/reject/"), json={},
