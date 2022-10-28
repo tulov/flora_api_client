@@ -3,13 +3,14 @@ from typing import Union
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
+from ..presentations.cities import SearchCitiesResponse
 from ..presentations.error import ErrorResponse
 from ..presentations.users import (
     RegistrationUserData, User, UsersResponse, ChangePasswordRequest
 )
 from ..presentations.base import Querystring, SuccessResponse
 from ..schemas import UserSchema, UsersResponseSchema, \
-    SuccessResponseSchema
+    SuccessResponseSchema, SearchCitiesResponseSchema
 from ..namespaces.base import Namespace
 
 
@@ -44,3 +45,11 @@ class UsersNamespace(Namespace):
     ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
         return await self._put(
             f'{self.URL}{user_id}/password/', json=data.as_dict(), **kwargs)
+
+    @expectations(schema=SearchCitiesResponseSchema)
+    async def search(
+        self, term: str = None, **kwargs
+    ) -> (int, Union[SearchCitiesResponse, ErrorResponse], RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f'search/{term}'), **kwargs
+        )

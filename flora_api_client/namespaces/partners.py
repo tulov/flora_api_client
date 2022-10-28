@@ -9,10 +9,11 @@ from ..presentations.partners import (
     BindCityRequestDataclass, PartnerSettingsRequest, PartnerSettingsResponse
 )
 from ..presentations.base import SuccessResponse, Querystring
-from ..presentations.cities import CitiesResponse, CityResponse
+from ..presentations.cities import CitiesResponse, CityResponse, \
+    SearchCitiesResponse
 from ..schemas import (
     UserSchema, SuccessResponseSchema, CitiesResponseSchema, CityResponseSchema,
-    PartnerSettingsResponseSchema
+    PartnerSettingsResponseSchema, SearchCitiesResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -90,3 +91,11 @@ class PartnersNamespace(Namespace):
         return await self._delete(
             self.build_url(postfix_url=f'{id_}/cities/{city_id}'),
             **kwargs)
+
+    @expectations(schema=SearchCitiesResponseSchema)
+    async def search(
+        self, term: str = None, **kwargs
+    ) -> (int, Union[SearchCitiesResponse, ErrorResponse], RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f'search/{term}'), **kwargs
+        )
