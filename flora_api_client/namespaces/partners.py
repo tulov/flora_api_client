@@ -99,3 +99,11 @@ class PartnersNamespace(Namespace):
         return await self._get(
             self.build_url(postfix_url=f'search/{term}'), **kwargs
         )
+
+    @expectations(schema=SearchCitiesResponseSchema)
+    async def search_ids(
+        self, term: str = None, **kwargs
+    ) -> (int, Union[SearchCitiesResponse, ErrorResponse], RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f'search-ids/{term}'), **kwargs
+        )
