@@ -81,3 +81,12 @@ class OrdersNamespace(Namespace):
         return await self._put(
             self.build_url(postfix_url=f"{order_id}/reject/"), json={},
             **kwargs)
+
+    @expectations(schema=ResultResponseSchema)
+    async def after_reject(
+        self, order_id: int, **kwargs
+    ) -> (int, Union[ResultResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/after-reject/"), json={},
+            **kwargs)
