@@ -191,3 +191,13 @@ class OrdersResponse(PagedResponse):
     result: List[Order] = field(default_factory=list, metadata={
         "required": True
     })
+
+
+@dataclass(frozen=True)
+class AfterRejectRequestBody(BaseDataclass):
+    provider_id: int = field(metadata={
+        "strict": True
+    })
+    hash: str = field(metadata={
+        "validate": Length(equal=15)
+    })

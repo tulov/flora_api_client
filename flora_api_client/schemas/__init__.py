@@ -62,7 +62,8 @@ from .slider import (
 from .orders import (
     OrderResponseSchema, CreateOrderRequestSchema, OrdersResponseSchema,
     OrderCommentRequestSchema, OrderCommentResponseSchema,
-    OrderBillRequestSchema, OrderBillResponseSchema
+    OrderBillRequestSchema, OrderBillResponseSchema,
+    AfterRejectRequestBodySchema
 )
 from .bills import (
     BillResponseSchema, BillsResponseSchema, BillPayRequestSchema,
@@ -107,5 +108,6 @@ __all__ = (
     EnterCodeRequestSchema, PricesCurrentQuerystringSchema,
     PricesCurrentResponseSchema, OrderCommentResponseSchema,
     OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema,
-    PartnerSettingsRequestSchema, PartnerSettingsResponseSchema
+    PartnerSettingsRequestSchema, PartnerSettingsResponseSchema,
+    AfterRejectRequestBodySchema
 )

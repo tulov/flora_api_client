@@ -4,16 +4,17 @@ from typing import Union
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
-    WithFieldsQuerystring, Querystring, ResultResponse
+    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
 )
 from ..presentations.orders import (
     OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
-    OrderCommentResponse, OrderBillResponse, OrderBillRequest
+    OrderCommentResponse, OrderBillResponse, OrderBillRequest,
+    AfterRejectRequestBody
 )
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     OrderResponseSchema, OrdersResponseSchema, OrderCommentResponseSchema,
-    OrderBillResponseSchema, ResultResponseSchema
+    OrderBillResponseSchema, ResultResponseSchema, SuccessResponseSchema
 )
 from ..namespaces.base import Namespace
 
@@ -89,4 +90,24 @@ class OrdersNamespace(Namespace):
           RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=f"{order_id}/after-reject/"), json={},
+            **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def accept_after_reject(
+        self, order_id: int, data: AfterRejectRequestBody, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/accept-after-reject/"),
+            json=data.as_dict(),
+            **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def reject_after_reject(
+        self, order_id: int, data: AfterRejectRequestBody, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/reject-after-reject/"),
+            json=data.as_dict(),
             **kwargs)
