@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Union
+from typing import Union, Dict, Any
 
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
@@ -32,7 +32,9 @@ class OrdersNamespace(Namespace):
 
     @expectations(schema=OrderResponseSchema)
     async def get(
-        self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
+        self, id_: int,
+        query_params: Union[WithFieldsQuerystring, Dict[str, Any]] = None,
+        **kwargs
     ) -> (int, Union[OrderResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._get(

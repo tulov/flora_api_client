@@ -5,7 +5,7 @@ from simplejson import dumps
 
 from aiohttp import ClientSession
 
-from flora_api_client.presentations.base import Querystring
+from flora_api_client.presentations.base import Querystring, BaseDataclass
 
 
 class Namespace:
@@ -87,11 +87,13 @@ class Namespace:
             kwargs['headers'] = headers
         return await self._run_query(url, 'delete', **kwargs)
 
-    def build_url(self, query_params: Querystring = None, *,
+    def build_url(self,
+                  query_params: Union[BaseDataclass, Dict[str, Any]] = None, *,
                   postfix_url: Union[str, int] = '', url: str = None):
         query_string = ''
         if query_params:
-            d = query_params.as_dict()
+            d = query_params.as_dict() \
+                if type(query_params) != dict else query_params
             p = {key: d[key] for key in d if d[key] is not None}
             query_string = f'?{urlencode(p)}'
             if query_string == '?':
