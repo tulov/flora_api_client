@@ -4,7 +4,8 @@ from typing import Union, Dict, Any
 from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
-    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse
+    WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse,
+    DataRequest
 )
 from ..presentations.orders import (
     OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
@@ -111,5 +112,15 @@ class OrdersNamespace(Namespace):
           RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=f"{order_id}/reject-after-reject/"),
+            json=data.as_dict(),
+            **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def update(
+        self, order_id: int, data: DataRequest, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}"),
             json=data.as_dict(),
             **kwargs)
