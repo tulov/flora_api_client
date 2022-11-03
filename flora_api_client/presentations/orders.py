@@ -118,6 +118,11 @@ class Order(BaseDataclass):
     currency: str = field(metadata={
         "validate": Length(equal=3)
     })
+    revision: int = field(
+        metadata={
+            "strict": True
+        }
+    )
     city: Optional[City] = field()
     provider: Optional[User] = field()
     user: Optional[User] = field()
