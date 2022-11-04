@@ -83,4 +83,4 @@ class ResultResponse(SuccessResponse):
 @dataclass(frozen=True)
 class DataRequest(BaseDataclass):
     data: Any = field()
-
+    related: Optional[Any] = field()
