@@ -123,6 +123,7 @@ class Order(BaseDataclass):
             "strict": True
         }
     )
+    data: Any = field()
     city: Optional[City] = field()
     provider: Optional[User] = field()
     user: Optional[User] = field()
