@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional, List, Any
 from datetime import date, datetime
 
-from marshmallow.validate import Length, OneOf, Email
+from marshmallow.validate import Length, OneOf
 
 from .bills import Bill
 from .users import User
@@ -123,11 +123,11 @@ class Order(BaseDataclass):
             "strict": True
         }
     )
-    data: Any = field()
-    city: Optional[City] = field()
-    provider: Optional[User] = field()
-    user: Optional[User] = field()
-    bill: Optional[Bill] = field()
+    data: Any = field(default_factory=dict)
+    city: Optional[City] = field(default=None)
+    provider: Optional[User] = field(default=None)
+    user: Optional[User] = field(default=None)
+    bill: Optional[Bill] = field(default=None)
     bills: Optional[List[Bill]] = field(default_factory=list)
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
