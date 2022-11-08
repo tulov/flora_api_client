@@ -46,8 +46,8 @@ class OrderItem(OrderProduct):
         "strict": True
     })
     data: Any = field()
-    product: Optional[Product] = field()
-    provider: Optional[User] = field()
+    product: Optional[Product] = field(default=None)
+    provider: Optional[User] = field(default=None)
 
 
 @dataclass(frozen=True)
