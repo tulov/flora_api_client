@@ -128,11 +128,11 @@ class Order(BaseDataclass):
     provider: Optional[User] = field(default=None)
     user: Optional[User] = field(default=None)
     bill: Optional[Bill] = field(default=None)
-    bills: Optional[List[Bill]] = field(default_factory=list)
+    bills: List[Bill] = field(default_factory=list)
     is_complicated: Optional[bool] = field(default=False)
-    items: Optional[List[OrderItem]] = field(default_factory=list)
-    children: Optional[List[Any]] = field(default_factory=list)
-    comments: Optional[List[OrderComment]] = field(default_factory=list)
+    items: List[OrderItem] = field(default_factory=list)
+    children: List[Any] = field(default_factory=list)
+    comments: List[OrderComment] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
