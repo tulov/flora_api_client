@@ -2,7 +2,7 @@ import marshmallow_dataclass
 from flora_api_client.presentations.orders import (
     CreateOrderRequest, OrderResponse, OrdersResponse, OrderCommentBase,
     OrderCommentResponse, OrderBillResponse, OrderBillRequest,
-    AfterRejectRequestBody
+    AfterRejectRequestBody, Order
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -31,4 +31,7 @@ OrderBillRequestSchema = marshmallow_dataclass.class_schema(
 )
 AfterRejectRequestBodySchema = marshmallow_dataclass.class_schema(
     AfterRejectRequestBody
+)
+OrderSchema = marshmallow_dataclass.class_schema(
+    Order
 )
