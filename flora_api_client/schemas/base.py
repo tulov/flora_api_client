@@ -2,7 +2,7 @@ import marshmallow_dataclass
 
 from flora_api_client.presentations.base import (
     SuccessResponse, Querystring, WithFieldsQuerystring, ResultResponse,
-    DataRequest
+    DataRequest, RevisionRequest
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -24,4 +24,7 @@ ResultResponseSchema = marshmallow_dataclass.class_schema(
 )
 DataRequestSchema = marshmallow_dataclass.class_schema(
     DataRequest
+)
+RevisionRequestSchema = marshmallow_dataclass.class_schema(
+    RevisionRequest
 )

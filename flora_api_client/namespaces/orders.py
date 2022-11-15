@@ -5,10 +5,10 @@ from flora_api_client.utils.decorators import expectations
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import (
     WithFieldsQuerystring, Querystring, ResultResponse, SuccessResponse,
-    DataRequest
+    DataRequest, RevisionRequest
 )
 from ..presentations.orders import (
-    OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentBase,
+    OrderResponse, CreateOrderRequest, OrdersResponse, OrderCommentRequest,
     OrderCommentResponse, OrderBillResponse, OrderBillRequest,
     AfterRejectRequestBody
 )
@@ -51,7 +51,7 @@ class OrdersNamespace(Namespace):
     @expectations(schema=OrderCommentResponseSchema,
                   expected_code=HTTPStatus.CREATED)
     async def comment(
-        self, order_id: int, data: OrderCommentBase, **kwargs
+        self, order_id: int, data: OrderCommentRequest, **kwargs
     ) -> (int, Union[OrderCommentResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._post(
@@ -70,20 +70,22 @@ class OrdersNamespace(Namespace):
 
     @expectations(schema=ResultResponseSchema)
     async def accept(
-        self, order_id: int, **kwargs
+        self, order_id: int, data: RevisionRequest, **kwargs
     ) -> (int, Union[ResultResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(
-            self.build_url(postfix_url=f"{order_id}/accept/"), json={},
+            self.build_url(postfix_url=f"{order_id}/accept/"),
+            json=data.as_dict(),
             **kwargs)
 
     @expectations(schema=ResultResponseSchema)
     async def reject(
-        self, order_id: int, **kwargs
+        self, order_id: int, data: RevisionRequest, **kwargs
     ) -> (int, Union[ResultResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._put(
-            self.build_url(postfix_url=f"{order_id}/reject/"), json={},
+            self.build_url(postfix_url=f"{order_id}/reject/"),
+            json=data.as_dict(),
             **kwargs)
 
     @expectations(schema=ResultResponseSchema)

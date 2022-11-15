@@ -83,3 +83,10 @@ class ResultResponse(SuccessResponse):
 @dataclass(frozen=True)
 class DataRequest(BaseDataclass):
     data: Any = field()
+
+
+@dataclass(frozen=True)
+class RevisionRequest(BaseDataclass):
+    revision: int = field(metadata={
+        "strict": True
+    })

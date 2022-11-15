@@ -13,7 +13,6 @@ from .products import Product
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
 )
-from .validates import Phone
 from .enums import OrderState
 
 
@@ -127,7 +126,6 @@ class Order(BaseDataclass):
     city: Optional[City] = field(default=None)
     provider: Optional[User] = field(default=None)
     user: Optional[User] = field(default=None)
-    bill: Optional[Bill] = field(default=None)
     bills: Optional[List[Bill]] = field(default_factory=list)
     is_complicated: Optional[bool] = field(default=False)
     items: Optional[List[OrderItem]] = field(default_factory=list)
@@ -175,6 +173,11 @@ class OrderResponse(SuccessResponse):
 
 
 @dataclass(frozen=True)
+class OrderCommentRequest(OrderCommentBase):
+    revision: int = field(metadata={"strict": True})
+
+
+@dataclass(frozen=True)
 class OrderCommentResponse(SuccessResponse):
     result: OrderComment = field()
 
@@ -190,6 +193,9 @@ class OrderBillRequest(BaseDataclass):
     comment: Optional[str] = field(metadata={
         "validate": Length(max=150)
     })
+    revision: int = field(
+        metadata={"strict": True}
+    )
 
 
 @dataclass(frozen=True)

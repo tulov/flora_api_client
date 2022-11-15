@@ -14,7 +14,7 @@ from .auth import (
 from .counters import CountersResponseSchema
 from .base import (
     SuccessResponseSchema, QuerystringSchema, WithFieldsQuerystringSchema,
-    ResultResponseSchema, DataRequestSchema
+    ResultResponseSchema, DataRequestSchema, RevisionRequestSchema
 )
 from .moderation import (
     RequestsForModerationResponseSchema, RequestForModerationResponseSchema,
@@ -109,5 +109,5 @@ __all__ = (
     PricesCurrentResponseSchema, OrderCommentResponseSchema,
     OrderCommentRequestSchema, OrderBillRequestSchema, OrderBillResponseSchema,
     PartnerSettingsRequestSchema, PartnerSettingsResponseSchema,
-    AfterRejectRequestBodySchema
+    AfterRejectRequestBodySchema, RevisionRequestSchema
 )

@@ -1,8 +1,8 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.orders import (
-    CreateOrderRequest, OrderResponse, OrdersResponse, OrderCommentBase,
+    CreateOrderRequest, OrderResponse, OrdersResponse,
     OrderCommentResponse, OrderBillResponse, OrderBillRequest,
-    AfterRejectRequestBody, Order
+    AfterRejectRequestBody, Order, OrderCommentRequest
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -18,7 +18,7 @@ OrdersResponseSchema = marshmallow_dataclass.class_schema(
     OrdersResponse
 )
 OrderCommentRequestSchema = marshmallow_dataclass.class_schema(
-    OrderCommentBase
+    OrderCommentRequest
 )
 OrderCommentResponseSchema = marshmallow_dataclass.class_schema(
     OrderCommentResponse
