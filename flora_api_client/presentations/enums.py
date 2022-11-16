@@ -25,6 +25,7 @@ class ModerationResult(Enum):
 class ImageTarget(Enum):
     product = 'product'
     menu = 'menu'
+    order = 'order'
 
 
 @unique

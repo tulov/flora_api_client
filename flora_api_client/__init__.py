@@ -6,7 +6,7 @@ __maintainer__ = __author__
 
 __email__ = 'tulov.alex@google.com'
 __license__ = 'MIT'
-__version__ = '0.0.316'
+__version__ = '0.0.317'
 
 
 __all__ = (

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 from marshmallow.validate import OneOf
 
 from .base import BaseDataclass, SuccessResponse
@@ -24,6 +24,7 @@ class Image(BaseDataclass):
             'validate': OneOf([r.value for r in ImageTarget]),
         }
     )
+    data: Any = field()
 
     def build_url(self, *, width: int, height: int):
         return f'/display?path={self.path}&w={width}&h={height}&op=resize'
