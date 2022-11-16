@@ -9,6 +9,7 @@ from .bills import Bill
 from .users import User
 from .cities import City
 from .products import Product
+from .images import Image
 
 from .base import (
     SuccessResponse, BaseDataclass, PagedResponse
@@ -131,6 +132,7 @@ class Order(BaseDataclass):
     items: Optional[List[OrderItem]] = field(default_factory=list)
     children: Optional[List[Any]] = field(default_factory=list)
     comments: Optional[List[OrderComment]] = field(default_factory=list)
+    photos_before_delivery: Optional[List[Image]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
