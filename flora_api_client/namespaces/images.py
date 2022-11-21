@@ -22,11 +22,3 @@ class ImagesNamespace(Namespace):
     ) -> (int, Union[ImageResponse, ErrorResponse],
           RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
-
-    @expectations(schema=SuccessResponseSchema)
-    async def unbind(
-        self, id_: int, **kwargs
-    ) -> (int, Union[SuccessResponse, ErrorResponse],
-          RenewTokenResponse):
-        return await self._put(
-            self.build_url(postfix_url=f"{id_}"), json={}, **kwargs)

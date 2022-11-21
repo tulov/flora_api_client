@@ -126,3 +126,13 @@ class OrdersNamespace(Namespace):
             self.build_url(postfix_url=f"{order_id}"),
             json=data.as_dict(),
             **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def unbind_photo(
+        self, order_id: int, photo_id: int, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/unbind-photo/{photo_id}"),
+            json={},
+            **kwargs)
