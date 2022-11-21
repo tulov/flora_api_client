@@ -80,3 +80,10 @@ class ImageUploadRequest(BaseDataclass):
         "strict": True,
     })
     file: str = field()
+    obj_id: Optional[int] = field(default=None)
+    obj_type: Optional[str] = field(
+        metadata={
+            'validate': OneOf([r.value for r in ImageTarget]),
+        },
+        default=None
+    )
