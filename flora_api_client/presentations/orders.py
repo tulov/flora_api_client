@@ -141,8 +141,18 @@ class Order(BaseDataclass):
 
     @property
     def has_sent_photos(self) -> bool:
-        return len(list(filter(lambda p: p.data.get("is_sender_send", False),
-                               self.photos_before_delivery))) > 0
+        if not self.is_complicated:
+            return len(
+                list(filter(lambda p: p.data.get("is_sender_send", False),
+                            self.photos_before_delivery))) > 0
+        has_children = True
+        for c in self.children:
+            has_children = len(
+                list(filter(lambda p: p.data.get("is_sender_send", False),
+                            c.photos_before_delivery))) > 0
+            if not has_children:
+                break
+        return has_children
 
 
 @dataclass(frozen=True)
