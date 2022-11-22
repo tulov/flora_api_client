@@ -134,6 +134,11 @@ class Order(BaseDataclass):
     comments: Optional[List[OrderComment]] = field(default_factory=list)
     photos_before_delivery: Optional[List[Image]] = field(default_factory=list)
 
+    @property
+    def not_send_photos(self) -> List[Image]:
+        return [p for p in self.photos_before_delivery
+                if not p.data.get("is_sender_send", False)]
+
 
 @dataclass(frozen=True)
 class CreateOrderRequest(BaseDataclass):
