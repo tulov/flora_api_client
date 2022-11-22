@@ -139,6 +139,11 @@ class Order(BaseDataclass):
         return [p for p in self.photos_before_delivery
                 if not p.data.get("is_sender_send", False)]
 
+    @property
+    def has_sent_photos(self) -> bool:
+        return len(list(filter(lambda p: p.data.get("is_sender_send", False),
+                               self.photos_before_delivery))) > 0
+
 
 @dataclass(frozen=True)
 class CreateOrderRequest(BaseDataclass):
