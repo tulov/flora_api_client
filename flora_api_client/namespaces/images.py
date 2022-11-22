@@ -6,9 +6,8 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.images import (
     ImageResponse, ImageUploadRequest
 )
-from ..presentations.base import SuccessResponse
 from ..presentations.error import ErrorResponse
-from ..schemas import ImageResponseSchema, SuccessResponseSchema
+from ..schemas import ImageResponseSchema
 from ..namespaces.base import Namespace
 
 

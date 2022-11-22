@@ -16,15 +16,15 @@ class Image(BaseDataclass):
     })
     path: str = field()
     url: str = field()
+    data: Any = field()
     obj_id: Optional[int] = field(metadata={
         "strict": True,
-    })
+    }, default=None)
     obj_type: Optional[str] = field(
         metadata={
             'validate': OneOf([r.value for r in ImageTarget]),
-        }
+        }, default=None
     )
-    data: Any = field()
 
     def build_url(self, *, width: int, height: int):
         return f'/display?path={self.path}&w={width}&h={height}&op=resize'
@@ -52,11 +52,13 @@ class Image(BaseDataclass):
     def get_file_uploader_dict(self, file_width: int, file_height: int,
                                url_width: int, url_height: int,
                                thumb_width: int, thumb_height: int):
+        w = self.data.get('width', file_width)
+        h = self.data.get('height', file_height)
         return {
           "name": f'{self.id}.{self.extension}',
           "type": f'image/{self.extension}',
           "size": 0,
-          "file": self.full_url(width=file_width, height=file_height),
+          "file": self.full_url(width=w, height=h),
           "local": "",
           "data": {
             "url": self.full_url(width=url_width, height=url_height),
