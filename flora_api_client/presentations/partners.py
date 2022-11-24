@@ -21,7 +21,7 @@ class PartnerBindCityData(BaseDataclass):
 
 @dataclass(frozen=True)
 class Partner(User):
-    cities: Optional[List[PartnerBindCityData]] = field(default=None)
+    cities: Optional[List[PartnerBindCityData]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
