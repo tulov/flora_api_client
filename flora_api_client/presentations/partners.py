@@ -1,11 +1,27 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, List
 
 from marshmallow.validate import Range, Length
 
 from .base import (
     BaseDataclass, SuccessResponse
 )
+from .users import User
+
+
+@dataclass(frozen=True)
+class PartnerBindCityData(BaseDataclass):
+    city_id: int = field(metadata={
+        'strict': True
+    })
+    delivery_price: int = field(metadata={
+        'validate': Range(min=0)
+    })
+
+
+@dataclass(frozen=True)
+class Partner(User):
+    cities: Optional[List[PartnerBindCityData]] = field(default=None)
 
 
 @dataclass(frozen=True)

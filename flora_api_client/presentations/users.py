@@ -55,7 +55,7 @@ class User(BaseDataclass):
         "strict": True,
         "validate": Range(min=0, max=100),
     })
-    contacts: Optional[Contacts] = field()
+    contacts: Optional[Contacts] = field(default=None)
     data: Dict[str, Any] = field(default_factory=dict)
     data_for_auth: Optional[List[DataForAuth]] = field(
         default_factory=list, metadata={
