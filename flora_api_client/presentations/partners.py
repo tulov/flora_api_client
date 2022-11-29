@@ -7,6 +7,7 @@ from .base import (
     BaseDataclass, SuccessResponse
 )
 from .users import User
+from .prices import Price
 
 
 @dataclass(frozen=True)
@@ -22,6 +23,7 @@ class PartnerBindCityData(BaseDataclass):
 @dataclass(frozen=True)
 class Partner(User):
     cities: Optional[List[PartnerBindCityData]] = field(default_factory=list)
+    prices: Optional[List[Price]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

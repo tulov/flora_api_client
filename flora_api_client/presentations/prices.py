@@ -35,6 +35,7 @@ class Price(PriceBase):
     })
     current_usd_price: Decimal = field()
     discount_percent: int = field()
+    delivery_price: Optional[Decimal] = field(default=None)
 
 
 @dataclass(frozen=True)
