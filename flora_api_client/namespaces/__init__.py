@@ -17,6 +17,7 @@ from .menu import MenuNamespace
 from .slider import SliderItemsNamespace
 from .orders import OrdersNamespace
 from .bills import BillsNamespace
+from .promo_codes import PromoCodesNamespace
 
 
 NAMESPACES = {
@@ -39,4 +40,5 @@ NAMESPACES = {
     'slider_items': SliderItemsNamespace,
     "orders": OrdersNamespace,
     "bills": BillsNamespace,
+    "promo_codes": PromoCodesNamespace,
 }
