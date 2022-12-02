@@ -128,3 +128,10 @@ class CommunicationTransports(Enum):
     sms = "sms"
     telegram = "telegram"
     email = "email"
+
+
+@unique
+class PromoTypes(Enum):
+    promo_code = "promo_code"
+    cashback = 'cashback'
+    certificate = 'certificate'
