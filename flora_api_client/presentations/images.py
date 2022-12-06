@@ -16,7 +16,7 @@ class Image(BaseDataclass):
     })
     path: str = field()
     url: str = field()
-    data: Any = field()
+    data: Any = field(default_factory=dict)
     obj_id: Optional[int] = field(metadata={
         "strict": True,
     }, default=None)
