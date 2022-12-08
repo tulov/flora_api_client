@@ -40,5 +40,5 @@ NAMESPACES = {
     'slider_items': SliderItemsNamespace,
     "orders": OrdersNamespace,
     "bills": BillsNamespace,
-    "promo_codes": PromoCodesNamespace,
+    "promos": PromoCodesNamespace,
 }
