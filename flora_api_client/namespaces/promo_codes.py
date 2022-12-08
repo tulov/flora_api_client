@@ -25,6 +25,14 @@ class PromoCodesNamespace(Namespace):
           RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
+    @expectations(schema=PromoCodeResponseSchema)
+    async def update(
+        self, code: str, data: PromoCode, **kwargs
+    ) -> (int, Union[PromoCodeResponse, ErrorResponse],
+          RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=code),
+                               json=data.as_dict(), **kwargs)
+
     @expectations(schema=PromoCodesResponseSchema)
     async def all(
         self, query_params: Querystring = None, **kwargs
