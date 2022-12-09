@@ -133,5 +133,4 @@ class CommunicationTransports(Enum):
 @unique
 class PromoTypes(Enum):
     promo_code = "promo_code"
-    cashback = 'cashback'
     certificate = 'certificate'
