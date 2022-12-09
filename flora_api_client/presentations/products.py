@@ -184,6 +184,7 @@ class SuccessFeaturedProductsResponse(SuccessResponse):
 
 @dataclass(frozen=True)
 class FeaturedProductsQuerystring(Querystring):
+    promo: Optional[str] = field(default=None)
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")
@@ -192,6 +193,7 @@ class FeaturedProductsQuerystring(Querystring):
 @dataclass(frozen=True)
 class IdsFeaturedProductsQuerystring(BaseDataclass):
     filters: Optional[str] = field()  # фильтр
+    promo: Optional[str] = field()
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")
@@ -199,6 +201,7 @@ class IdsFeaturedProductsQuerystring(BaseDataclass):
 
 @dataclass(frozen=True)
 class PreferredExecutorQuerystring(BaseDataclass):
+    promo: Optional[str] = field()
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")
