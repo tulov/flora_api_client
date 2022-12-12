@@ -82,6 +82,7 @@ class PricesCurrentResponse(SuccessResponse):
 class PricesCurrentQuerystring(BaseDataclass):
     ids: str = field()
     city_id: int = field()
+    promo: Optional[str] = field()
     currency: str = field(metadata={
         "validate": OneOf([r.value for r in Currency])
     }, default="rub")

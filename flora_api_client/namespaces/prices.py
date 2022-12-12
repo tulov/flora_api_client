@@ -10,7 +10,6 @@ from ..presentations.prices import (
 from ..presentations.error import ErrorResponse
 from ..schemas import (
     PricesResponseSchema, SuccessResponseSchema, PricesCurrentResponseSchema,
-    PricesCurrentQuerystringSchema
 )
 from ..namespaces.base import Namespace
 
