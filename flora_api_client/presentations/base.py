@@ -5,7 +5,7 @@ from typing import Optional, Any
 @dataclass(frozen=True)
 class BaseDataclass:
     def as_dict(self):
-        return asdict(self)
+        return {k: v for k, v in asdict(self).items() if not k.startswith("_")}
 
 
 @dataclass(frozen=True)
