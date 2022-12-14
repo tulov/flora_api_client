@@ -19,6 +19,7 @@ class DataForAuth(BaseDataclass):
     })
     is_checked: bool = field()
     value: str = field()
+    data: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
