@@ -19,6 +19,9 @@ class DataForAuth(BaseDataclass):
     })
     is_checked: bool = field()
     value: str = field()
+    _confirm_data: Optional[str] = field(default=None)
+    _confirm_attempt_counter: Optional[int] = field(default=None)
+    _last_request_code: Optional[datetime] = field(default=None)
     data: Dict[str, Any] = field(default_factory=dict)
 
 
