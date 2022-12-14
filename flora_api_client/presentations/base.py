@@ -7,6 +7,9 @@ class BaseDataclass:
     def as_dict(self):
         return {k: v for k, v in asdict(self).items() if not k.startswith("_")}
 
+    def full_dict(self):
+        return asdict(self)
+
 
 @dataclass(frozen=True)
 class SuccessResponse(BaseDataclass):
