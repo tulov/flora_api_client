@@ -19,10 +19,19 @@ class DataForAuth(BaseDataclass):
     })
     is_checked: bool = field()
     value: str = field()
+    data: Dict[str, Any] = field(default_factory=dict)
     _confirm_data: Optional[str] = field(default=None)
     _confirm_attempt_counter: Optional[int] = field(default=None)
     _last_request_code: Optional[datetime] = field(default=None)
-    data: Dict[str, Any] = field(default_factory=dict)
+
+    def get_confirm_data(self) -> Optional[str]:
+        return self._confirm_data
+
+    def get_confirm_attempt_counter(self) -> Optional[int]:
+        return self._confirm_attempt_counter
+
+    def get_last_request_code(self) -> Optional[datetime]:
+        return self._last_request_code
 
 
 @dataclass(frozen=True)
@@ -72,6 +81,12 @@ class User(BaseDataclass):
     })
     _salt: Optional[str] = field(default=None)
     _password: Optional[str] = field(default=None)
+
+    def get_salt(self) -> Optional[str]:
+        return self._salt
+
+    def get_password(self) -> Optional[str]:
+        return self._password
 
 
 @dataclass(frozen=True)
