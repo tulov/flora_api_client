@@ -70,6 +70,8 @@ class User(BaseDataclass):
         ],
         'required': True
     })
+    _salt: Optional[str] = field(default=None)
+    _password: Optional[str] = field(default=None)
 
 
 @dataclass(frozen=True)
