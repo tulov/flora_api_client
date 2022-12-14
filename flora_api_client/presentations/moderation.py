@@ -16,21 +16,21 @@ class RequestForModeration(BaseDataclass):
     })
     date_added: datetime = field()
     user_id: int = field()
-    result: Optional[str] = field(metadata={
-        'validate': OneOf([r.value for r in ModerationResult]),
-    })
-    date_result: Optional[datetime] = field()
-    admin_id: Optional[int] = field()
-    cause: Optional[str] = field(metadata={
-        'validate': Length(max=1500)
-    })
-    data: Any = field()
-    user: Optional[User] = field()
-    admin: Optional[User] = field()
-    obj_id: Optional[int] = field()
     revision: int = field(metadata={
         "strict": True,
     })
+    data: Any = field(default_factory=dict)
+    result: Optional[str] = field(metadata={
+        'validate': OneOf([r.value for r in ModerationResult]),
+    }, default=None)
+    date_result: Optional[datetime] = field(default=None)
+    admin_id: Optional[int] = field(default=None)
+    cause: Optional[str] = field(metadata={
+        'validate': Length(max=1500)
+    }, default=None)
+    user: Optional[User] = field(default=None)
+    admin: Optional[User] = field(default=None)
+    obj_id: Optional[int] = field(default=None)
 
 
 @dataclass(frozen=True)
