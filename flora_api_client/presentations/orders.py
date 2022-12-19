@@ -133,6 +133,7 @@ class Order(BaseDataclass):
     children: Optional[List[Any]] = field(default_factory=list)
     comments: Optional[List[OrderComment]] = field(default_factory=list)
     photos_before_delivery: Optional[List[Image]] = field(default_factory=list)
+    _max_time_for_accept: Optional[datetime] = field(default=None)
 
     @property
     def not_send_photos(self) -> List[Image]:
@@ -153,6 +154,9 @@ class Order(BaseDataclass):
             if not has_children:
                 break
         return has_children
+
+    def get_max_time_for_accept(self) -> Optional[datetime]:
+        return self._max_time_for_accept
 
 
 @dataclass(frozen=True)
