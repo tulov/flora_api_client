@@ -2,7 +2,7 @@ import marshmallow_dataclass
 from marshmallow import Schema, EXCLUDE
 from flora_api_client.presentations.bills import (
     BillsResponse, BillResponse, BillPayRequest, CloudpaymentsBillPayRequest,
-    CloudpaymentsBillAfter3dRequest, BillPDFResponse
+    CloudpaymentsBillAfter3dRequest, BillPDFResponse, Bill
 )
 
 Schema.Meta.unknown = EXCLUDE
@@ -25,4 +25,7 @@ CloudpaymentsBillAfter3dRequestSchema = marshmallow_dataclass.class_schema(
 )
 BillPDFResponseSchema = marshmallow_dataclass.class_schema(
     BillPDFResponse
+)
+BillSchema = marshmallow_dataclass.class_schema(
+    Bill
 )
