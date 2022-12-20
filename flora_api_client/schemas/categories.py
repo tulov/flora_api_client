@@ -1,7 +1,7 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.categories import (
     CategoryResponse, CreateCategoryRequest, CategoriesResponse,
-    FilterCounterRequest, FilterCounterResponse
+    FilterCounterRequest, FilterCounterResponse, Category
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -23,4 +23,8 @@ FilterCounterRequestSchema = marshmallow_dataclass.class_schema(
 
 FilterCounterResponseSchema = marshmallow_dataclass.class_schema(
     FilterCounterResponse
+)
+
+CategorySchema = marshmallow_dataclass.class_schema(
+    Category
 )
