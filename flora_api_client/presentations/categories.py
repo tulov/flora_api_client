@@ -34,13 +34,13 @@ class CreateCategoryRequest(BaseDataclass):
     name: str = field(metadata={
         'validate': Length(max=150, min=1)
     })
-    parent_id: Optional[int] = field(metadata={
-        "strict": True,
-    })
-    is_visible: Optional[bool] = field()
     slug: str = field(metadata={
         "validate": Length(max=100, min=1)
     })
+    parent_id: Optional[int] = field(metadata={
+        "strict": True,
+    }, default=None)
+    is_visible: Optional[bool] = field(default=None)
     weight: int = field(default=0)
     tags: Optional[List[int]] = field(default_factory=list)
     fields: Optional[List[Relationship]] = field(default_factory=list)

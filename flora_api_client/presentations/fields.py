@@ -29,7 +29,7 @@ class Field(FieldBaseDataclass):
     })
     widget: Optional[str] = field(metadata={
         'validate': OneOf([r.value for r in HTMLWidget]),
-    })
+    }, default=None)
     is_required: Optional[bool] = field(default=False),
     is_inherited: bool = field(default=False)
 

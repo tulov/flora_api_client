@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional, List
+from typing import Optional, List, Any
 
 from marshmallow.validate import Length
 
@@ -20,7 +20,7 @@ class TagBase(BaseDataclass):
 class Tag(TagBase):
     parent_id: Optional[int] = field(metadata={
         "strict": True,
-    })
+    }, default=None)
     is_visible: bool = field(default=True)
     is_inherited: bool = field(default=False)
 
