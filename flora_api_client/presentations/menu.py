@@ -33,8 +33,8 @@ class MenuItemBase(BaseDataclass):
 
 @dataclass(frozen=True)
 class MenuItem(MenuItemBase):
-    image: Optional[Image] = field()
-    children: Optional[List[Any]] = field()
+    image: Optional[Image] = field(default=None)
+    children: Optional[List[Any]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
