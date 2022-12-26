@@ -1,7 +1,7 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.moderation import (
     RequestsForModerationResponse, RequestForModerationResponse,
-    ModerationUpdateRequest
+    ModerationUpdateRequest, RequestForModeration
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -18,4 +18,7 @@ RequestForModerationResponseSchema = marshmallow_dataclass.class_schema(
 
 ModerationUpdateRequestSchema = marshmallow_dataclass.class_schema(
     ModerationUpdateRequest
+)
+RequestForModerationSchema = marshmallow_dataclass.class_schema(
+    RequestForModeration
 )
