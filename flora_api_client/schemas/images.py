@@ -1,6 +1,6 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.images import (
-    ImageResponse, ImageUploadRequest
+    ImageResponse, ImageUploadRequest, Image
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -12,4 +12,7 @@ ImageResponseSchema = marshmallow_dataclass.class_schema(
 )
 ImageUploadRequestSchema = marshmallow_dataclass.class_schema(
     ImageUploadRequest
+)
+ImageSchema = marshmallow_dataclass.class_schema(
+    Image
 )
