@@ -3,7 +3,7 @@ from flora_api_client.presentations.products import (
     ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
     FeaturedProductsQuerystring, PreferredExecutorResponse,
     PreferredExecutorQuerystring, SuccessFeaturedProductsResponse,
-    IdsFeaturedProductsQuerystring
+    IdsFeaturedProductsQuerystring, Product, FeaturedProduct
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -40,4 +40,12 @@ SuccessFeaturedProductsResponseSchema = marshmallow_dataclass.class_schema(
 
 IdsFeaturedProductsQuerystringSchema = marshmallow_dataclass.class_schema(
     IdsFeaturedProductsQuerystring
+)
+
+ProductSchema = marshmallow_dataclass.class_schema(
+    Product
+)
+
+FeaturedProductSchema = marshmallow_dataclass.class_schema(
+    FeaturedProduct
 )
