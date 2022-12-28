@@ -47,7 +47,9 @@ class Image(BaseDataclass):
         raise RuntimeError("Not supported file type")
 
     @property
-    def extension(self):
+    def extension(self) -> str:
+        if not self.mime_type:
+            return ""
         m = self.mime_type
         return m.split('/')[1]
 
