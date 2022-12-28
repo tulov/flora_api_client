@@ -37,7 +37,9 @@ class Image(BaseDataclass):
         return "/".join(r[:3]) + url
 
     @property
-    def mime_type(self):
+    def mime_type(self) -> str:
+        if not self.path:
+            return ""
         if self.path.endswith('.png'):
             return "image/png"
         if self.path.endswith('.jpeg'):
