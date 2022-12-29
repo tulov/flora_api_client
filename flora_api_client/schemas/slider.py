@@ -1,6 +1,6 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.slider import (
-    SliderItemRequest, SliderResponse, SliderItemResponse
+    SliderItemRequest, SliderResponse, SliderItemResponse, Slider
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -17,4 +17,8 @@ SliderItemRequestSchema = marshmallow_dataclass.class_schema(
 
 SliderItemResponseSchema = marshmallow_dataclass.class_schema(
     SliderItemResponse
+)
+
+SliderSchema = marshmallow_dataclass.class_schema(
+    Slider
 )
