@@ -39,10 +39,9 @@ def inline(d: Union[Mapping, List]) -> Mapping:
 
 
 class Singer:
-    def __init__(self, *, private_key: str, public_key: str, json_serialize=json.dumps):
+    def __init__(self, *, private_key: str, public_key: str):
         self.private_key = private_key,
         self.public_key = public_key
-        self.json_serialize = json_serialize
 
     def get_sign(self, body: Mapping) -> str:
         # все словари и массивы приводим к одномерному виду
@@ -50,7 +49,7 @@ class Singer:
         # сортируем
         sorted_keys = list(sorted(params.keys()))
         # конкатенируем значения
-        concatenated_values = ''.join([self.json_serialize(params[k]) for k in sorted_keys])
+        concatenated_values = ''.join([params[k] for k in sorted_keys])
         concatenated_values = f'{self.private_key}{concatenated_values}'
         # вычисляем хеш sha256
         return sha256(concatenated_values.encode()).hexdigest()
