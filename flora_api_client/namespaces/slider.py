@@ -6,9 +6,9 @@ from ..presentations.auth import RenewTokenResponse
 from ..presentations.slider import (
     SliderResponse, SliderItemRequest, SliderItemResponse
 )
-from ..presentations.base import WithFieldsQuerystring, Querystring
+from ..presentations.base import WithFieldsQuerystring, Querystring, SuccessResponse
 from ..presentations.error import ErrorResponse
-from ..schemas import SliderResponseSchema, SliderItemResponseSchema
+from ..schemas import SliderResponseSchema, SliderItemResponseSchema, SuccessResponseSchema
 from ..namespaces.base import Namespace
 
 
@@ -37,6 +37,20 @@ class SliderItemsNamespace(Namespace):
           RenewTokenResponse):
         return await self._put(self.build_url(postfix_url=id_),
                                json=data.as_dict(), **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def up(
+        self, id_: int, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=f"{id_}/up"),
+                               json={}, **kwargs)
+
+    @expectations(schema=SuccessResponseSchema)
+    async def down(
+        self, id_: int, **kwargs
+    ) -> (int, Union[SuccessResponse, ErrorResponse], RenewTokenResponse):
+        return await self._put(self.build_url(postfix_url=f"{id_}/down"),
+                               json={}, **kwargs)
 
     @expectations(schema=SliderItemResponseSchema)
     async def get(
