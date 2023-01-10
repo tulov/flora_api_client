@@ -1,18 +1,18 @@
 """
 Обертка для REST API floraexpress.ru для удобной и быстрой работы.
 """
-__author__ = 'Alexey Tulovskiy'
+__author__ = "Alexey Tulovskiy"
 __maintainer__ = __author__
 
-__email__ = 'tulov.alex@google.com'
-__license__ = 'MIT'
-__version__ = '0.5.0'
+__email__ = "tulov.alex@google.com"
+__license__ = "MIT"
+__version__ = "0.5.1"
 
 
 __all__ = (
-    '__author__',
-    '__email__',
-    '__license__',
-    '__maintainer__',
-    '__version__',
+    "__author__",
+    "__email__",
+    "__license__",
+    "__maintainer__",
+    "__version__",
 )
