@@ -3,87 +3,87 @@ from enum import Enum, unique
 
 @unique
 class Roles(Enum):
-    user = 'user'
-    partner = 'partner'
-    admin = 'admin'
+    user = "user"
+    partner = "partner"
+    admin = "admin"
 
 
 @unique
 class ModerationAction(Enum):
-    user_registration = 'user_registration'
-    product = 'product'
-    user_settings = 'user_settings'
+    user_registration = "user_registration"
+    product = "product"
+    user_settings = "user_settings"
 
 
 @unique
 class ModerationResult(Enum):
-    approved = 'approved'
-    denied = 'denied'
+    approved = "approved"
+    denied = "denied"
 
 
 @unique
 class ImageTarget(Enum):
-    product = 'product'
-    menu = 'menu'
-    order = 'order'
+    product = "product"
+    menu = "menu"
+    order = "order"
 
 
 @unique
 class FieldType(Enum):
-    integer = 'integer'
-    string = 'string'
-    boolean = 'boolean'
+    integer = "integer"
+    string = "string"
+    boolean = "boolean"
 
 
 @unique
 class HTMLWidget(Enum):
-    number = 'number'
-    string = 'string'
-    select = 'select'
-    multiselect = 'multiselect'
-    checkbox = 'checkbox'
-    radio = 'radio'
-    textarea = 'textarea'
+    number = "number"
+    string = "string"
+    select = "select"
+    multiselect = "multiselect"
+    checkbox = "checkbox"
+    radio = "radio"
+    textarea = "textarea"
 
 
 @unique
 class ProgramType(Enum):
-    percent = 'percent'
-    amount = 'amount'
+    percent = "percent"
+    amount = "amount"
 
 
 @unique
 class ProgramAction(Enum):
-    discount = 'discount'
-    markup = 'markup'
+    discount = "discount"
+    markup = "markup"
 
 
 @unique
 class Currency(Enum):
-    usd = 'usd'
-    rub = 'rub'
-    kzt = 'kzt'
-    eur = 'eur'
+    usd = "usd"
+    rub = "rub"
+    kzt = "kzt"
+    eur = "eur"
 
 
 @unique
 class UnitOfWeight(Enum):
-    kg = 'kg'
-    g = 'g'
+    kg = "kg"
+    g = "g"
 
 
 @unique
 class UnitOfSize(Enum):
-    sm = 'sm'
-    mm = 'mm'
-    m = 'm'
+    sm = "sm"
+    mm = "mm"
+    m = "m"
 
 
 @unique
 class UnitOfCount(Enum):
-    thing = 'thing'
-    meter = 'meter'
-    unit = 'unit'
+    thing = "thing"
+    meter = "meter"
+    unit = "unit"
 
 
 @unique
@@ -133,10 +133,16 @@ class CommunicationTransports(Enum):
 @unique
 class PromoTypes(Enum):
     promo_code = "promo_code"
-    certificate = 'certificate'
+    certificate = "certificate"
 
 
 @unique
 class PromoSystems(Enum):
     discount = "discount"
+    cashback = "cashback"
+
+
+@unique
+class PaymentTypes(Enum):
+    money = "money"
     cashback = "cashback"
