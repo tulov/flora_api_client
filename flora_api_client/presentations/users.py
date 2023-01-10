@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Any
 
 from marshmallow import ValidationError
+from marshmallow.fields import Decimal
 from marshmallow.validate import ContainsOnly, Length, Range, Email
 
 from .base import BaseDataclass, SuccessResponse, Pager
@@ -92,6 +93,12 @@ class User(BaseDataclass):
         if self.data and "promo_system" in self.data:
             return self.data["promo_system"]
         return PromoSystems.cashback.value
+
+    @property
+    def cashback(self) -> Decimal:
+        if self.data and "cashback" in self.data:
+            return self.data["cashback"]
+        return Decimal(0)
 
 
 @dataclass(frozen=True)
