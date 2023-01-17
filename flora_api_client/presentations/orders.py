@@ -15,13 +15,13 @@ from .products import Product
 from .users import User
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderProduct(BaseDataclass):
     product_id: int = field(metadata={"strict": True})
     cnt: int = field(metadata={"strict": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderItem(OrderProduct):
     order_id: int = field(metadata={"strict": True})
     product_id: int = field(metadata={"strict": True})
@@ -34,12 +34,12 @@ class OrderItem(OrderProduct):
     provider: User | None = field(default=None)
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderCommentBase(BaseDataclass):
     comment: str = field(metadata={"validate": Length(max=300, min=1)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderComment(OrderCommentBase):
     id: int = field(metadata={"strict": True})
     created_at: datetime = field()
@@ -48,7 +48,7 @@ class OrderComment(OrderCommentBase):
     user_name: str | None = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class Order(BaseDataclass):
     id: int = field(metadata={"strict": True})
     guid: str = field()
@@ -125,7 +125,7 @@ class Order(BaseDataclass):
         return self._max_time_for_accept
 
 
-@dataclass(frozen=True)
+@dataclass
 class CreateOrderRequest(BaseDataclass):
     guid: str = field()
     delivery_date: date = field()
@@ -144,39 +144,39 @@ class CreateOrderRequest(BaseDataclass):
     )
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderResponse(SuccessResponse):
     result: Order = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderCommentRequest(OrderCommentBase):
     revision: int = field(metadata={"strict": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderCommentResponse(SuccessResponse):
     result: OrderComment = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderBillResponse(SuccessResponse):
     result: Bill = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrderBillRequest(BaseDataclass):
     amount: Decimal = field()
     comment: str | None = field(metadata={"validate": Length(max=150)})
     revision: int = field(metadata={"strict": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class OrdersResponse(PagedResponse):
     result: list[Order] = field(default_factory=list, metadata={"required": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class AfterRejectRequestBody(BaseDataclass):
     provider_id: int = field(metadata={"strict": True})
     hash: str = field(metadata={"validate": Length(equal=15)})

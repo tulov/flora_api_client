@@ -1,64 +1,65 @@
-from decimal import Decimal
-from datetime import datetime
 from dataclasses import dataclass, field
-from typing import Optional, List
+from datetime import datetime
+from decimal import Decimal
 
 from marshmallow import ValidationError
 from marshmallow.validate import Length, OneOf
 
-from .base import (
-    SuccessResponse, BaseDataclass, PagedResponse
-)
+from .base import SuccessResponse, BaseDataclass, PagedResponse
+from .cities import City
 from .enums import ProgramAction, ProgramType
 from .products import Product
-from .cities import City
 
 
-@dataclass(frozen=True)
+@dataclass
 class Program(BaseDataclass):
-    id: Optional[int] = field(metadata={
-        "strict": True,
-    })
-    partner_id: int = field(metadata={
-        "strict": True,
-    })
-    title: str = field(metadata={
-        "validate": Length(max=100)
-    })
-    description: Optional[str] = field()
-    type: str = field(metadata={
-        'validate': OneOf([r.value for r in ProgramType]),
-    })
-    action: str = field(metadata={
-        'validate': OneOf([r.value for r in ProgramAction]),
-    })
+    id: int | None = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    partner_id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    title: str = field(metadata={"validate": Length(max=100)})
+    description: str | None = field()
+    type: str = field(
+        metadata={
+            "validate": OneOf([r.value for r in ProgramType]),
+        }
+    )
+    action: str = field(
+        metadata={
+            "validate": OneOf([r.value for r in ProgramAction]),
+        }
+    )
     value: Decimal = field()
-    currency: Optional[str] = field(metadata={
-        "validate": Length(equal=3)
-    })
-    start: Optional[datetime] = field()
-    end: Optional[datetime] = field()
-    product_ids: List[int] = field(default_factory=list)
-    geoname_ids: List[int] = field(default_factory=list)
+    currency: str | None = field(metadata={"validate": Length(equal=3)})
+    start: datetime | None = field()
+    end: datetime | None = field()
+    product_ids: list[int] = field(default_factory=list)
+    geoname_ids: list[int] = field(default_factory=list)
 
     def __post_init__(self):
         if self.start and self.end and self.start > self.end:
             raise ValidationError("'Start' should be less then 'end'")
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProgramDetail(Program):
-    products: Optional[List[Product]] = field(default_factory=list)
-    cities: Optional[List[City]] = field(default_factory=list)
+    products: list[Product] | None = field(default_factory=list)
+    cities: list[City] | None = field(default_factory=list)
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProgramResponse(SuccessResponse):
     result: ProgramDetail = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProgramsResponse(PagedResponse):
-    result: List[ProgramDetail] = field(default_factory=list, metadata={
-        "required": True
-    })
+    result: list[ProgramDetail] = field(
+        default_factory=list, metadata={"required": True}
+    )

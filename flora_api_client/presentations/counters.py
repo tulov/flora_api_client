@@ -2,11 +2,11 @@ from dataclasses import dataclass, field
 from .base import SuccessResponse, BaseDataclass
 
 
-@dataclass(frozen=True)
+@dataclass
 class CountersResult(BaseDataclass):
     moderate: int = field(default=0)
 
 
-@dataclass(frozen=True)
+@dataclass
 class CountersResponse(SuccessResponse):
     result: CountersResult = field()

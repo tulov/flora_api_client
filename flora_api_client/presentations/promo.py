@@ -8,7 +8,7 @@ from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .enums import PromoTypes
 
 
-@dataclass(frozen=True)
+@dataclass
 class PromoCode(BaseDataclass):
     code: str = field(metadata={"validate": Length(max=30)})
     type: str = field(metadata={"validate": OneOf([r.value for r in PromoTypes])})
@@ -28,11 +28,11 @@ class PromoCode(BaseDataclass):
         return True
 
 
-@dataclass(frozen=True)
+@dataclass
 class PromoCodeResponse(SuccessResponse):
     result: PromoCode = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class PromoCodesResponse(PagedResponse):
     result: list[PromoCode] = field(default_factory=list, metadata={"required": True})

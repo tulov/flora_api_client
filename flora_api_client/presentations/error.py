@@ -1,16 +1,17 @@
 from dataclasses import dataclass, field
-from typing import Dict, Any, Optional
+from typing import Any
+
 from .base import BaseDataclass
 
 
-@dataclass(frozen=True)
+@dataclass
 class Error(BaseDataclass):
     code: str = field()
     message: str = field()
-    error_code: Optional[int] = field()
-    fields: Dict[str, Any] = field(default_factory=dict)
+    error_code: int | None = field()
+    fields: dict[str, Any] = field(default_factory=dict)
 
 
-@dataclass(frozen=True)
+@dataclass
 class ErrorResponse(BaseDataclass):
     error: Error = field()

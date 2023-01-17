@@ -7,7 +7,7 @@ from marshmallow.validate import Range
 from flora_api_client.presentations.validates import Filled, UniqueItems
 
 
-@dataclass(frozen=True)
+@dataclass
 class Tmp:
     id: int = field(metadata={
         "strict": True,  # строгая проверка типа

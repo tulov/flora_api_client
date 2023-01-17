@@ -1,61 +1,60 @@
 from dataclasses import dataclass, field
-from typing import Optional, List, Any
 
 from marshmallow.validate import Length
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 
 
-@dataclass(frozen=True)
+@dataclass
 class TagBase(BaseDataclass):
-    id: int = field(metadata={
-        "strict": True,
-    })
-    name: str = field(metadata={
-        'validate': Length(max=150, min=1)
-    })
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    name: str = field(metadata={"validate": Length(max=150, min=1)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class Tag(TagBase):
-    parent_id: Optional[int] = field(metadata={
-        "strict": True,
-    }, default=None)
+    parent_id: int | None = field(
+        metadata={
+            "strict": True,
+        },
+        default=None,
+    )
     is_visible: bool = field(default=True)
     is_inherited: bool = field(default=False)
 
 
-@dataclass(frozen=True)
+@dataclass
 class CreateTagRequest(BaseDataclass):
-    name: str = field(metadata={
-        'validate': Length(max=150, min=1)
-    })
-    parent_id: Optional[int] = field(metadata={
-        "strict": True,
-    })
-    is_visible: Optional[bool] = field()
+    name: str = field(metadata={"validate": Length(max=150, min=1)})
+    parent_id: int | None = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    is_visible: bool | None = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class TagResponse(SuccessResponse):
     result: Tag = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class TagsResponse(PagedResponse):
-    result: List[Tag] = field(default_factory=list, metadata={
-        "required": True
-    })
+    result: list[Tag] = field(default_factory=list, metadata={"required": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class TagsTreeItem(TagBase):
-    children: Optional[List[TagBase]] = field()
+    children: list[TagBase] | None = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class TagsTreeResponse(SuccessResponse):
-    result: List[TagsTreeItem] = field(default_factory=list, metadata={
-        "required": True
-    })
-
+    result: list[TagsTreeItem] = field(
+        default_factory=list, metadata={"required": True}
+    )

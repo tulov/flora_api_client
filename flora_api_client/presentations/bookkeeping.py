@@ -9,7 +9,7 @@ from .base import BaseDataclass
 from .enums import PaymentTypes
 
 
-@dataclass(frozen=True)
+@dataclass
 class BookkeepingRow(BaseDataclass):
     id: int = field(metadata={"strict": True})
     created_at: datetime = field()

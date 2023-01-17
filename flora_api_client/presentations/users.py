@@ -11,7 +11,7 @@ from .enums import Roles, PromoSystems
 from .validates import UniqueItems, Filled, Phone
 
 
-@dataclass(frozen=True)
+@dataclass
 class DataForAuth(BaseDataclass):
     id: int = field(
         metadata={
@@ -36,14 +36,14 @@ class DataForAuth(BaseDataclass):
         return self._last_request_code
 
 
-@dataclass(frozen=True)
+@dataclass
 class Contacts(BaseDataclass):
     phone: str | None = field(metadata={"validate": Phone()})
     email: str | None = field(metadata={"validate": Email()})
     whatsapp: str | None = field(metadata={"validate": Phone()})
 
 
-@dataclass(frozen=True)
+@dataclass
 class User(BaseDataclass):
     id: int = field(
         metadata={
@@ -101,7 +101,7 @@ class User(BaseDataclass):
         return Decimal(0)
 
 
-@dataclass(frozen=True)
+@dataclass
 class RegistrationUserData(BaseDataclass):
     password: str = field(metadata={"validate": Length(min=6, max=30)})
     phone: str | None = field(metadata={"validate": Phone()})
@@ -125,18 +125,18 @@ class RegistrationUserData(BaseDataclass):
             )
 
 
-@dataclass(frozen=True)
+@dataclass
 class ConfirmDataForAuthRequest(BaseDataclass):
     code: str = field(metadata={"validate": Length(min=4, max=20)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class UsersResponse(SuccessResponse):
     pager: Pager = field()
     result: list[User] = field(default_factory=list, metadata={"required": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class ChangePasswordRequest(BaseDataclass):
     old_password: str = field(metadata={"validate": Length(min=6, max=30)})
     new_password: str = field(metadata={"validate": Length(min=6, max=30)})

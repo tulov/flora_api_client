@@ -6,64 +6,50 @@ from .base import BaseDataclass
 from .enums import CommunicationTransports
 
 
-@dataclass(frozen=True)
+@dataclass
 class AuthRequest(BaseDataclass):
-    auth_key: str = field(metadata={
-        'validate': Length(min=3, max=150)
-    })
-    password: str = field(metadata={
-        'validate': Length(min=6, max=30)
-    })
+    auth_key: str = field(metadata={"validate": Length(min=3, max=150)})
+    password: str = field(metadata={"validate": Length(min=6, max=30)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class AuthResponse(BaseDataclass):
     token: str = field()
     long_token: str = field()
     user: User = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class RenewTokenRequest(BaseDataclass):
     token: str = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class RenewTokenResponse(BaseDataclass):
     token: str = field()
     long_token: str = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class SendRestoreAccessLinkRequest(BaseDataclass):
-    auth_key: str = field(metadata={
-        'validate': Length(min=3, max=150)
-    })
+    auth_key: str = field(metadata={"validate": Length(min=3, max=150)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class RestoreAccessRequest(BaseDataclass):
     token: str = field()
-    password: str = field(metadata={
-        'validate': Length(min=6, max=30)
-    })
+    password: str = field(metadata={"validate": Length(min=6, max=30)})
 
 
-@dataclass(frozen=True)
+@dataclass
 class EnterCodeRequest(BaseDataclass):
-    auth_key: str = field(metadata={
-        'validate': Length(min=3, max=150)
-    })
-    transport: str = field(metadata={
-        "validate": OneOf([r.value for r in CommunicationTransports])
-    })
+    auth_key: str = field(metadata={"validate": Length(min=3, max=150)})
+    transport: str = field(
+        metadata={"validate": OneOf([r.value for r in CommunicationTransports])}
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class AuthCodeRequest(BaseDataclass):
-    auth_key: str = field(metadata={
-        'validate': Length(min=3, max=150)
-    })
-    code: str = field(metadata={
-        'validate': Length(equal=4)
-    })
+    auth_key: str = field(metadata={"validate": Length(min=3, max=150)})
+    code: str = field(metadata={"validate": Length(equal=4)})

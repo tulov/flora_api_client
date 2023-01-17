@@ -1,73 +1,72 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Optional, List, Any
+from typing import Any
 
-from .base import BaseDataclass, SuccessResponse, PagedResponse, Querystring
-from .enums import Currency, UnitOfWeight, UnitOfSize, UnitOfCount
-from .images import Image
-from .tags import Tag
-from .categories import Category
-from .moderation import RequestForModeration
 from marshmallow.validate import Length, OneOf
 
+from .base import BaseDataclass, SuccessResponse, PagedResponse, Querystring
+from .categories import Category
+from .enums import Currency, UnitOfWeight, UnitOfSize, UnitOfCount
+from .images import Image
+from .moderation import RequestForModeration
+from .tags import Tag
 
-@dataclass(frozen=True)
+
+@dataclass
 class ProductBaseDataclass(BaseDataclass):
-    category_id: int = field(metadata={
-        "strict": True,
-    })
-    name: str = field(metadata={
-        'validate': Length(max=150, min=1)
-    })
-    description: Optional[str] = field(metadata={
-        'validate': Length(max=1000)
-    })
-    data: Optional[Any] = field()
-    revision: int = field(metadata={
-        "strict": True,
-    })
+    category_id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    name: str = field(metadata={"validate": Length(max=150, min=1)})
+    description: str | None = field(metadata={"validate": Length(max=1000)})
+    data: Any | None = field()
+    revision: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
     length: Decimal = field()
     height: Decimal = field()
     width: Decimal = field()
-    size_unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfSize])
-    })
+    size_unit: str = field(metadata={"validate": OneOf([r.value for r in UnitOfSize])})
     weight: Decimal = field()
-    weight_unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfWeight])
-    })
+    weight_unit: str = field(
+        metadata={"validate": OneOf([r.value for r in UnitOfWeight])}
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProductItem(BaseDataclass):
-    id: Optional[int] = field()
-    product_id: Optional[int] = field()
-    name: str = field(metadata={
-        "validate": Length(max=150)
-    })
+    id: int | None = field()
+    product_id: int | None = field()
+    name: str = field(metadata={"validate": Length(max=150)})
     cnt: Decimal = field()
-    unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfCount])
-    })
+    unit: str = field(metadata={"validate": OneOf([r.value for r in UnitOfCount])})
 
 
-@dataclass(frozen=True)
+@dataclass
 class Product(ProductBaseDataclass):
-    id: int = field(metadata={
-        "strict": True,
-    })
-    owner_id: int = field(metadata={
-        "strict": True,
-    })
-    category: Optional[Category] = field()
-    request_for_moderation: Optional[RequestForModeration] = field()
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    owner_id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    category: Category | None = field()
+    request_for_moderation: RequestForModeration | None = field()
     is_template: bool = field(default=False)
-    tags: Optional[List[Tag]] = field(default_factory=list)
-    images: Optional[List[Image]] = field(default_factory=list)
-    items: Optional[List[ProductItem]] = field(default_factory=list)
+    tags: list[Tag] | None = field(default_factory=list)
+    images: list[Image] | None = field(default_factory=list)
+    items: list[ProductItem] | None = field(default_factory=list)
 
     @property
-    def main_image(self) -> Optional[Image]:
+    def main_image(self) -> Image | None:
         if not self.images:
             return None
         for i in self.images:
@@ -75,138 +74,127 @@ class Product(ProductBaseDataclass):
                 return i
 
     def __str__(self):
-        return f'#{self.id} {self.name}'
+        return f"#{self.id} {self.name}"
 
 
-@dataclass(frozen=True)
+@dataclass
 class FilesData(BaseDataclass):
-    id: int = field(metadata={
-        "strict": True,
-    })
-    position: int = field(metadata={
-        "strict": True,
-    })
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    position: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProductRequest(ProductBaseDataclass):
-    tags: List[int] = field(default_factory=list, metadata={
-        "required": True
-    })
-    files: List[FilesData] = field(default_factory=list, metadata={
-        "required": True
-    })
-    items: List[ProductItem] = field(default_factory=list, metadata={
-        "required": True
-    })
+    tags: list[int] = field(default_factory=list, metadata={"required": True})
+    files: list[FilesData] = field(default_factory=list, metadata={"required": True})
+    items: list[ProductItem] = field(default_factory=list, metadata={"required": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProductResponse(SuccessResponse):
     result: Product = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class ProductsResponse(PagedResponse):
-    result: List[Product] = field(default_factory=list, metadata={
-        "required": True
-    })
+    result: list[Product] = field(default_factory=list, metadata={"required": True})
 
 
-@dataclass(frozen=True)
+@dataclass
 class FeaturedProductPrice(BaseDataclass):
-    currency: str = field(metadata={
-        "validate": Length(equal=3)
-    })
+    currency: str = field(metadata={"validate": Length(equal=3)})
     current: Decimal = field()
-    old: Optional[Decimal] = field()
+    old: Decimal | None = field()
     discount: Decimal = field()
     discount_percent: int = field()
     executor_discount_percent: int = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class FeaturedProductExecutor(BaseDataclass):
-    id: int = field(metadata={
-        "strict": True,
-    })
-    name: str = field(metadata={
-        'validate': Length(max=150)
-    })
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    name: str = field(metadata={"validate": Length(max=150)})
     url: str = field()
     price: FeaturedProductPrice = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class FeaturedProduct(BaseDataclass):
-    id: int = field(metadata={
-        "strict": True,
-    })
-    name: str = field(metadata={
-        'validate': Length(max=150, min=1)
-    })
-    description: Optional[str] = field(metadata={
-        'validate': Length(max=1000)
-    })
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    name: str = field(metadata={"validate": Length(max=150, min=1)})
+    description: str | None = field(metadata={"validate": Length(max=1000)})
     data: Any = field()
     length: Decimal = field()
     width: Decimal = field()
     height: Decimal = field()
-    size_unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfSize])
-    })
+    size_unit: str = field(metadata={"validate": OneOf([r.value for r in UnitOfSize])})
     weight: Decimal = field()
-    weight_unit: str = field(metadata={
-        "validate": OneOf([r.value for r in UnitOfWeight])
-    })
+    weight_unit: str = field(
+        metadata={"validate": OneOf([r.value for r in UnitOfWeight])}
+    )
     is_concomitant_present: bool = field(default=False)
-    images: Optional[List[Image]] = field(default_factory=list)
-    executors: List[FeaturedProductExecutor] = field(
-        default_factory=list, metadata={
-            "required": True
-        })
-    items: Optional[List[ProductItem]] = field(default_factory=list)
+    images: list[Image] | None = field(default_factory=list)
+    executors: list[FeaturedProductExecutor] = field(
+        default_factory=list, metadata={"required": True}
+    )
+    items: list[ProductItem] | None = field(default_factory=list)
 
 
-@dataclass(frozen=True)
+@dataclass
 class FeaturedProductsResponse(PagedResponse):
-    result: List[FeaturedProduct] = field(default_factory=list, metadata={
-        "required": True
-    })
+    result: list[FeaturedProduct] = field(
+        default_factory=list, metadata={"required": True}
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class SuccessFeaturedProductsResponse(SuccessResponse):
-    result: List[FeaturedProduct] = field(default_factory=list, metadata={
-        "required": True
-    })
+    result: list[FeaturedProduct] = field(
+        default_factory=list, metadata={"required": True}
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class FeaturedProductsQuerystring(Querystring):
-    promo: Optional[str] = field(default=None)
-    currency: str = field(metadata={
-        "validate": OneOf([r.value for r in Currency])
-    }, default="rub")
+    promo: str | None = field(default=None)
+    currency: str = field(
+        metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class IdsFeaturedProductsQuerystring(BaseDataclass):
-    filters: Optional[str] = field()  # фильтр
-    promo: Optional[str] = field()
-    currency: str = field(metadata={
-        "validate": OneOf([r.value for r in Currency])
-    }, default="rub")
+    filters: str | None = field()  # фильтр
+    promo: str | None = field()
+    currency: str = field(
+        metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class PreferredExecutorQuerystring(BaseDataclass):
-    promo: Optional[str] = field()
-    currency: str = field(metadata={
-        "validate": OneOf([r.value for r in Currency])
-    }, default="rub")
+    promo: str | None = field()
+    currency: str = field(
+        metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
+    )
 
 
-@dataclass(frozen=True)
+@dataclass
 class PreferredExecutorResponse(SuccessResponse):
     result: FeaturedProductExecutor

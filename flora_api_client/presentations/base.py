@@ -1,8 +1,8 @@
 from dataclasses import asdict, dataclass, field
-from typing import Optional, Any
+from typing import Any
 
 
-@dataclass(frozen=True)
+@dataclass
 class BaseDataclass:
     def as_dict(self):
         return {k: v for k, v in asdict(self).items() if not k.startswith("_")}
@@ -11,28 +11,29 @@ class BaseDataclass:
         return asdict(self)
 
 
-@dataclass(frozen=True)
+@dataclass
 class SuccessResponse(BaseDataclass):
     success: bool = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class Pager(BaseDataclass):
     count_pages: int = field()
-    count_objects: Optional[int] = field()
+    count_objects: int | None = field()
     page: int = field(default=1)
     per_page: int = field(default=10)
 
     @staticmethod
     def _split_diapasons(diapason1, diapason2):
-        if set(diapason1) & set(diapason2) or diapason1[
-            len(diapason1) - 1
-        ] + 1 == diapason2[0]:
+        if (
+            set(diapason1) & set(diapason2)
+            or diapason1[len(diapason1) - 1] + 1 == diapason2[0]
+        ):
             for x in diapason2:
                 if x not in diapason1:
                     diapason1.append(x)
         elif len(diapason2):
-            diapason1.append('.')
+            diapason1.append(".")
             for x in diapason2:
                 diapason1.append(x)
         return diapason1
@@ -56,40 +57,37 @@ class Pager(BaseDataclass):
         return diapason1
 
 
-@dataclass(frozen=True)
+@dataclass
 class WithFieldsQuerystring(BaseDataclass):
-    with_fields: Optional[str] = field()  # добавочные поля, через запятую
+    with_fields: str | None = field()  # добавочные поля, через запятую
 
 
-@dataclass(frozen=True)
+@dataclass
 class Querystring(WithFieldsQuerystring):
     # фильтр. Допускает сложные условия.
     # Например: action:test|one|two,result:req
     # action in (test, one, two) and result in (req)
-    filters: Optional[str] = field()  # фильтр
-    sorts: Optional[str] = field()  # сортировка
-    page: Optional[int] = field(default=1)  # страница
-    per_page: Optional[int] = field(
-        default=10)  # количество элементов на странице
+    filters: str | None = field()  # фильтр
+    sorts: str | None = field()  # сортировка
+    page: int | None = field(default=1)  # страница
+    per_page: int | None = field(default=10)  # количество элементов на странице
 
 
-@dataclass(frozen=True)
+@dataclass
 class PagedResponse(SuccessResponse):
-    pager: Optional[Pager] = field()
+    pager: Pager | None = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class ResultResponse(SuccessResponse):
     result: Any = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class DataRequest(BaseDataclass):
     data: Any = field()
 
 
-@dataclass(frozen=True)
+@dataclass
 class RevisionRequest(BaseDataclass):
-    revision: int = field(metadata={
-        "strict": True
-    })
+    revision: int = field(metadata={"strict": True})
