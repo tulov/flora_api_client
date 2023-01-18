@@ -1,24 +1,26 @@
 import marshmallow_dataclass
 from flora_api_client.presentations.products import (
-    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
-    FeaturedProductsQuerystring, PreferredExecutorResponse,
-    PreferredExecutorQuerystring, SuccessFeaturedProductsResponse,
-    IdsFeaturedProductsQuerystring, Product, FeaturedProduct
+    ProductResponse,
+    ProductRequest,
+    ProductsResponse,
+    FeaturedProductsResponse,
+    FeaturedProductsQuerystring,
+    PreferredExecutorResponse,
+    PreferredExecutorQuerystring,
+    SuccessFeaturedProductsResponse,
+    IdsFeaturedProductsQuerystring,
+    Product,
+    FeaturedProduct,
+    FeaturedProductExecutor,
 )
 from marshmallow import Schema, EXCLUDE
 
 Schema.Meta.unknown = EXCLUDE
 
 
-ProductResponseSchema = marshmallow_dataclass.class_schema(
-    ProductResponse
-)
-ProductsResponseSchema = marshmallow_dataclass.class_schema(
-    ProductsResponse
-)
-ProductRequestSchema = marshmallow_dataclass.class_schema(
-    ProductRequest
-)
+ProductResponseSchema = marshmallow_dataclass.class_schema(ProductResponse)
+ProductsResponseSchema = marshmallow_dataclass.class_schema(ProductsResponse)
+ProductRequestSchema = marshmallow_dataclass.class_schema(ProductRequest)
 FeaturedProductsResponseSchema = marshmallow_dataclass.class_schema(
     FeaturedProductsResponse
 )
@@ -42,10 +44,10 @@ IdsFeaturedProductsQuerystringSchema = marshmallow_dataclass.class_schema(
     IdsFeaturedProductsQuerystring
 )
 
-ProductSchema = marshmallow_dataclass.class_schema(
-    Product
-)
+ProductSchema = marshmallow_dataclass.class_schema(Product)
 
-FeaturedProductSchema = marshmallow_dataclass.class_schema(
-    FeaturedProduct
+FeaturedProductSchema = marshmallow_dataclass.class_schema(FeaturedProduct)
+
+FeaturedProductExecutorSchema = marshmallow_dataclass.class_schema(
+    FeaturedProductExecutor
 )
