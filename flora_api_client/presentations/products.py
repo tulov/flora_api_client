@@ -116,6 +116,7 @@ class FeaturedProductPrice(BaseDataclass):
     discount: Decimal = field()
     discount_percent: int = field()
     executor_discount_percent: int = field()
+    cashback: int = field()
 
 
 @dataclass
