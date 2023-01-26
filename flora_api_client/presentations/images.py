@@ -108,3 +108,4 @@ class ImageUploadRequest(BaseDataclass):
         },
         default=None,
     )
+    data: dict[str, Any] = field(default_factory=dict)
