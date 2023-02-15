@@ -32,6 +32,7 @@ class OrderItem(OrderProduct):
     data: Any = field()
     product: Product | None = field(default=None)
     provider: User | None = field(default=None)
+    photos_before_delivery: list[Image] | None = field(default_factory=list)
 
 
 @dataclass
