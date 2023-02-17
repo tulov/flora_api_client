@@ -38,6 +38,7 @@ class Price(PriceBase):
     )
     current_usd_price: Decimal = field()
     discount_percent: int = field()
+    is_available: bool = field()
     delivery_price: Decimal | None = field(default=None)
 
 
