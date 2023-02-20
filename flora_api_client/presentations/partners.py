@@ -47,3 +47,15 @@ class PartnerSettingsR(BaseDataclass):
 @dataclass
 class PartnerSettingsResponse(SuccessResponse):
     result: PartnerSettingsR = field()
+
+
+@dataclass
+class SetProductsAvailableRequest(BaseDataclass):
+    products_ids: list[int] = field()
+    available: bool = field()
+
+
+@dataclass
+class SetCitiesAvailableRequest(BaseDataclass):
+    cities_ids: list[int] = field()
+    available: bool = field()
