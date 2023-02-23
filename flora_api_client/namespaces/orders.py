@@ -108,6 +108,16 @@ class OrdersNamespace(Namespace):
         )
 
     @expectations(schema=ResultResponseSchema)
+    async def on_delivery(
+        self, order_id: int, data: DataRequest, **kwargs
+    ) -> (int, ResultResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/on-delivery/"),
+            json=data.as_dict(),
+            **kwargs,
+        )
+
+    @expectations(schema=ResultResponseSchema)
     async def after_reject(
         self, order_id: int, **kwargs
     ) -> (int, ResultResponse | ErrorResponse, RenewTokenResponse):
