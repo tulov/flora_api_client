@@ -53,8 +53,6 @@ class OrderComment(OrderCommentBase):
 class Answer(BaseDataclass):
     id: int | None = field(metadata={"strict": True})
     created_at: datetime = field()
-    order_id: int = field(metadata={"strict": True})
-    user_id: int = field(metadata={"strict": True})
     rating: int = field(metadata={"strict": True, "validate": Range(min=1, max=5)})
     txt: str | None = field()
     is_checked: bool = field()
@@ -81,6 +79,7 @@ class Order(BaseDataclass):
     state: str = field(metadata={"validate": OneOf([r.value for r in OrderState])})
     promo_code: str = field(metadata={"validate": Length(max=100)})
     amount: Decimal = field()
+    answer_id: int | None = field(metadata={"strict": True})
     currency: str = field(metadata={"validate": Length(equal=3)})
     revision: int = field(metadata={"strict": True})
     data: Any = field(default_factory=dict)
