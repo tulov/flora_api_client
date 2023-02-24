@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 
 from aiohttp import ClientSession
 
-from flora_api_client.payloads import dumps
+from simplejson import dumps
 from flora_api_client.presentations.base import BaseDataclass
 
 
