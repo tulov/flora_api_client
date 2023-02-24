@@ -8,7 +8,6 @@ from uuid import UUID
 
 from aiohttp.payload import JsonPayload as BaseJsonPayload, Payload
 from aiohttp.typedefs import JSONEncoder
-from asyncpg import Record
 from flora_api_client.presentations.base import BaseDataclass
 
 from flora_api_client.schemas import DATE_FORMAT, DATETIME_FORMAT
@@ -38,15 +37,6 @@ def convert_dataclass(value: BaseDataclass):
 @convert.register(UUID)
 def convert_uuid(value: UUID):
     return str(value)
-
-
-@convert.register(Record)
-def convert_asyncpg_record(value: Record):
-    """
-    Позволяет автоматически сериализовать результаты запроса, возвращаемые
-    asyncpg.
-    """
-    return dict(value)
 
 
 @convert.register(date)
