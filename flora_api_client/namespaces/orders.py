@@ -117,6 +117,16 @@ class OrdersNamespace(Namespace):
             **kwargs,
         )
 
+    @expectations(schema=SuccessResponseSchema)
+    async def exact_delivery_time(
+        self, order_id: int, data: DataRequest, **kwargs
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{order_id}/exact-delivery-time/"),
+            json=data.as_dict(),
+            **kwargs,
+        )
+
     @expectations(schema=ResultResponseSchema)
     async def after_reject(
         self, order_id: int, **kwargs
