@@ -22,7 +22,6 @@ from ..presentations.orders import (
     OrderBillResponse,
     OrderBillRequest,
     AfterRejectRequestBody,
-    Answer,
 )
 from ..schemas import (
     OrderResponseSchema,
@@ -186,10 +185,10 @@ class OrdersNamespace(Namespace):
 
     @expectations(schema=SuccessResponseSchema)
     async def answer(
-        self, order_id: int, data: Answer, **kwargs
+        self, order_id: int, data: DataRequest, **kwargs
     ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
         return await self._post(
             self.build_url(postfix_url=f"{order_id}/answer/"),
-            json=data.as_dict(),
+            json=data.data,
             **kwargs,
         )
