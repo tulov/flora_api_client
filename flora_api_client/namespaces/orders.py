@@ -22,6 +22,7 @@ from ..presentations.orders import (
     OrderBillResponse,
     OrderBillRequest,
     AfterRejectRequestBody,
+    Answer,
 )
 from ..schemas import (
     OrderResponseSchema,
@@ -180,5 +181,15 @@ class OrdersNamespace(Namespace):
         return await self._put(
             self.build_url(postfix_url=f"{order_id}/send-photo-before-delivery/"),
             json={},
+            **kwargs,
+        )
+
+    @expectations(schema=SuccessResponseSchema)
+    async def answer(
+        self, order_id: int, data: Answer, **kwargs
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url=f"{order_id}/answer/"),
+            json=data.as_dict(),
             **kwargs,
         )

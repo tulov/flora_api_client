@@ -51,12 +51,12 @@ class OrderComment(OrderCommentBase):
 
 @dataclass
 class Answer(BaseDataclass):
-    id: int | None = field(metadata={"strict": True})
-    created_at: datetime = field()
     rating: int = field(metadata={"strict": True, "validate": Range(min=1, max=5)})
-    txt: str | None = field()
-    is_checked: bool = field()
-    is_publish: bool = field()
+    id: int | None = field(metadata={"strict": True}, default=None)
+    created_at: datetime = field(default_factory=datetime.utcnow)
+    txt: str | None = field(default=None)
+    is_checked: bool = field(default=False)
+    is_publish: bool = field(default=False)
     data: Any = field(default_factory=dict)
 
 
