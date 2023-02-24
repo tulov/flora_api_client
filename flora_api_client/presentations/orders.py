@@ -3,7 +3,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
-from marshmallow.validate import Length, OneOf
+from marshmallow.validate import Length, OneOf, Range
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .bills import Bill
@@ -50,6 +50,19 @@ class OrderComment(OrderCommentBase):
 
 
 @dataclass
+class Answer(BaseDataclass):
+    id: int | None = field(metadata={"strict": True})
+    created_at: datetime = field()
+    order_id: int = field(metadata={"strict": True})
+    user_id: int = field(metadata={"strict": True})
+    rating: int = field(metadata={"strict": True, "validate": Range(min=1, max=5)})
+    txt: str | None = field()
+    is_checked: bool = field()
+    is_publish: bool = field()
+    data: Any = field(default_factory=dict)
+
+
+@dataclass
 class Order(BaseDataclass):
     id: int = field(metadata={"strict": True})
     guid: str = field()
@@ -81,6 +94,7 @@ class Order(BaseDataclass):
     comments: list[OrderComment] | None = field(default_factory=list)
     photos_before_delivery: list[Image] | None = field(default_factory=list)
     bookkeeping: list[BookkeepingRow] | None = field(default_factory=list)
+    answer: Answer | None = field(default=None)
     _max_time_for_accept: datetime | None = field(default=None)
 
     @property
