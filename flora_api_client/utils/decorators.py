@@ -19,7 +19,7 @@ def expectations(*, schema, expected_code=HTTPStatus.OK):
                 if new_tokens
                 else None
             )
-            if type(sch, OrderResponseSchema):
+            if type(sch) == OrderResponseSchema:
                 o = sch.load(res, unknown=EXCLUDE)
                 order_schema = OrderSchema()
                 for i in range(0, len(o.result.children)):
