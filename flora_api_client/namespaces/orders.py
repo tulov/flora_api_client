@@ -183,7 +183,7 @@ class OrdersNamespace(Namespace):
             **kwargs,
         )
 
-    @expectations(schema=SuccessResponseSchema)
+    @expectations(schema=SuccessResponseSchema, expected_code=HTTPStatus.CREATED)
     async def answer(
         self, order_id: int, data: DataRequest, **kwargs
     ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
