@@ -22,6 +22,7 @@ from ..presentations.orders import (
     OrderBillResponse,
     OrderBillRequest,
     AfterRejectRequestBody,
+    OrderAnswerResponse,
 )
 from ..schemas import (
     OrderResponseSchema,
@@ -31,6 +32,7 @@ from ..schemas import (
     ResultResponseSchema,
     SuccessResponseSchema,
 )
+from ..schemas.orders import OrderAnswerResponseSchema
 
 
 class OrdersNamespace(Namespace):
@@ -184,11 +186,20 @@ class OrdersNamespace(Namespace):
         )
 
     @expectations(schema=SuccessResponseSchema, expected_code=HTTPStatus.CREATED)
-    async def answer(
+    async def create_answer(
         self, order_id: int, data: DataRequest, **kwargs
     ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
         return await self._post(
-            self.build_url(postfix_url=f"{order_id}/answer/"),
+            self.build_url(postfix_url=f"{order_id}/answers/"),
             json=data.data,
+            **kwargs,
+        )
+
+    @expectations(schema=OrderAnswerResponseSchema)
+    async def answers(
+        self, order_id: int, **kwargs
+    ) -> (int, OrderAnswerResponse | ErrorResponse, RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{order_id}/answers/"),
             **kwargs,
         )
