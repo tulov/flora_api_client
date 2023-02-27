@@ -58,6 +58,9 @@ class Answer(BaseDataclass):
     is_checked: bool = field(default=False)
     is_publish: bool = field(default=False)
     data: Any = field(default_factory=dict)
+    city_ids: list[int] = field(default_factory=list)
+    product_ids: list[int] = field(default_factory=list)
+    provider_ids: list[int] = field(default_factory=list)
 
 
 @dataclass
