@@ -1,10 +1,27 @@
 from flora_api_client.auth.singer import Singer
 from flora_api_client.namespaces import (
-    NAMESPACES, UsersNamespace, AuthNamespace, InfoNamespace, PartnersNamespace,
-    DataForAuthNamespace, CountersNamespace, ModerationNamespace,
-    CategoriesNamespace, TagsNamespace, FieldsNamespace, ImagesNamespace,
-    ProductsNamespace, CitiesNamespace, PricesNamespace, ProgramsNamespace,
-    MenuNamespace, SliderItemsNamespace, OrdersNamespace, BillsNamespace, PromoCodesNamespace
+    NAMESPACES,
+    UsersNamespace,
+    AuthNamespace,
+    InfoNamespace,
+    PartnersNamespace,
+    DataForAuthNamespace,
+    CountersNamespace,
+    ModerationNamespace,
+    CategoriesNamespace,
+    TagsNamespace,
+    FieldsNamespace,
+    ImagesNamespace,
+    ProductsNamespace,
+    CitiesNamespace,
+    PricesNamespace,
+    ProgramsNamespace,
+    MenuNamespace,
+    SliderItemsNamespace,
+    OrdersNamespace,
+    BillsNamespace,
+    PromoCodesNamespace,
+    AnswersNamespace,
 )
 
 
@@ -29,9 +46,11 @@ class FloraApiClient:
     orders: OrdersNamespace
     bills: BillsNamespace
     promos: PromoCodesNamespace
+    answers: AnswersNamespace
 
-    def __init__(self, *, app_id: str, app_key: str,
-                 host: str, url_prefix: str = '/api/v1'):
+    def __init__(
+        self, *, app_id: str, app_key: str, host: str, url_prefix: str = "/api/v1"
+    ):
         signer = Singer(private_key=app_key, public_key=app_id)
         self._namespaces = {}
         for name, ns in NAMESPACES.items():

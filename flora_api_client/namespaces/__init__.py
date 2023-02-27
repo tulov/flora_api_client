@@ -18,27 +18,29 @@ from .slider import SliderItemsNamespace
 from .orders import OrdersNamespace
 from .bills import BillsNamespace
 from .promo_codes import PromoCodesNamespace
+from .answers import AnswersNamespace
 
 
 NAMESPACES = {
     "users": UsersNamespace,
-    'info': InfoNamespace,
-    'partners': PartnersNamespace,
-    'auth': AuthNamespace,
-    'data_for_auth': DataForAuthNamespace,
-    'counters': CountersNamespace,
-    'moderation': ModerationNamespace,
-    'categories': CategoriesNamespace,
-    'tags': TagsNamespace,
-    'fields': FieldsNamespace,
-    'images': ImagesNamespace,
-    'products': ProductsNamespace,
-    'cities': CitiesNamespace,
-    'prices': PricesNamespace,
-    'programs': ProgramsNamespace,
-    'menu': MenuNamespace,
-    'slider_items': SliderItemsNamespace,
+    "info": InfoNamespace,
+    "partners": PartnersNamespace,
+    "auth": AuthNamespace,
+    "data_for_auth": DataForAuthNamespace,
+    "counters": CountersNamespace,
+    "moderation": ModerationNamespace,
+    "categories": CategoriesNamespace,
+    "tags": TagsNamespace,
+    "fields": FieldsNamespace,
+    "images": ImagesNamespace,
+    "products": ProductsNamespace,
+    "cities": CitiesNamespace,
+    "prices": PricesNamespace,
+    "programs": ProgramsNamespace,
+    "menu": MenuNamespace,
+    "slider_items": SliderItemsNamespace,
     "orders": OrdersNamespace,
     "bills": BillsNamespace,
     "promos": PromoCodesNamespace,
+    "answers": AnswersNamespace,
 }
