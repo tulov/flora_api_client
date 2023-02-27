@@ -59,7 +59,7 @@ class Pager(BaseDataclass):
 
 @dataclass
 class WithFieldsQuerystring(BaseDataclass):
-    with_fields: str | None = field()  # добавочные поля, через запятую
+    with_fields: str | None = field(default=None)  # добавочные поля, через запятую
 
 
 @dataclass
@@ -67,8 +67,8 @@ class Querystring(WithFieldsQuerystring):
     # фильтр. Допускает сложные условия.
     # Например: action:test|one|two,result:req
     # action in (test, one, two) and result in (req)
-    filters: str | None = field()  # фильтр
-    sorts: str | None = field()  # сортировка
+    filters: str | None = field(default=None)  # фильтр
+    sorts: str | None = field(default=None)  # сортировка
     page: int | None = field(default=1)  # страница
     per_page: int | None = field(default=10)  # количество элементов на странице
 
