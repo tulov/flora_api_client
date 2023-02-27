@@ -207,5 +207,10 @@ class OrderAnswerResponse(SuccessResponse):
 
 
 @dataclass
+class AnswerResponse(SuccessResponse):
+    result: Answer = field()
+
+
+@dataclass
 class AnswersResponse(PagedResponse):
     result: list[Answer] = field(default_factory=list, metadata={"required": True})
