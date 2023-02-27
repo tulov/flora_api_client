@@ -204,3 +204,8 @@ class AfterRejectRequestBody(BaseDataclass):
 @dataclass
 class OrderAnswerResponse(SuccessResponse):
     result: list[Answer] = field(default_factory=list, metadata={"required": True})
+
+
+@dataclass
+class AnswersResponse(PagedResponse):
+    result: list[Answer] = field(default_factory=list, metadata={"required": True})

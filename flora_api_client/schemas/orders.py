@@ -10,6 +10,7 @@ from flora_api_client.presentations.orders import (
     Order,
     OrderCommentRequest,
     OrderAnswerResponse,
+    AnswersResponse,
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -27,3 +28,4 @@ AfterRejectRequestBodySchema = marshmallow_dataclass.class_schema(
 )
 OrderSchema = marshmallow_dataclass.class_schema(Order)
 OrderAnswerResponseSchema = marshmallow_dataclass.class_schema(OrderAnswerResponse)
+AnswersResponseSchema = marshmallow_dataclass.class_schema(AnswersResponse)
