@@ -60,6 +60,8 @@ class Answer(BaseDataclass):
     is_checked: bool = field(default=False)
     is_publish: bool = field(default=False)
     data: Any = field(default_factory=dict)
+    city: City | None = field(default=None)
+    user: User | None = field(default=None)
 
 
 @dataclass
