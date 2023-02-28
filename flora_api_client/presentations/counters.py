@@ -5,6 +5,7 @@ from .base import SuccessResponse, BaseDataclass
 @dataclass
 class CountersResult(BaseDataclass):
     moderate: int = field(default=0)
+    answer: int = field(default=0)
 
 
 @dataclass
