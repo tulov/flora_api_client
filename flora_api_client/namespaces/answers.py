@@ -21,3 +21,11 @@ class AnswersNamespace(Namespace):
         self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
     ) -> (int, AnswerResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(self.build_url(query_params, postfix_url=id_), **kwargs)
+
+    @expectations(schema=AnswerResponseSchema)
+    async def toggle(
+        self, id_: int, **kwargs
+    ) -> (int, AnswerResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{id_}/toggle"), json={}, **kwargs
+        )
