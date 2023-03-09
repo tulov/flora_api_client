@@ -49,7 +49,10 @@ class Singer:
         params = inline(body)
         # сортируем и конкатенируем значения
         concatenated_values = "".join(
-            [unquote(params[k]) for k in sorted(params.keys())]
+            [
+                unquote(params[k]) if k == "url" else params[k]
+                for k in sorted(params.keys())
+            ]
         )
         concatenated_values = f"{self.private_key}{concatenated_values}"
         # вычисляем хеш sha256
