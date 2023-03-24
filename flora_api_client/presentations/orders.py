@@ -8,7 +8,7 @@ from marshmallow.validate import Length, OneOf, Range
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .bills import Bill
 from .bookkeeping import BookkeepingRow
-from .cities import City
+from .cities import City, Country
 from .enums import OrderState
 from .images import Image
 from .products import Product
@@ -88,6 +88,7 @@ class Order(BaseDataclass):
     data: Any = field(default_factory=dict)
     answer_id: int | None = field(metadata={"strict": True}, default=None)
     city: City | None = field(default=None)
+    country: Country | None = field(default=None)
     provider: User | None = field(default=None)
     user: User | None = field(default=None)
     bills: list[Bill] | None = field(default_factory=list)
