@@ -75,7 +75,7 @@ class City(BaseDataclass):
     gmt: Decimal | None = field()
     timezone: str | None = field(metadata={"validate": Length(max=100)})
     delivery_currency: str | None = field(metadata={"validate": Length(equal=3)})
-    delivery_price: int | None = field(metadata={"strict": True})
+    delivery_price: Decimal | None = field()
     country: Country | None = field()
     parent_city: Any | None = field()
     region: Region | None = field()
