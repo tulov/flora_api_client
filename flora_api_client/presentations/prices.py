@@ -15,11 +15,6 @@ class PriceBase(BaseDataclass):
             "strict": True,
         }
     )
-    city_id: int = field(
-        metadata={
-            "strict": True,
-        }
-    )
     price: Decimal = field()
     discount_percent: int = field()
     is_available: bool = field()
