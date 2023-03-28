@@ -6,7 +6,7 @@ from marshmallow.validate import Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse, Querystring
 from .categories import Category
-from .enums import Currency, UnitOfWeight, UnitOfSize, UnitOfCount, UnitOfTime
+from .enums import Currency, UnitOfWeight, UnitOfSize, UnitOfCount
 from .images import Image
 from .moderation import RequestForModeration
 from .tags import Tag
@@ -93,12 +93,6 @@ class FilesData(BaseDataclass):
 
 @dataclass
 class ProductRequest(ProductBaseDataclass):
-    price: Decimal = field()
-    main_color: str = field()
-    assembly_time: int = field(metadata={"strict": True})
-    assembly_time_unit: str = field(
-        metadata={"validate": OneOf([r.value for r in UnitOfTime])}
-    )
     tags: list[int] = field(default_factory=list, metadata={"required": True})
     files: list[FilesData] = field(default_factory=list, metadata={"required": True})
     items: list[ProductItem] = field(default_factory=list, metadata={"required": True})
