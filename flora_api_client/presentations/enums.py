@@ -87,6 +87,16 @@ class UnitOfCount(Enum):
 
 
 @unique
+class UnitOfTime(Enum):
+    minute = "minute"
+    hour = "hour"
+    day = "day"
+    week = "week"
+    month = "month"
+    year = "year"
+
+
+@unique
 class OrderState(Enum):
     new = "new"
     payed = "payed"
