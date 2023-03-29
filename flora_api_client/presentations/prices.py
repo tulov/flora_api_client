@@ -34,7 +34,6 @@ class Price(PriceBase):
         }
     )
     current_usd_price: Decimal = field()
-    delivery_price: Decimal | None = field(default=None)
 
 
 @dataclass
