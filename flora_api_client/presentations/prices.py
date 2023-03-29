@@ -51,6 +51,7 @@ class PricesResponse(PagedResponse):
 class PricesRequest(BaseDataclass):
     currency: str = field(metadata={"validate": Length(equal=3)})
     delivery_price: Decimal = field()
+    city_id: int = field(metadata={"strict": True})
     prices: list[PriceBase] = field(default_factory=list, metadata={"required": True})
 
 
