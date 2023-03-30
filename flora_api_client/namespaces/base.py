@@ -2,6 +2,7 @@ from http import HTTPStatus
 from typing import Any
 from urllib.parse import urlencode
 
+from aiobreaker import CircuitBreaker
 from aiohttp import ClientSession
 
 from simplejson import dumps
@@ -11,10 +12,11 @@ from flora_api_client.presentations.base import BaseDataclass
 class Namespace:
     URL: str = None
 
-    def __init__(self, host, url_prefix, signer):
+    def __init__(self, host, url_prefix, signer, breaker: CircuitBreaker):
         self._host = host
         self._signer = signer
         self._url_prefix = url_prefix
+        self._breaker = breaker
 
     def get_auth_headers(self, body: dict[str, Any]) -> dict[str, str]:
         return {
@@ -22,10 +24,13 @@ class Namespace:
             "X-Request-App": self._signer.public_key,
         }
 
-    async def _run_query(self, url, method="get", *, long_token: str = "", **kwargs):
+    async def _query(self, url, method="get", *, long_token: str = "", **kwargs):
         async with ClientSession(json_serialize=dumps) as session:
             m = getattr(session, method)
             async with m(f"{self._host}{self._url_prefix}{url}", **kwargs) as resp:
+                if resp.status > 499:
+                    resp.raise_for_status()
+
                 # проверяем на необходимость обновления токена
                 if resp.status != HTTPStatus.FORBIDDEN:
                     return resp.status, await resp.json(), None
@@ -42,13 +47,22 @@ class Namespace:
                 json=renew_body,
                 **renew_kwargs,
             ) as r:
+                if r.status > 499:
+                    r.raise_for_status()
                 if r.status != HTTPStatus.OK:
                     return first_resp_status, body, None
                 new_tokens = await r.json()
             # повторяем запрос с новым токеном
             kwargs["headers"]["X-Auth-Token"] = new_tokens["token"]
             async with m(f"{self._host}{self._url_prefix}{url}", **kwargs) as resp:
+                if resp.status > 499:
+                    resp.raise_for_status()
                 return resp.status, await resp.json(), new_tokens
+
+    async def _run_query(self, url, method="get", *, long_token: str = "", **kwargs):
+        return await self._breaker.call_async(
+            self._query, url, method, long_token=long_token, **kwargs
+        )
 
     async def _get(self, url, **kwargs):
         headers = self.get_auth_headers({"url": f"{self._url_prefix}{url}"})

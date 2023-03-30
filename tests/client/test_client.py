@@ -1,5 +1,10 @@
 from http import HTTPStatus
 
+import aiobreaker
+import pytest
+from aiohttp import ClientResponseError
+
+from flora_api_client.client import FloraApiClient
 from flora_api_client.presentations.auth import (
     AuthRequest,
     AuthResponse,
@@ -274,3 +279,21 @@ async def test_change_password(async_api_client):
     status, res, _ = await async_api_client.users.change_password(1, d)
     assert status == HTTPStatus.OK
     assert isinstance(res, SuccessResponse)
+
+
+@pytest.mark.asyncio
+async def test_circuit_breaker(fake_namespace):
+    errors = []
+    for i in range(10):
+        try:
+            await fake_namespace.run_with_status(500)
+        except Exception as e:
+            errors.append(e)
+    breaker_opened = False
+    for e in errors:
+        if isinstance(e, aiobreaker.CircuitBreakerError):
+            breaker_opened = True
+        if breaker_opened:
+            assert isinstance(e, aiobreaker.CircuitBreakerError)
+        else:
+            assert isinstance(e, ClientResponseError)

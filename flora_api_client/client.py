@@ -23,6 +23,8 @@ from flora_api_client.namespaces import (
     PromoCodesNamespace,
     AnswersNamespace,
 )
+from aiobreaker import CircuitBreaker
+from datetime import timedelta
 
 
 class FloraApiClient:
@@ -49,9 +51,21 @@ class FloraApiClient:
     answers: AnswersNamespace
 
     def __init__(
-        self, *, app_id: str, app_key: str, host: str, url_prefix: str = "/api/v1"
+        self,
+        *,
+        app_id: str,
+        app_key: str,
+        host: str,
+        url_prefix: str = "/api/v1",
+        circuit_breaker_fail_max: int = 10,
+        circuit_breaker_timeout_minutes: int = 3,
     ):
         signer = Singer(private_key=app_key, public_key=app_id)
+        breaker = CircuitBreaker(
+            fail_max=circuit_breaker_fail_max,
+            timeout_duration=timedelta(minutes=circuit_breaker_timeout_minutes),
+            # exclude=[lambda e: not isinstance(e, HTTPServerError)]
+        )
         self._namespaces = {}
         for name, ns in NAMESPACES.items():
-            setattr(self, name, ns(host, url_prefix, signer))
+            setattr(self, name, ns(host, url_prefix, signer, breaker))
