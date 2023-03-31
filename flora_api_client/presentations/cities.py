@@ -58,11 +58,12 @@ class Region(BaseDataclass):
     country: Country | None = field()
 
 
+@dataclass
 class DeliveryData(BaseDataclass):
-    currency: str | None = field(metadata={"validate": Length(equal=3)})
-    price: Decimal | None = field()
-    time: int | None = field()
-    time_unit: str | None = field()
+    currency: str = field(metadata={"validate": Length(equal=3)})
+    price: Decimal = field()
+    time: int = field()
+    time_unit: str = field()
 
 
 @dataclass
