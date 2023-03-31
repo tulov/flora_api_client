@@ -1,17 +1,24 @@
 from decimal import Decimal
 from dataclasses import dataclass, field
 
-from marshmallow.validate import Range, Length
+from marshmallow.validate import Range, Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse
 from .prices import Price
 from .users import User
+from .enums import UnitOfTime
 
 
 @dataclass
 class PartnerBindCityData(BaseDataclass):
     city_id: int = field(metadata={"strict": True})
     delivery_price: int = field(metadata={"validate": Range(min=0)})
+    delivery_time: int = field(metadata={"strict": True})
+    delivery_time_unit: str = field(
+        metadata={
+            "validate": OneOf([a.value for a in UnitOfTime]),
+        }
+    )
 
 
 @dataclass
