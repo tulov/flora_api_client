@@ -58,6 +58,13 @@ class Region(BaseDataclass):
     country: Country | None = field()
 
 
+class DeliveryData(BaseDataclass):
+    currency: str | None = field(metadata={"validate": Length(equal=3)})
+    price: Decimal | None = field()
+    time: int | None = field()
+    time_unit: str | None = field()
+
+
 @dataclass
 class City(BaseDataclass):
     id: int = field(
@@ -74,8 +81,7 @@ class City(BaseDataclass):
     slug: str = field(metadata={"validate": Length(max=100)})
     gmt: Decimal | None = field()
     timezone: str | None = field(metadata={"validate": Length(max=100)})
-    delivery_currency: str | None = field(metadata={"validate": Length(equal=3)})
-    delivery_price: Decimal | None = field()
+    delivery: DeliveryData | None = field()
     country: Country | None = field()
     parent_city: Any | None = field()
     region: Region | None = field()
