@@ -28,10 +28,8 @@ class Partner(User):
 
 
 @dataclass
-class BindCityRequestDataclass(BaseDataclass):
-    city_id: int = field(metadata={"strict": True})
-    delivery_price: Decimal = field(metadata={"validate": Range(min=0)})
-    delivery_currency: str = field(metadata={"validate": Length(equal=3)})
+class BindCityRequestDataclass(PartnerBindCityData):
+    pass
 
 
 @dataclass
