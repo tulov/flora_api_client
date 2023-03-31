@@ -12,7 +12,7 @@ from .enums import UnitOfTime
 @dataclass
 class PartnerBindCityData(BaseDataclass):
     city_id: int = field(metadata={"strict": True})
-    delivery_price: int = field(metadata={"validate": Range(min=0)})
+    delivery_price: Decimal = field(metadata={"validate": Range(min=0)})
     delivery_time: int = field(metadata={"strict": True})
     delivery_time_unit: str = field(
         metadata={
