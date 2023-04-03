@@ -34,7 +34,7 @@ class BindCityRequestDataclass(PartnerBindCityData):
 
 @dataclass
 class PartnerSettings(BaseDataclass):
-    address: str = field(metadata={"validate": Length(max=200)})
+    address: str | None = field(metadata={"validate": Length(max=200)})
     work_schedule: WorkSchedule = field(default_factory=WorkSchedule)
 
 
