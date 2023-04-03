@@ -5,7 +5,7 @@ from marshmallow.validate import Range, Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse
 from .prices import Price
-from .users import User
+from .users import User, WorkSchedule
 from .enums import UnitOfTime
 
 
@@ -35,6 +35,7 @@ class BindCityRequestDataclass(PartnerBindCityData):
 @dataclass
 class PartnerSettings(BaseDataclass):
     address: str = field(metadata={"validate": Length(max=200)})
+    work_schedule: WorkSchedule = field(default_factory=WorkSchedule)
 
 
 @dataclass
