@@ -4,7 +4,7 @@ from typing import Any
 
 from marshmallow import ValidationError
 from marshmallow.fields import Decimal
-from marshmallow.validate import ContainsOnly, Length, Range, Email
+from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems
@@ -44,6 +44,35 @@ class Contacts(BaseDataclass):
 
 
 @dataclass
+class WorkScheduleItem(BaseDataclass):
+    start: str = field()
+    end: str = field()
+
+
+@dataclass
+class WorkSchedule(BaseDataclass):
+    monday: WorkScheduleItem | None = field(default=None)
+    tuesday: WorkScheduleItem | None = field(default=None)
+    wednesday: WorkScheduleItem | None = field(default=None)
+    thursday: WorkScheduleItem | None = field(default=None)
+    friday: WorkScheduleItem | None = field(default=None)
+    saturday: WorkScheduleItem | None = field(default=None)
+    sunday: WorkScheduleItem | None = field(default=None)
+
+
+@dataclass
+class UserData(BaseDataclass):
+    address: str | None = field(metadata={"validate": Length(max=200)}, default=None)
+    promo_system: str | None = field(
+        metadata={"validate": OneOf([r.value for r in PromoSystems])},
+        default=PromoSystems.cashback.value,
+    )
+    work_schedule: WorkSchedule | None = field(default=None)
+    old_id: int | None = field(default=None)
+    cashback: Decimal = field(default=Decimal(0))
+
+
+@dataclass
 class User(BaseDataclass):
     id: int = field(
         metadata={
@@ -66,7 +95,7 @@ class User(BaseDataclass):
         }
     )
     contacts: Contacts | None = field(default=None)
-    data: dict[str, Any] = field(default_factory=dict)
+    data: UserData = field(default_factory=UserData)
     data_for_auth: list[DataForAuth] | None = field(default_factory=list)
     roles: list[str] = field(
         default_factory=list,
@@ -90,14 +119,14 @@ class User(BaseDataclass):
 
     @property
     def promo_system(self) -> str:
-        if self.data and "promo_system" in self.data:
-            return self.data["promo_system"]
+        if self.data and hasattr(self.data, "promo_system"):
+            return self.data.promo_system
         return PromoSystems.cashback.value
 
     @property
     def cashback(self) -> Decimal:
-        if self.data and "cashback" in self.data:
-            return self.data["cashback"]
+        if self.data and hasattr(self.data, "cashback"):
+            return self.data.cashback
         return Decimal(0)
 
 
