@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
 
-from marshmallow.validate import Length, OneOf
+from marshmallow import ValidationError
+from marshmallow.validate import Length, OneOf, Range
+from datetime import datetime
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .enums import Currency
@@ -21,6 +23,28 @@ class PriceBase(BaseDataclass):
 
 
 @dataclass
+class PriceDataAction(BaseDataclass):
+    percent: int = field(metadata={"strict": True, "validate": Range(min=-90, max=90)})
+    start: datetime = field()
+    end: datetime = field()
+
+    def __post_init__(self):
+        if self.start > self.end:
+            raise ValidationError("Начало должно быть раньше окончания")
+
+
+@dataclass
+class PriceData(BaseDataclass):
+    actions: list[PriceDataAction] = field(default_factory=list)
+
+    def __post_init__(self):
+        if len(self.actions) > 3:
+            raise ValidationError(
+                f"Максимальное количество действий 3. Сейчас: {len(self.actions)}"
+            )
+
+
+@dataclass
 class Price(PriceBase):
     id: int = field(
         metadata={
@@ -33,7 +57,7 @@ class Price(PriceBase):
             "strict": True,
         }
     )
-    current_usd_price: Decimal = field()
+    data: PriceData = field()
 
 
 @dataclass
