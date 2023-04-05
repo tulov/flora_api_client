@@ -18,7 +18,6 @@ class PriceBase(BaseDataclass):
         }
     )
     price: Decimal = field()
-    discount_percent: int = field()
     is_available: bool = field()
 
 
