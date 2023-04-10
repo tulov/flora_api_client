@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from marshmallow import ValidationError
 from marshmallow.validate import Length, OneOf, Range
-from datetime import datetime
+from datetime import date
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
 from .enums import Currency
@@ -13,8 +13,8 @@ from .products import FeaturedProductExecutor
 @dataclass
 class PriceDataAction(BaseDataclass):
     percent: int = field(metadata={"strict": True, "validate": Range(min=-90, max=90)})
-    start: datetime = field()
-    end: datetime = field()
+    start: date = field()
+    end: date = field()
 
     def __post_init__(self):
         if self.start > self.end:
