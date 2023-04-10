@@ -11,17 +11,6 @@ from .products import FeaturedProductExecutor
 
 
 @dataclass
-class PriceBase(BaseDataclass):
-    product_id: int = field(
-        metadata={
-            "strict": True,
-        }
-    )
-    price: Decimal = field()
-    is_available: bool = field()
-
-
-@dataclass
 class PriceDataAction(BaseDataclass):
     percent: int = field(metadata={"strict": True, "validate": Range(min=-90, max=90)})
     start: datetime = field()
@@ -44,6 +33,18 @@ class PriceData(BaseDataclass):
 
 
 @dataclass
+class PriceBase(BaseDataclass):
+    product_id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    price: Decimal = field()
+    is_available: bool = field()
+    data: PriceData = field()
+
+
+@dataclass
 class Price(PriceBase):
     id: int = field(
         metadata={
@@ -56,7 +57,6 @@ class Price(PriceBase):
             "strict": True,
         }
     )
-    data: PriceData = field()
 
 
 @dataclass
@@ -72,8 +72,6 @@ class PricesResponse(PagedResponse):
 @dataclass
 class PricesRequest(BaseDataclass):
     currency: str = field(metadata={"validate": Length(equal=3)})
-    delivery_price: Decimal = field()
-    city_id: int = field(metadata={"strict": True})
     prices: list[PriceBase] = field(default_factory=list, metadata={"required": True})
 
 
