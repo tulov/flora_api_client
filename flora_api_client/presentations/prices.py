@@ -76,7 +76,7 @@ class PricesRequest(BaseDataclass):
 
 
 @dataclass
-class PriceData(BaseDataclass):
+class CurrentPriceData(BaseDataclass):
     product_id: int = field(metadata={"strict": True})
     executors: list[FeaturedProductExecutor] = field(
         default_factory=list, metadata={"required": True}
@@ -85,7 +85,7 @@ class PriceData(BaseDataclass):
 
 @dataclass
 class PricesCurrentResponse(SuccessResponse):
-    result: list[PriceData] = field(default=list, metadata={"required": True})
+    result: list[CurrentPriceData] = field(default=list, metadata={"required": True})
 
 
 @dataclass
