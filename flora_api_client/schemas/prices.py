@@ -6,6 +6,7 @@ from flora_api_client.presentations.prices import (
     PricesCurrentResponse,
     PricesCurrentQuerystring,
     PriceBase,
+    PriceData,
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -20,3 +21,4 @@ PricesCurrentQuerystringSchema = marshmallow_dataclass.class_schema(
     PricesCurrentQuerystring
 )
 PriceBaseSchema = marshmallow_dataclass.class_schema(PriceBase)
+PriceDataSchema = marshmallow_dataclass.class_schema(PriceData)
