@@ -30,6 +30,19 @@ class PriceData(BaseDataclass):
             raise ValidationError(
                 f"Максимальное количество действий 3. Сейчас: {len(self.actions)}"
             )
+        if len(self.actions) == 1:
+            return
+        for start in range(len(self.actions) - 1):
+            for end in range(start + 1, len(self.actions)):
+                one = self.actions[start]
+                two = self.actions[end]
+                if (
+                    one.start <= two.start <= one.end
+                    or one.start <= two.end <= one.end
+                    or two.start <= one.start <= two.end
+                    or two.start <= one.end <= two.end
+                ):
+                    raise ValidationError(f"Пересекающиеся диапазоны {one} и {two}")
 
 
 @dataclass

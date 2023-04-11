@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
@@ -173,6 +174,7 @@ class SuccessFeaturedProductsResponse(SuccessResponse):
 
 @dataclass
 class FeaturedProductsQuerystring(Querystring):
+    delivery_date: date = field(default_factory=datetime.now().date)
     promo: str | None = field(default=None)
     currency: str = field(
         metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
