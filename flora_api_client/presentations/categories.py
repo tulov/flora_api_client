@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import date
 
 from marshmallow.validate import Length, OneOf
 
@@ -73,6 +74,7 @@ class FilterCounterResponse(SuccessResponse):
 
 @dataclass
 class FilterCounterRequest(BaseDataclass):
+    delivery_date: date = field()
     city_id: int = field(metadata={"strict": True})
     category_id: int = field(metadata={"strict": True})
     price_from: int | None = field(metadata={"strict": True})
