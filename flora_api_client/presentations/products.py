@@ -185,6 +185,7 @@ class FeaturedProductsQuerystring(Querystring):
 class IdsFeaturedProductsQuerystring(BaseDataclass):
     filters: str | None = field()  # фильтр
     promo: str | None = field()
+    delivery_date: date = field(default_factory=datetime.now().date)
     currency: str = field(
         metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
     )
@@ -193,6 +194,7 @@ class IdsFeaturedProductsQuerystring(BaseDataclass):
 @dataclass
 class PreferredExecutorQuerystring(BaseDataclass):
     promo: str | None = field()
+    delivery_date: date = field(default_factory=datetime.now().date)
     currency: str = field(
         metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
     )
