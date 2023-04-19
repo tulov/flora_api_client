@@ -4,7 +4,7 @@ from typing import Any
 
 from marshmallow import ValidationError
 from marshmallow.fields import Decimal
-from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf
+from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Regexp
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems
@@ -45,8 +45,25 @@ class Contacts(BaseDataclass):
 
 @dataclass
 class WorkScheduleItem(BaseDataclass):
-    start: str = field()
-    end: str = field()
+    start: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
+    end: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
+
+    def __post_init__(self):
+        if not self.start and self.end:
+            raise ValidationError({"_schema": ["Не указано начало диапазона"]})
+        if self.start and not self.end:
+            raise ValidationError({"_schema": ["Не указан конец диапазона"]})
+        if self.start and self.end:
+            start = datetime.strptime(self.start, "%H:%M").time()
+            end = datetime.strptime(self.end, "%H:%M").time()
+            if start >= end:
+                raise ValidationError(
+                    {"_schema": ["Начало диапазона должно быть больше его завершения"]}
+                )
 
 
 @dataclass
