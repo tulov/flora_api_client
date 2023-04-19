@@ -3,6 +3,7 @@ from flora_api_client.presentations.partners import (
     Partner,
     SetCitiesAvailableRequest,
     SetProductsAvailableRequest,
+    PartnerSettingsRequest,
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -15,4 +16,7 @@ SetCitiesAvailableRequestSchema = marshmallow_dataclass.class_schema(
 )
 SetProductsAvailableRequestSchema = marshmallow_dataclass.class_schema(
     SetProductsAvailableRequest
+)
+PartnerSettingsRequestSchema = marshmallow_dataclass.class_schema(
+    PartnerSettingsRequest
 )
