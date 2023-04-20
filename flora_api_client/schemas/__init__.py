@@ -40,6 +40,8 @@ from .categories import (
     CategoryResponseSchema,
     CreateCategoryRequestSchema,
     CategoriesResponseSchema,
+    FilterCounterResponseSchema,
+    FilterCounterRequestSchema,
 )
 from .tags import (
     TagResponseSchema,
@@ -58,13 +60,14 @@ from .products import (
     ProductsResponseSchema,
     ProductResponseSchema,
     ProductRequestSchema,
+    FeaturedProductsResponseSchema,
     FeaturedProductsQuerystringSchema,
     PreferredExecutorResponseSchema,
     PreferredExecutorQuerystringSchema,
     SuccessFeaturedProductsResponseSchema,
     IdsFeaturedProductsQuerystringSchema,
 )
-from .cities import CitiesResponseSchema, CityResponseSchema
+from .cities import CitiesResponseSchema, CityResponseSchema, SearchCitiesResponseSchema
 from .prices import (
     PricesResponseSchema,
     PriceResponseSchema,
@@ -194,4 +197,8 @@ __all__ = (
     PartnerSettingsResponseSchema,
     AfterRejectRequestBodySchema,
     RevisionRequestSchema,
+    FilterCounterResponseSchema,
+    FilterCounterRequestSchema,
+    FeaturedProductsResponseSchema,
+    SearchCitiesResponseSchema,
 )
