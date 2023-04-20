@@ -6,7 +6,7 @@ from marshmallow.validate import Length, OneOf, Range
 from datetime import date
 
 from .base import SuccessResponse, BaseDataclass, PagedResponse
-from .enums import Currency
+from .enums import Currency, UnitOfTime
 from .products import FeaturedProductExecutor
 
 
@@ -23,6 +23,12 @@ class PriceDataAction(BaseDataclass):
 
 @dataclass
 class PriceData(BaseDataclass):
+    assembly_time: int = field(
+        default=0, metadata={"strict": True, "validate": Range(min=0)}
+    )
+    assembly_time_unit: str = field(
+        metadata={"validate": OneOf([r.value for r in UnitOfTime])}, default="hour"
+    )
     actions: list[PriceDataAction] = field(default_factory=list)
 
     def __post_init__(self):
