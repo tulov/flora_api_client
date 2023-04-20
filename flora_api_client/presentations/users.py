@@ -9,7 +9,6 @@ from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Rege
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems
 from .validates import UniqueItems, Filled, Phone
-from ..schemas import SHORT_TIME_FORMAT
 
 
 @dataclass
@@ -59,8 +58,8 @@ class WorkScheduleItem(BaseDataclass):
         if self.start and not self.end:
             raise ValidationError({"_schema": ["Не указан конец диапазона"]})
         if self.start and self.end:
-            start = datetime.strptime(self.start, SHORT_TIME_FORMAT).time()
-            end = datetime.strptime(self.end, SHORT_TIME_FORMAT).time()
+            start = datetime.strptime(self.start, "%H:%M").time()
+            end = datetime.strptime(self.end, "%H:%M").time()
             if start >= end:
                 raise ValidationError(
                     {"_schema": ["Начало диапазона должно быть меньше его завершения"]}
@@ -96,8 +95,8 @@ class WorkScheduleException(BaseDataclass):
             self.time_start = ""
             self.time_end = ""
         if self.time_start:
-            start = datetime.strptime(self.time_start, SHORT_TIME_FORMAT).time()
-            end = datetime.strptime(self.time_end, SHORT_TIME_FORMAT).time()
+            start = datetime.strptime(self.time_start, "%H:%M").time()
+            end = datetime.strptime(self.time_end, "%H:%M").time()
             if start >= end:
                 raise ValidationError(
                     {
