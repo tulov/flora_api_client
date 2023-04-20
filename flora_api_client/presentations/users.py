@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, date, time
 from typing import Any
 
 from marshmallow import ValidationError
 from marshmallow.fields import Decimal
-from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Regexp
+from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems
@@ -45,12 +45,8 @@ class Contacts(BaseDataclass):
 
 @dataclass
 class WorkScheduleItem(BaseDataclass):
-    start: str = field(
-        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
-    )
-    end: str = field(
-        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
-    )
+    start: time | None = field(default=None)
+    end: time | None = field(default=None)
 
     def __post_init__(self):
         if not self.start and self.end:
@@ -58,12 +54,44 @@ class WorkScheduleItem(BaseDataclass):
         if self.start and not self.end:
             raise ValidationError({"_schema": ["Не указан конец диапазона"]})
         if self.start and self.end:
-            start = datetime.strptime(self.start, "%H:%M").time()
-            end = datetime.strptime(self.end, "%H:%M").time()
-            if start >= end:
+            if self.start >= self.end:
                 raise ValidationError(
-                    {"_schema": ["Начало диапазона должно быть больше его завершения"]}
+                    {"_schema": ["Начало диапазона должно быть меньше его завершения"]}
                 )
+
+
+@dataclass
+class WorkScheduleException(BaseDataclass):
+    start: date = field()
+    end: date = field()
+    action: str = field(metadata={"validate": OneOf(["work", "rest"])})
+    time_start: time | None = field(default=None)
+    time_end: time | None = field(default=None)
+
+    def __post_init__(self):
+        if self.start > self.end:
+            raise ValidationError(
+                {
+                    "_schema": [
+                        "Начало диапазона должно быть меньше или совпадать с его завершением"
+                    ]
+                }
+            )
+        if self.action == "work" and (self.time_start is None or self.time_end is None):
+            raise ValidationError(
+                {"_schema": ["Для рабочих дней нужно указать рабочий диапазон времени"]}
+            )
+        if self.action == "rest":
+            self.time_start = None
+            self.time_end = None
+        if self.time_start and self.time_start >= self.time_end:
+            raise ValidationError(
+                {
+                    "_schema": [
+                        "Начало рабочего диапазона должно быть меньше его завершения"
+                    ]
+                }
+            )
 
 
 @dataclass
@@ -75,6 +103,17 @@ class WorkSchedule(BaseDataclass):
     friday: WorkScheduleItem | None = field(default=None)
     saturday: WorkScheduleItem | None = field(default=None)
     sunday: WorkScheduleItem | None = field(default=None)
+    exceptions: list[WorkScheduleException] = field(default_factory=list)
+
+    def __post_init__(self):
+        if len(self.exceptions) > 3:
+            raise ValidationError(
+                {
+                    "_schema": [
+                        "Не может быть указано больше 3 исключений из рабочего расписания"
+                    ]
+                }
+            )
 
 
 @dataclass

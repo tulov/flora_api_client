@@ -1,11 +1,11 @@
 import simplejson
-from datetime import date, datetime
+from datetime import date, datetime, time
 from decimal import Decimal
 from enum import Enum
 from functools import partial, singledispatch
 
 from flora_api_client.presentations.base import BaseDataclass
-from flora_api_client.schemas import DATE_FORMAT, DATETIME_FORMAT
+from flora_api_client.schemas import DATE_FORMAT, DATETIME_FORMAT, SHORT_TIME_FORMAT
 
 
 @singledispatch
@@ -37,6 +37,11 @@ def convert_date(value: date):
     использоваться формат ДД.ММ.ГГГГ.
     """
     return value.strftime(DATE_FORMAT)
+
+
+@convert.register(time)
+def convert_time(value: time):
+    return value.strftime(SHORT_TIME_FORMAT)
 
 
 @convert.register(datetime)
