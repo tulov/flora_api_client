@@ -1,14 +1,15 @@
 from dataclasses import dataclass, field
-from datetime import datetime, date, time
+from datetime import datetime, date
 from typing import Any
 
 from marshmallow import ValidationError
 from marshmallow.fields import Decimal
-from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf
+from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Regexp
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems
 from .validates import UniqueItems, Filled, Phone
+from ..schemas import SHORT_TIME_FORMAT
 
 
 @dataclass
@@ -45,8 +46,12 @@ class Contacts(BaseDataclass):
 
 @dataclass
 class WorkScheduleItem(BaseDataclass):
-    start: time | None = field(default=None)
-    end: time | None = field(default=None)
+    start: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
+    end: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
 
     def __post_init__(self):
         if not self.start and self.end:
@@ -54,7 +59,9 @@ class WorkScheduleItem(BaseDataclass):
         if self.start and not self.end:
             raise ValidationError({"_schema": ["Не указан конец диапазона"]})
         if self.start and self.end:
-            if self.start >= self.end:
+            start = datetime.strptime(self.start, SHORT_TIME_FORMAT).time()
+            end = datetime.strptime(self.end, SHORT_TIME_FORMAT).time()
+            if start >= end:
                 raise ValidationError(
                     {"_schema": ["Начало диапазона должно быть меньше его завершения"]}
                 )
@@ -65,8 +72,12 @@ class WorkScheduleException(BaseDataclass):
     start: date = field()
     end: date = field()
     action: str = field(metadata={"validate": OneOf(["work", "rest"])})
-    time_start: time | None = field(default=None)
-    time_end: time | None = field(default=None)
+    time_start: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
+    time_end: str = field(
+        metadata={"validate": Regexp("(^([0-1][0-9]|2[0-3]):[0-5][0-9]$)|^$")}
+    )
 
     def __post_init__(self):
         if self.start > self.end:
@@ -82,16 +93,19 @@ class WorkScheduleException(BaseDataclass):
                 {"_schema": ["Для рабочих дней нужно указать рабочий диапазон времени"]}
             )
         if self.action == "rest":
-            self.time_start = None
-            self.time_end = None
-        if self.time_start and self.time_start >= self.time_end:
-            raise ValidationError(
-                {
-                    "_schema": [
-                        "Начало рабочего диапазона должно быть меньше его завершения"
-                    ]
-                }
-            )
+            self.time_start = ""
+            self.time_end = ""
+        if self.time_start:
+            start = datetime.strptime(self.time_start, SHORT_TIME_FORMAT).time()
+            end = datetime.strptime(self.time_end, SHORT_TIME_FORMAT).time()
+            if start >= end:
+                raise ValidationError(
+                    {
+                        "_schema": [
+                            "Начало рабочего диапазона должно быть меньше его завершения"
+                        ]
+                    }
+                )
 
 
 @dataclass
