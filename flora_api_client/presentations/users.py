@@ -140,6 +140,23 @@ class WorkSchedule(BaseDataclass):
                     ):
                         raise ValidationError(f"Пересекающиеся диапазоны {one} и {two}")
 
+    def get_working_time(self, on_date: date) -> tuple[str, str] | None:
+        exception = next(
+            filter(lambda e: e.start <= on_date <= e.end, self.exceptions), None
+        )
+        # если на дату есть исключения, тогда используем их,
+        if exception:
+            if exception.action == "rest":
+                return None
+            return exception.time_start, exception.time_end
+
+        # иначе используем стандартное расписание
+        day_of_week = on_date.strftime("%A").lower()
+        schedule: WorkScheduleItem | None = getattr(self, day_of_week)
+        if schedule:
+            return schedule.start, schedule.end
+        return None
+
 
 @dataclass
 class UserData(BaseDataclass):
