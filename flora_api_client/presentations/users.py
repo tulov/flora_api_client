@@ -151,6 +151,7 @@ class UserData(BaseDataclass):
     work_schedule: WorkSchedule | None = field(default=None)
     old_id: int | None = field(default=None)
     cashback: Decimal = field(default=Decimal(0))
+    not_working_time_delivery: bool = field(default=False)
 
 
 @dataclass

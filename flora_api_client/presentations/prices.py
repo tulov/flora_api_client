@@ -24,7 +24,7 @@ class PriceDataAction(BaseDataclass):
 @dataclass
 class PriceData(BaseDataclass):
     assembly_time: int = field(
-        default=0, metadata={"strict": True, "validate": Range(min=0)}
+        default=1, metadata={"strict": True, "validate": Range(min=0)}
     )
     assembly_time_unit: str = field(
         metadata={"validate": OneOf([r.value for r in UnitOfTime])}, default="hour"
