@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from typing import Any
 
 from marshmallow import ValidationError
@@ -7,7 +7,7 @@ from marshmallow.fields import Decimal
 from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Regexp
 
 from .base import BaseDataclass, SuccessResponse, Pager
-from .enums import Roles, PromoSystems
+from .enums import Roles, PromoSystems, UnitOfTime
 from .validates import UniqueItems, Filled, Phone
 
 
@@ -140,7 +140,9 @@ class WorkSchedule(BaseDataclass):
                     ):
                         raise ValidationError(f"Пересекающиеся диапазоны {one} и {two}")
 
-    def get_working_time(self, on_date: date) -> tuple[str, str] | None:
+    def _get_working_time(self, on_date: date | datetime) -> tuple[str, str] | None:
+        if isinstance(on_date, datetime):
+            on_date = on_date.date()
         exception = next(
             filter(lambda e: e.start <= on_date <= e.end, self.exceptions), None
         )
@@ -156,6 +158,91 @@ class WorkSchedule(BaseDataclass):
         if schedule:
             return schedule.start, schedule.end
         return None
+
+    def _get_nearest_working_time(
+        self, on_date: date | datetime
+    ) -> tuple[datetime, datetime] | None:
+        max_days = 14
+        working_time = None
+        cur_date = on_date
+        i = 0
+        while not working_time and i < max_days:
+            cur_date = on_date + timedelta(days=i)
+            i += 1
+            working_time = self._get_working_time(cur_date)
+        if working_time:
+            start_time = datetime.strptime(working_time[0], "%H:%M").time()
+            end_time = datetime.strptime(working_time[1], "%H:%M").time()
+            return datetime.combine(cur_date, start_time), datetime.combine(
+                cur_date, end_time
+            )
+        return None
+
+    def min_datetime_of_ending(
+        self,
+        on_datetime: datetime,
+        delta: int,
+        time_unit: UnitOfTime,
+        is_continuous: bool = False,
+        continue_on_not_working_time: bool = False,
+    ) -> datetime | None:
+        """
+        Возвращает минимальное возможное время с учетом периода
+        :param on_datetime дата и время, с которой начинаем считать
+        :param delta продолжительность действия
+        :param time_unit единица измерения продолжительности действия
+        :param is_continuous если период непрерывный, то истина (не может прерываться)
+        :param continue_on_not_working_time если период может продолжаться в нерабочее время, то истина
+        """
+        nearest_working_time = self._get_nearest_working_time(on_datetime)
+        if not nearest_working_time:
+            return None
+        if on_datetime >= nearest_working_time[1]:
+            nearest_working_time = self._get_nearest_working_time(
+                on_datetime + timedelta(days=1)
+            )
+        elif on_datetime >= nearest_working_time[0]:
+            nearest_working_time = (on_datetime, nearest_working_time[1])
+        if not nearest_working_time:
+            return None
+        if time_unit == UnitOfTime.day:
+            td = timedelta(days=delta)
+        elif time_unit == UnitOfTime.hour:
+            td = timedelta(hours=delta)
+        elif time_unit == UnitOfTime.week:
+            td = timedelta(weeks=delta)
+        elif time_unit == UnitOfTime.minute:
+            td = timedelta(minutes=delta)
+        elif time_unit == UnitOfTime.month:
+            td = timedelta(days=delta * 30)
+        elif time_unit == UnitOfTime.year:
+            td = timedelta(days=365 * delta)
+        else:
+            raise NotImplementedError
+
+        end_datetime = nearest_working_time[0] + td
+        if continue_on_not_working_time:
+            return end_datetime
+        if end_datetime <= nearest_working_time[1]:
+            return end_datetime
+        if is_continuous:
+            i = 0
+            while end_datetime > nearest_working_time[1] and i < 15:
+                nearest_working_time = self._get_nearest_working_time(
+                    nearest_working_time[0] + timedelta(days=1)
+                )
+                end_datetime = nearest_working_time[0] + td
+                i += 1
+            if end_datetime > nearest_working_time[1]:
+                return None
+            return end_datetime
+        while end_datetime > nearest_working_time[1]:
+            diff = end_datetime - nearest_working_time[1]
+            nearest_working_time = self._get_nearest_working_time(
+                nearest_working_time[0] + timedelta(days=1)
+            )
+            end_datetime = nearest_working_time[0] + diff
+        return end_datetime
 
 
 @dataclass

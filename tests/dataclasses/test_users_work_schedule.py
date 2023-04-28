@@ -1,6 +1,9 @@
+import datetime
 from datetime import date, timedelta
 
 import pytest
+
+from flora_api_client.presentations.enums import UnitOfTime
 from flora_api_client.schemas.users import PartnerWorkScheduleSchema
 from flora_api_client.presentations.users import WorkSchedule
 
@@ -57,4 +60,123 @@ def test_work_schedule_get_working_time():
             day = d.strftime("%A").lower()
             sh = getattr(ws, day)
             expected = (sh.start, sh.end) if sh else None
-        assert ws.get_working_time(d) == expected
+        assert ws._get_working_time(d) == expected
+
+
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        {
+            "on_date": datetime.datetime(year=2023, month=5, day=1),
+            "expected": (
+                datetime.datetime(year=2023, month=5, day=2, hour=10),
+                datetime.datetime(year=2023, month=5, day=2, hour=19),
+            ),
+        },
+        {
+            "on_date": datetime.datetime(year=2023, month=4, day=30),
+            "expected": (
+                datetime.datetime(year=2023, month=5, day=2, hour=10),
+                datetime.datetime(year=2023, month=5, day=2, hour=19),
+            ),
+        },
+        {
+            "on_date": datetime.datetime(year=2023, month=4, day=29),
+            "expected": (
+                datetime.datetime(year=2023, month=4, day=29, hour=10),
+                datetime.datetime(year=2023, month=4, day=29, hour=13),
+            ),
+        },
+    ],
+)
+def test_work_schedule_get_nearest_working_time(dataset):
+    ws: WorkSchedule = PartnerWorkScheduleSchema().load(_work_schedule)
+    assert dataset["expected"] == ws._get_nearest_working_time(dataset["on_date"])
+
+
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(year=2023, month=4, day=3, hour=1),
+                "delta": 2,
+                "time_unit": UnitOfTime.hour,
+                "is_continuous": True,
+                "continue_on_not_working_time": False,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=3, hour=11),
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(year=2023, month=4, day=3, hour=16),
+                "delta": 2,
+                "time_unit": UnitOfTime.hour,
+                "is_continuous": True,
+                "continue_on_not_working_time": False,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=3, hour=18),
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(
+                    year=2023, month=4, day=3, hour=16, minute=1
+                ),
+                "delta": 2,
+                "time_unit": UnitOfTime.hour,
+                "is_continuous": True,
+                "continue_on_not_working_time": False,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=4, hour=12),
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(
+                    year=2023, month=4, day=3, hour=16, minute=1
+                ),
+                "delta": 2,
+                "time_unit": UnitOfTime.hour,
+                "is_continuous": False,
+                "continue_on_not_working_time": False,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=4, hour=10, minute=1),
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(
+                    year=2023, month=4, day=3, hour=16, minute=1
+                ),
+                "delta": 2,
+                "time_unit": UnitOfTime.hour,
+                "is_continuous": True,
+                "continue_on_not_working_time": True,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=3, hour=18, minute=1),
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(
+                    year=2023, month=4, day=3, hour=16, minute=1
+                ),
+                "delta": 2,
+                "time_unit": UnitOfTime.day,
+                "is_continuous": True,
+                "continue_on_not_working_time": False,
+            },
+            "expected": None,
+        },
+        {
+            "fn_params": {
+                "on_datetime": datetime.datetime(year=2023, month=4, day=3),
+                "delta": 1,
+                "time_unit": UnitOfTime.day,
+                "is_continuous": False,
+                "continue_on_not_working_time": False,
+            },
+            "expected": datetime.datetime(year=2023, month=4, day=5, hour=17),
+        },
+    ],
+)
+def test_work_schedule_min_datetime_of_ending(dataset):
+    ws: WorkSchedule = PartnerWorkScheduleSchema().load(_work_schedule)
+    assert dataset["expected"] == ws.min_datetime_of_ending(**dataset["fn_params"])
