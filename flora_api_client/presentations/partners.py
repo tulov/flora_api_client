@@ -50,7 +50,6 @@ class PartnerSettingsR(BaseDataclass):
     on_moderation: PartnerSettings | None = field()
     on_site: PartnerSettings = field()
     revision: int = field(metadata={"strict": True})
-    not_working_time_delivery: bool = field(default=False)
 
 
 @dataclass
