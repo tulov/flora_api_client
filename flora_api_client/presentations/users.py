@@ -182,7 +182,7 @@ class WorkSchedule(BaseDataclass):
         self,
         on_datetime: datetime,
         delta: int,
-        time_unit: UnitOfTime,
+        time_unit: UnitOfTime | str,
         is_continuous: bool = False,
         continue_on_not_working_time: bool = False,
     ) -> datetime | None:
@@ -205,6 +205,8 @@ class WorkSchedule(BaseDataclass):
             nearest_working_time = (on_datetime, nearest_working_time[1])
         if not nearest_working_time:
             return None
+        if isinstance(time_unit, str):
+            time_unit = UnitOfTime(time_unit)
         if time_unit == UnitOfTime.day:
             td = timedelta(days=delta)
         elif time_unit == UnitOfTime.hour:
