@@ -150,12 +150,14 @@ class WorkSchedule(BaseDataclass):
         if exception:
             if exception.action == "rest":
                 return None
-            return exception.time_start, exception.time_end
+            if exception.time_start and exception.time_end:
+                return exception.time_start, exception.time_end
+            return None
 
         # иначе используем стандартное расписание
         day_of_week = on_date.strftime("%A").lower()
         schedule: WorkScheduleItem | None = getattr(self, day_of_week)
-        if schedule:
+        if schedule and schedule.start and schedule.end:
             return schedule.start, schedule.end
         return None
 
