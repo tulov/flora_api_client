@@ -60,7 +60,7 @@ def test_work_schedule_get_working_time():
             day = d.strftime("%A").lower()
             sh = getattr(ws, day)
             expected = (sh.start, sh.end) if sh else None
-        assert ws._get_working_time(d) == expected
+        assert ws.get_working_time(d) == expected
 
 
 @pytest.mark.parametrize(

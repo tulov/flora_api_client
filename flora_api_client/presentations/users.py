@@ -140,7 +140,7 @@ class WorkSchedule(BaseDataclass):
                     ):
                         raise ValidationError(f"Пересекающиеся диапазоны {one} и {two}")
 
-    def _get_working_time(self, on_date: date | datetime) -> tuple[str, str] | None:
+    def get_working_time(self, on_date: date | datetime) -> tuple[str, str] | None:
         if isinstance(on_date, datetime):
             on_date = on_date.date()
         exception = next(
@@ -171,7 +171,7 @@ class WorkSchedule(BaseDataclass):
         while not working_time and i < max_days:
             cur_date = on_date + timedelta(days=i)
             i += 1
-            working_time = self._get_working_time(cur_date)
+            working_time = self.get_working_time(cur_date)
         if working_time:
             start_time = datetime.strptime(working_time[0], "%H:%M").time()
             end_time = datetime.strptime(working_time[1], "%H:%M").time()
