@@ -12,6 +12,8 @@ from flora_api_client.presentations.products import (
     Product,
     FeaturedProduct,
     FeaturedProductExecutor,
+    DeliveryTimePeriodResponse,
+    DeliveryTimePeriodRequest,
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -50,4 +52,10 @@ FeaturedProductSchema = marshmallow_dataclass.class_schema(FeaturedProduct)
 
 FeaturedProductExecutorSchema = marshmallow_dataclass.class_schema(
     FeaturedProductExecutor
+)
+DeliveryTimePeriodResponseSchema = marshmallow_dataclass.class_schema(
+    DeliveryTimePeriodResponse
+)
+DeliveryTimePeriodRequestSchema = marshmallow_dataclass.class_schema(
+    DeliveryTimePeriodRequest
 )

@@ -1,110 +1,128 @@
 from http import HTTPStatus
-from typing import Union
 
 from flora_api_client.utils.decorators import expectations
+from ..namespaces.base import Namespace
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
-from ..presentations.products import (
-    ProductResponse, ProductRequest, ProductsResponse, FeaturedProductsResponse,
-    FeaturedProductsQuerystring, PreferredExecutorResponse,
-    PreferredExecutorQuerystring, IdsFeaturedProductsQuerystring,
-    SuccessFeaturedProductsResponse
-)
 from ..presentations.error import ErrorResponse
-from ..schemas import (
-    ProductResponseSchema, ProductsResponseSchema,
-    FeaturedProductsResponseSchema, PreferredExecutorResponseSchema,
-    SuccessFeaturedProductsResponseSchema
+from ..presentations.products import (
+    ProductResponse,
+    ProductRequest,
+    ProductsResponse,
+    FeaturedProductsResponse,
+    FeaturedProductsQuerystring,
+    PreferredExecutorResponse,
+    PreferredExecutorQuerystring,
+    IdsFeaturedProductsQuerystring,
+    SuccessFeaturedProductsResponse,
+    DeliveryTimePeriodResponse,
+    DeliveryTimePeriodRequest,
 )
-from ..namespaces.base import Namespace
+from ..schemas import (
+    ProductResponseSchema,
+    ProductsResponseSchema,
+    FeaturedProductsResponseSchema,
+    PreferredExecutorResponseSchema,
+    SuccessFeaturedProductsResponseSchema,
+)
+from ..schemas.products import DeliveryTimePeriodResponseSchema
 
 
 class ProductsNamespace(Namespace):
-    URL = '/products/'
+    URL = "/products/"
 
-    @expectations(schema=ProductResponseSchema,
-                  expected_code=HTTPStatus.CREATED)
+    @expectations(schema=ProductResponseSchema, expected_code=HTTPStatus.CREATED)
     async def create(
         self, data: ProductRequest, **kwargs
-    ) -> (int, Union[ProductResponse, ErrorResponse],
-          RenewTokenResponse):
+    ) -> (int, ProductResponse | ErrorResponse, RenewTokenResponse):
         return await self._post(self.URL, json=data.as_dict(), **kwargs)
 
     @expectations(schema=ProductsResponseSchema)
     async def all(
         self, query_params: Querystring = None, **kwargs
-    ) -> (int, Union[ProductsResponse, ErrorResponse],
-          RenewTokenResponse):
+    ) -> (int, ProductsResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(self.build_url(query_params), **kwargs)
 
     @expectations(schema=ProductResponseSchema)
     async def get(
         self, id_: int, query_params: WithFieldsQuerystring = None, **kwargs
-    ) -> (int, Union[ProductResponse, ErrorResponse],
-          RenewTokenResponse):
-        return await self._get(
-            self.build_url(query_params, postfix_url=id_), **kwargs)
+    ) -> (int, ProductResponse | ErrorResponse, RenewTokenResponse):
+        return await self._get(self.build_url(query_params, postfix_url=id_), **kwargs)
 
     @expectations(schema=ProductResponseSchema)
     async def update(
         self, id_: int, data: ProductRequest, **kwargs
-    ) -> (int, Union[ProductResponse, ErrorResponse],
-          RenewTokenResponse):
-        return await self._put(self.build_url(postfix_url=id_),
-                               json=data.as_dict(), **kwargs)
+    ) -> (int, ProductResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=id_), json=data.as_dict(), **kwargs
+        )
 
     @expectations(schema=FeaturedProductsResponseSchema)
     async def featured(
-        self, city_id: int, category: Union[int, str],
-        query_params: FeaturedProductsQuerystring = None, **kwargs
-    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
-          RenewTokenResponse):
-        postfix_url = 'featured/{}/{}'.format(city_id, category)
-        return await self._get(self.build_url(query_params,
-                                              postfix_url=postfix_url),
-                               **kwargs)
+        self,
+        city_id: int,
+        category: int | str,
+        query_params: FeaturedProductsQuerystring = None,
+        **kwargs,
+    ) -> (int, FeaturedProductsResponse | ErrorResponse, RenewTokenResponse):
+        postfix_url = f"featured/{city_id}/{category}"
+        return await self._get(
+            self.build_url(query_params, postfix_url=postfix_url), **kwargs
+        )
 
     @expectations(schema=PreferredExecutorResponseSchema)
     async def preferred_executor(
-        self, id_: int, city_id: int,
-        query_params: PreferredExecutorQuerystring = None, **kwargs
-    ) -> (int, Union[PreferredExecutorResponse, ErrorResponse],
-          RenewTokenResponse):
-        postfix_url = '{}/preferred-executor/{}'.format(id_, city_id)
-        return await self._get(self.build_url(query_params,
-                                              postfix_url=postfix_url),
-                               **kwargs)
+        self,
+        id_: int,
+        city_id: int,
+        query_params: PreferredExecutorQuerystring = None,
+        **kwargs,
+    ) -> (int, PreferredExecutorResponse | ErrorResponse, RenewTokenResponse):
+        postfix_url = f"{id_}/preferred-executor/{city_id}"
+        return await self._get(
+            self.build_url(query_params, postfix_url=postfix_url), **kwargs
+        )
 
     @expectations(schema=FeaturedProductsResponseSchema)
     async def simular(
-        self, id_: int, city_id: int,
-        query_params: PreferredExecutorQuerystring = None, **kwargs
-    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
-          RenewTokenResponse):
-        postfix_url = '{}/simular/{}'.format(id_, city_id)
-        return await self._get(self.build_url(query_params,
-                                              postfix_url=postfix_url),
-                               **kwargs)
+        self,
+        id_: int,
+        city_id: int,
+        query_params: PreferredExecutorQuerystring = None,
+        **kwargs,
+    ) -> (int, FeaturedProductsResponse | ErrorResponse, RenewTokenResponse):
+        postfix_url = f"{id_}/simular/{city_id}"
+        return await self._get(
+            self.build_url(query_params, postfix_url=postfix_url), **kwargs
+        )
 
     @expectations(schema=FeaturedProductsResponseSchema)
     async def concomitant_presents(
-        self, city_id: int,
-        query_params: FeaturedProductsQuerystring = None, **kwargs
-    ) -> (int, Union[FeaturedProductsResponse, ErrorResponse],
-          RenewTokenResponse):
-        postfix_url = 'concomitant-presents/{}'.format(city_id)
-        return await self._get(self.build_url(query_params,
-                                              postfix_url=postfix_url),
-                               **kwargs)
+        self, city_id: int, query_params: FeaturedProductsQuerystring = None, **kwargs
+    ) -> (int, FeaturedProductsResponse | ErrorResponse, RenewTokenResponse):
+        postfix_url = f"concomitant-presents/{city_id}"
+        return await self._get(
+            self.build_url(query_params, postfix_url=postfix_url), **kwargs
+        )
 
     @expectations(schema=SuccessFeaturedProductsResponseSchema)
     async def ids_featured(
-        self, city_id: int,
-        query_params: IdsFeaturedProductsQuerystring = None, **kwargs
-    ) -> (int, Union[SuccessFeaturedProductsResponse, ErrorResponse],
-          RenewTokenResponse):
-        postfix_url = 'featured/{}'.format(city_id)
-        return await self._get(self.build_url(query_params,
-                                              postfix_url=postfix_url),
-                               **kwargs)
+        self,
+        city_id: int,
+        query_params: IdsFeaturedProductsQuerystring = None,
+        **kwargs,
+    ) -> (int, SuccessFeaturedProductsResponse | ErrorResponse, RenewTokenResponse):
+        postfix_url = f"featured/{city_id}"
+        return await self._get(
+            self.build_url(query_params, postfix_url=postfix_url), **kwargs
+        )
 
+    @expectations(schema=DeliveryTimePeriodResponseSchema)
+    async def delivery_time_period(
+        self, data: DeliveryTimePeriodRequest, **kwargs
+    ) -> (int, DeliveryTimePeriodResponse | ErrorResponse, RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url="delivery-time-period"),
+            json=data.as_dict(),
+            **kwargs,
+        )

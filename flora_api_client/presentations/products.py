@@ -202,4 +202,22 @@ class PreferredExecutorQuerystring(BaseDataclass):
 
 @dataclass
 class PreferredExecutorResponse(SuccessResponse):
-    result: FeaturedProductExecutor
+    result: FeaturedProductExecutor = field()
+
+
+@dataclass
+class TimePeriod:
+    start: int = field(metadata={"strict": True})
+    end: int = field(metadata={"strict": True})
+
+
+@dataclass
+class DeliveryTimePeriodResponse(SuccessResponse):
+    result: TimePeriod | None = field()
+
+
+@dataclass
+class DeliveryTimePeriodRequest(BaseDataclass):
+    city_id: int = field(metadata={"strict": True})
+    delivery_date: date = field()
+    ids: list[int] = field()
