@@ -206,7 +206,7 @@ class PreferredExecutorResponse(SuccessResponse):
 
 
 @dataclass
-class TimePeriod:
+class TimePeriod(BaseDataclass):
     start: int = field(metadata={"strict": True})
     end: int = field(metadata={"strict": True})
 
