@@ -22,8 +22,8 @@ class PromoCode(BaseDataclass):
         if "period" in self.data and self.data["period"]:
             cur_date = datetime.now().date()
             arr = self.data["period"].split(" - ")
-            start = datetime.strptime(arr[0], "%d.%m.%Y")
-            end = datetime.strptime(arr[1], "%d.%m.%Y")
+            start = datetime.strptime(arr[0], "%d.%m.%Y").date()
+            end = datetime.strptime(arr[1], "%d.%m.%Y").date()
             return start <= cur_date <= end
         return True
 
