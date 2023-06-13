@@ -22,6 +22,7 @@ from flora_api_client.namespaces import (
     BillsNamespace,
     PromoCodesNamespace,
     AnswersNamespace,
+    ChatsNamespace,
 )
 from aiobreaker import CircuitBreaker
 from datetime import timedelta
@@ -49,6 +50,7 @@ class FloraApiClient:
     bills: BillsNamespace
     promos: PromoCodesNamespace
     answers: AnswersNamespace
+    chats: ChatsNamespace
 
     def __init__(
         self,

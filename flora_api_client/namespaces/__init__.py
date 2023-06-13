@@ -19,6 +19,7 @@ from .orders import OrdersNamespace
 from .bills import BillsNamespace
 from .promo_codes import PromoCodesNamespace
 from .answers import AnswersNamespace
+from .chats import ChatsNamespace
 
 
 NAMESPACES = {
@@ -43,4 +44,5 @@ NAMESPACES = {
     "bills": BillsNamespace,
     "promos": PromoCodesNamespace,
     "answers": AnswersNamespace,
+    "chats": ChatsNamespace,
 }
