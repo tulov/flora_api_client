@@ -11,6 +11,6 @@ class ChatsNamespace(Namespace):
 
     @expectations(schema=ChatResponseSchema)
     async def url(
-        self, **kwargs
+        self, order_id: int, **kwargs
     ) -> (int, ChatResponse | ErrorResponse, RenewTokenResponse):
-        return await self._get(self.build_url(postfix_url="url/"), **kwargs)
+        return await self._get(self.build_url(postfix_url=f"url/{order_id}"), **kwargs)
