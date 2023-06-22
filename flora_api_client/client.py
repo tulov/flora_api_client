@@ -23,6 +23,7 @@ from flora_api_client.namespaces import (
     PromoCodesNamespace,
     AnswersNamespace,
     ChatsNamespace,
+    MainPageNamespace,
 )
 from aiobreaker import CircuitBreaker
 from datetime import timedelta
@@ -51,6 +52,7 @@ class FloraApiClient:
     promos: PromoCodesNamespace
     answers: AnswersNamespace
     chats: ChatsNamespace
+    main_page: MainPageNamespace
 
     def __init__(
         self,
