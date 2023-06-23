@@ -10,12 +10,12 @@ class MainPageBlock(BaseDataclass):
     slug: str = field(metadata={"validate": Length(max=25, min=1)})
     title: str | None = field(metadata={"validate": Length(max=100)})
     description: str | None = field(metadata={"validate": Length(max=1000)})
-    category_id: int | None = field()
+    category_id: int | None = field(metadata={"strict": True})
     filters: str | None = field(metadata={"validate": Length(max=1000)})
     sorts: str | None = field(metadata={"validate": Length(max=1000)})
     is_system: bool = field()
     enabled: bool = field()
-    index: int = field(metadata={"validate": {"strict": True}})
+    index: int = field(metadata={"strict": True})
 
 
 @dataclass
