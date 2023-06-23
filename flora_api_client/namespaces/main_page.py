@@ -3,7 +3,9 @@ from ..namespaces.base import Namespace
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.error import ErrorResponse
 from ..presentations.main_page import MainPage, MainPageResponse
+from ..presentations.base import SuccessResponse
 from ..schemas.main_page import MainPageResponseSchema
+from ..schemas import SuccessResponseSchema
 
 
 class MainPageNamespace(Namespace):
@@ -15,8 +17,8 @@ class MainPageNamespace(Namespace):
     ) -> (int, MainPageResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(self.build_url(), **kwargs)
 
-    @expectations(schema=MainPageResponseSchema)
+    @expectations(schema=SuccessResponseSchema)
     async def update(
         self, data: MainPage, **kwargs
-    ) -> (int, MainPageResponse | ErrorResponse, RenewTokenResponse):
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
         return await self._put(self.build_url(), json=data.as_dict(), **kwargs)
