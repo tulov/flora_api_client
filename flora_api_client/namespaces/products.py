@@ -4,6 +4,7 @@ from flora_api_client.utils.decorators import expectations
 from ..namespaces.base import Namespace
 from ..presentations.auth import RenewTokenResponse
 from ..presentations.base import Querystring, WithFieldsQuerystring
+from ..presentations.categories import FilterCounterRequest, FilterCounterResponse
 from ..presentations.error import ErrorResponse
 from ..presentations.products import (
     ProductResponse,
@@ -24,6 +25,7 @@ from ..schemas import (
     FeaturedProductsResponseSchema,
     PreferredExecutorResponseSchema,
     SuccessFeaturedProductsResponseSchema,
+    FilterCounterResponseSchema,
 )
 from ..schemas.products import DeliveryTimePeriodResponseSchema
 
@@ -123,6 +125,16 @@ class ProductsNamespace(Namespace):
     ) -> (int, DeliveryTimePeriodResponse | ErrorResponse, RenewTokenResponse):
         return await self._post(
             self.build_url(postfix_url="delivery-time-period"),
+            json=data.as_dict(),
+            **kwargs,
+        )
+
+    @expectations(schema=FilterCounterResponseSchema)
+    async def filter_counters(
+        self, data: FilterCounterRequest, **kwargs
+    ) -> (int, FilterCounterResponse | ErrorResponse, RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url="featured/filter-counter/"),
             json=data.as_dict(),
             **kwargs,
         )

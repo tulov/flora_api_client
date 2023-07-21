@@ -79,6 +79,7 @@ class FilterCounterRequest(BaseDataclass):
     category_id: int = field(metadata={"strict": True})
     price_from: int | None = field(metadata={"strict": True})
     price_to: int | None = field(metadata={"strict": True})
+    promo_code: str = field()
     currency: str = field(
         metadata={"validate": OneOf([r.value for r in Currency])}, default="rub"
     )
