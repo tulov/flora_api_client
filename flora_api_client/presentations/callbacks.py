@@ -20,6 +20,9 @@ class Callback(BaseDataclass):
     created_at: datetime | None = field(default=None)
     updated_at: datetime | None = field(default=None)
 
+    def __hash__(self):
+        return hash(self.id) if self.id else hash(self.phone)
+
 
 @dataclass
 class CallbackResponse(SuccessResponse):
