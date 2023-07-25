@@ -21,6 +21,7 @@ from .promo_codes import PromoCodesNamespace
 from .answers import AnswersNamespace
 from .chats import ChatsNamespace
 from .main_page import MainPageNamespace
+from .callbacks import CallbacksNamespace
 
 
 NAMESPACES = {
@@ -47,4 +48,5 @@ NAMESPACES = {
     "answers": AnswersNamespace,
     "chats": ChatsNamespace,
     "main_page": MainPageNamespace,
+    "callbacks": CallbacksNamespace,
 }
