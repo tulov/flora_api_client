@@ -9,19 +9,28 @@ from .validates import Phone
 
 @dataclass
 class Callback(BaseDataclass):
-    phone: str = field(metadata={"validate": Phone()})
     id: int | None = field(
         metadata={
             "strict": True,
-        },
-        default=None,
+        }
     )
+    phone: str = field(metadata={"validate": Phone()})
+    created_at: datetime = field()
+    updated_at: datetime = field()
     comment: str | None = field(metadata={"validate": Length(max=1000)}, default=None)
-    created_at: datetime | None = field(default=None)
-    updated_at: datetime | None = field(default=None)
 
     def __hash__(self):
         return hash(self.id) if self.id else hash(self.phone)
+
+
+@dataclass
+class CallbackCreateRequest(BaseDataclass):
+    phone: str = field(metadata={"validate": Phone()})
+
+
+@dataclass
+class CallbackUpdateRequest(BaseDataclass):
+    comment: str = field(metadata={"validate": Length(max=1000)})
 
 
 @dataclass
