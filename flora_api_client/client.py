@@ -25,6 +25,7 @@ from flora_api_client.namespaces import (
     ChatsNamespace,
     MainPageNamespace,
     CallbacksNamespace,
+    FullTextSearchNamespace,
 )
 from aiobreaker import CircuitBreaker
 from datetime import timedelta
@@ -55,6 +56,7 @@ class FloraApiClient:
     chats: ChatsNamespace
     main_page: MainPageNamespace
     callbacks: CallbacksNamespace
+    full_text_search: FullTextSearchNamespace
 
     def __init__(
         self,
