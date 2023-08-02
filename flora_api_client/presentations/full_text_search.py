@@ -12,7 +12,7 @@ class Product(BaseDataclass):
     )
     city: str = field()
     country: str = field()
-    title: str = field()
+    name: str = field()
     description: str = field()
     tags: str = field()
     category: str = field()
