@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import date
 
 from .base import BaseDataclass, PagedResponse
 
@@ -30,3 +31,4 @@ class ProductFullTextSearchResponse(PagedResponse):
 class ProductFullTextSearchRequest(BaseDataclass):
     term: str = field()
     city_id: int = field(metadata={"strict": True})
+    delivery_date: date = field()
