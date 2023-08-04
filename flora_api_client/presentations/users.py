@@ -260,6 +260,7 @@ class UserData(BaseDataclass):
     old_id: int | None = field(default=None)
     cashback: Decimal = field(default=Decimal(0))
     not_working_time_delivery: bool = field(default=False)
+    avatar_img_id: int | None = field(default=None)
 
 
 @dataclass
