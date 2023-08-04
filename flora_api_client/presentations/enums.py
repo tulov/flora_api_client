@@ -26,6 +26,7 @@ class ImageTarget(Enum):
     product = "product"
     menu = "menu"
     order = "order"
+    avatar = "avatar"
 
 
 @unique
