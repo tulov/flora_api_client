@@ -42,6 +42,7 @@ class PartnerSettings(BaseDataclass):
 @dataclass
 class PartnerSettingsRequest(BaseDataclass):
     settings: PartnerSettings = field()
+    avatar: str | None = field()
     revision: int = field(metadata={"strict": True})
 
 
