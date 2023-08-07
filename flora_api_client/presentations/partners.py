@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from marshmallow.validate import Range, Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse
+from .images import Image
 from .prices import Price
 from .users import User, WorkSchedule
 from .enums import UnitOfTime
@@ -38,6 +39,7 @@ class PartnerSettings(BaseDataclass):
     work_schedule: WorkSchedule = field(default_factory=WorkSchedule)
     not_working_time_delivery: bool = field(default=False)
     avatar_img_id: int | None = field(default=None)
+    avatar: Image | None = field(default=None)
 
 
 @dataclass
