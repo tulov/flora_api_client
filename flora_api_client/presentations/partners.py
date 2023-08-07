@@ -37,6 +37,7 @@ class PartnerSettings(BaseDataclass):
     address: str | None = field(metadata={"validate": Length(max=200)})
     work_schedule: WorkSchedule = field(default_factory=WorkSchedule)
     not_working_time_delivery: bool = field(default=False)
+    avatar_img_id: int | None = field(default=None)
 
 
 @dataclass
