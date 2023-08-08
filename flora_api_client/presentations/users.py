@@ -8,6 +8,7 @@ from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Rege
 
 from .base import BaseDataclass, SuccessResponse, Pager
 from .enums import Roles, PromoSystems, UnitOfTime
+from .images import Image
 from .validates import UniqueItems, Filled, Phone
 
 
@@ -299,6 +300,7 @@ class User(BaseDataclass):
             "required": True,
         },
     )
+    avatar: Image | None = field(default=None)
     _salt: str | None = field(default=None)
     _password: str | None = field(default=None)
 
