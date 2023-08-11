@@ -16,6 +16,7 @@ class Congratulation(BaseDataclass):
         default=None,
     )
     enabled: bool = field(default=False)
+    index: int = field(default=0)
 
 
 @dataclass
@@ -28,6 +29,7 @@ class Occasion(BaseDataclass):
         default=None,
     )
     enabled: bool = field(default=False)
+    index: int = field(default=0)
     congratulations: list[Congratulation] = field(default_factory=list)
 
 
