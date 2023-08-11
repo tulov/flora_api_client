@@ -23,6 +23,7 @@ from .chats import ChatsNamespace
 from .main_page import MainPageNamespace
 from .callbacks import CallbacksNamespace
 from .full_text_search import FullTextSearchNamespace
+from .occasions import OccasionsNamespace
 
 
 NAMESPACES = {
@@ -51,4 +52,5 @@ NAMESPACES = {
     "main_page": MainPageNamespace,
     "callbacks": CallbacksNamespace,
     "full_text_search": FullTextSearchNamespace,
+    "occasions": OccasionsNamespace,
 }
