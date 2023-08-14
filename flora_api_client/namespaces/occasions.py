@@ -9,6 +9,7 @@ from ..presentations.congratulations import (
     OccasionResponse,
     Occasion,
     Congratulation,
+    CongratulationResponse,
 )
 from ..presentations.error import ErrorResponse
 from ..schemas.congratulations import (
@@ -44,7 +45,7 @@ class OccasionsNamespace(Namespace):
     @expectations(schema=CongratulationResponseSchema, expected_code=HTTPStatus.CREATED)
     async def create_congratulation(
         self, data: Congratulation, **kwargs
-    ) -> (int, OccasionResponse | ErrorResponse, RenewTokenResponse):
+    ) -> (int, CongratulationResponse | ErrorResponse, RenewTokenResponse):
         return await self._post(
             self.build_url(postfix_url=f"{data.occasion_id}/congratulations/"),
             json=data.as_dict(),
@@ -54,7 +55,7 @@ class OccasionsNamespace(Namespace):
     @expectations(schema=CongratulationResponseSchema, expected_code=HTTPStatus.CREATED)
     async def update_congratulation(
         self, data: Congratulation, **kwargs
-    ) -> (int, OccasionResponse | ErrorResponse, RenewTokenResponse):
+    ) -> (int, CongratulationResponse | ErrorResponse, RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=f"{data.occasion_id}/congratulations/{data.id}"),
             json=data.as_dict(),
