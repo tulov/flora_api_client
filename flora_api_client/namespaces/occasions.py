@@ -3,13 +3,14 @@ from http import HTTPStatus
 from flora_api_client.utils.decorators import expectations
 from ..namespaces.base import Namespace
 from ..presentations.auth import RenewTokenResponse
-from ..presentations.base import Querystring
+from ..presentations.base import Querystring, SuccessResponse
 from ..presentations.congratulations import (
     OccasionsResponse,
     OccasionResponse,
     Occasion,
     Congratulation,
     CongratulationResponse,
+    SortRequest,
 )
 from ..presentations.error import ErrorResponse
 from ..schemas.congratulations import (
@@ -17,6 +18,7 @@ from ..schemas.congratulations import (
     OccasionsResponseSchema,
     CongratulationResponseSchema,
 )
+from ..schemas import SuccessResponseSchema
 
 
 class OccasionsNamespace(Namespace):
@@ -34,6 +36,24 @@ class OccasionsNamespace(Namespace):
     ) -> (int, OccasionResponse | ErrorResponse, RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=data.id), json=data.as_dict(), **kwargs
+        )
+
+    @expectations(schema=SuccessResponseSchema)
+    async def sort(
+        self, data: SortRequest, **kwargs
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url="sort/"), json=data.as_dict(), **kwargs
+        )
+
+    @expectations(schema=SuccessResponseSchema)
+    async def sort_congratulations(
+        self, data: SortRequest, **kwargs
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url="sort-congratulations/"),
+            json=data.as_dict(),
+            **kwargs,
         )
 
     @expectations(schema=OccasionsResponseSchema)

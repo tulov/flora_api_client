@@ -34,6 +34,11 @@ class Occasion(BaseDataclass):
 
 
 @dataclass
+class SortRequest(BaseDataclass):
+    order: list[int] = field()
+
+
+@dataclass
 class OccasionResponse(SuccessResponse):
     result: Occasion = field()
 
