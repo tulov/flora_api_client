@@ -48,10 +48,10 @@ class OccasionsNamespace(Namespace):
 
     @expectations(schema=SuccessResponseSchema)
     async def sort_congratulations(
-        self, data: SortRequest, **kwargs
+        self, occasion_id: int, data: SortRequest, **kwargs
     ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
         return await self._put(
-            self.build_url(postfix_url="sort-congratulations/"),
+            self.build_url(postfix_url=f"{occasion_id}/sort-congratulations/"),
             json=data.as_dict(),
             **kwargs,
         )
