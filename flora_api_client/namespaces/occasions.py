@@ -72,7 +72,7 @@ class OccasionsNamespace(Namespace):
             **kwargs,
         )
 
-    @expectations(schema=CongratulationResponseSchema, expected_code=HTTPStatus.CREATED)
+    @expectations(schema=CongratulationResponseSchema)
     async def update_congratulation(
         self, data: Congratulation, **kwargs
     ) -> (int, CongratulationResponse | ErrorResponse, RenewTokenResponse):
