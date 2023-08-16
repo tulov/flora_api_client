@@ -7,7 +7,7 @@ from marshmallow.fields import Decimal
 from marshmallow.validate import ContainsOnly, Length, Range, Email, OneOf, Regexp
 
 from .base import BaseDataclass, SuccessResponse, Pager
-from .enums import Roles, PromoSystems, UnitOfTime
+from .enums import Roles, PromoSystems, UnitOfTime, Genders
 from .images import Image
 from .validates import UniqueItems, Filled, Phone
 
@@ -262,6 +262,10 @@ class UserData(BaseDataclass):
     cashback: Decimal = field(default=Decimal(0))
     not_working_time_delivery: bool = field(default=False)
     avatar_img_id: int | None = field(default=None)
+    gender: str | None = field(
+        default=None, metadata={"validate": OneOf([r.value for r in Genders])}
+    )
+    birthday: date | None = field(default=None)
 
 
 @dataclass

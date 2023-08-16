@@ -158,3 +158,9 @@ class PromoSystems(Enum):
 class PaymentTypes(Enum):
     money = "money"
     cashback = "cashback"
+
+
+@unique
+class Genders(Enum):
+    man = "man"
+    woman = "woman"
