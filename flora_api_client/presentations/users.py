@@ -265,7 +265,7 @@ class UserData(BaseDataclass):
     gender: str | None = field(
         default=None, metadata={"validate": OneOf([r.value for r in Genders])}
     )
-    birthday: date | None = field(default=None)
+    birthday: str | None = field(default=None)
 
 
 @dataclass
