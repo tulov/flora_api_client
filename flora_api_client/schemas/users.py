@@ -7,6 +7,7 @@ from flora_api_client.presentations.users import (
     UsersResponse,
     ChangePasswordRequest,
     WorkSchedule,
+    UserPublicDataResponse,
 )
 from ..presentations.base import SuccessResponse
 from ..presentations.partners import (
@@ -37,3 +38,6 @@ PartnerSettingsResponseSchema = marshmallow_dataclass.class_schema(
     PartnerSettingsResponse
 )
 PartnerWorkScheduleSchema = marshmallow_dataclass.class_schema(WorkSchedule)
+UserPublicDataResponseSchema = marshmallow_dataclass.class_schema(
+    UserPublicDataResponse
+)

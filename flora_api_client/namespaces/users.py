@@ -11,6 +11,7 @@ from ..presentations.users import (
     User,
     UsersResponse,
     ChangePasswordRequest,
+    UserPublicDataResponse,
 )
 from ..schemas import (
     UserSchema,
@@ -18,6 +19,7 @@ from ..schemas import (
     SuccessResponseSchema,
     SearchCitiesResponseSchema,
 )
+from ..schemas.users import UserPublicDataResponseSchema
 
 
 class UsersNamespace(Namespace):
@@ -67,4 +69,12 @@ class UsersNamespace(Namespace):
     ) -> (int, SearchCitiesResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f"search-ids/{term}"), **kwargs
+        )
+
+    @expectations(schema=UserPublicDataResponseSchema)
+    async def public_data(
+        self, ids: list[int] = None, **kwargs
+    ) -> (int, UserPublicDataResponse | ErrorResponse, RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url="public-data/"), json=ids, **kwargs
         )

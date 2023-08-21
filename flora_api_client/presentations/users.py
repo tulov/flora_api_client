@@ -372,3 +372,15 @@ class ChangePasswordRequest(BaseDataclass):
             raise ValidationError(
                 {"_schema": ["New password should be different with old password"]}
             )
+
+
+@dataclass
+class UserPublicData(BaseDataclass):
+    id: int = field()
+    name: str = field()
+    avatar: str | None = field(default=None)
+
+
+@dataclass
+class UserPublicDataResponse(SuccessResponse):
+    result: list[UserPublicData] = field(default_factory=list)
