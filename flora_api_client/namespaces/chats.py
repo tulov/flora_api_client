@@ -13,9 +13,9 @@ class ChatsNamespace(Namespace):
 
     @expectations(schema=ChatResponseSchema)
     async def url(
-        self, **kwargs
+        self, agent_id: str, **kwargs
     ) -> (int, ChatResponse | ErrorResponse, RenewTokenResponse):
-        return await self._get(self.build_url(postfix_url="url/"), **kwargs)
+        return await self._get(self.build_url(postfix_url=f"url/{agent_id}"), **kwargs)
 
     @expectations(schema=ResultResponseSchema)
     async def users(
