@@ -5,7 +5,7 @@ from typing import Any
 
 from marshmallow.validate import Length, OneOf
 
-from .base import BaseDataclass
+from .base import BaseDataclass, SuccessResponse, PagedResponse
 from .enums import PaymentTypes
 
 
@@ -20,3 +20,29 @@ class BookkeepingRow(BaseDataclass):
     order_id: int | None = field(metadata={"strict": True}, default=None)
     account_id: int | None = field(metadata={"strict": True}, default=None)
     data: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class Summary(BaseDataclass):
+    before: Decimal = field()
+    accrual: Decimal = field()
+    payout: Decimal = field()
+    current: Decimal = field()
+
+
+@dataclass
+class SummaryRequest(BaseDataclass):
+    start: datetime = field()
+    end: datetime = field()
+
+
+@dataclass
+class SummaryResponse(SuccessResponse):
+    result: Summary = field()
+
+
+@dataclass
+class EntriesResponse(PagedResponse):
+    result: list[BookkeepingRow] = field(
+        default_factory=list, metadata={"required": True}
+    )

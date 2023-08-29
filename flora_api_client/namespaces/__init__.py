@@ -24,6 +24,7 @@ from .main_page import MainPageNamespace
 from .callbacks import CallbacksNamespace
 from .full_text_search import FullTextSearchNamespace
 from .occasions import OccasionsNamespace
+from .bookkeeping import BookkeepingNamespace
 
 
 NAMESPACES = {
@@ -53,4 +54,5 @@ NAMESPACES = {
     "callbacks": CallbacksNamespace,
     "full_text_search": FullTextSearchNamespace,
     "occasions": OccasionsNamespace,
+    "bookkeeping": BookkeepingNamespace,
 }
