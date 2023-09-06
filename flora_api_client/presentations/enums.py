@@ -6,6 +6,7 @@ class Roles(Enum):
     user = "user"
     partner = "partner"
     admin = "admin"
+    manager = "manager"
 
 
 @unique
