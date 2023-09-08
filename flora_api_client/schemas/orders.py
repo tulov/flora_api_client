@@ -13,6 +13,7 @@ from flora_api_client.presentations.orders import (
     AnswersResponse,
     AnswerResponse,
     Answer,
+    CancelOrderCalculationResponse,
 )
 from marshmallow import Schema, EXCLUDE
 
@@ -33,3 +34,6 @@ OrderAnswerResponseSchema = marshmallow_dataclass.class_schema(OrderAnswerRespon
 AnswersResponseSchema = marshmallow_dataclass.class_schema(AnswersResponse)
 AnswerResponseSchema = marshmallow_dataclass.class_schema(AnswerResponse)
 AnswerSchema = marshmallow_dataclass.class_schema(Answer)
+CancelOrderCalculationResponseSchema = marshmallow_dataclass.class_schema(
+    CancelOrderCalculationResponse
+)

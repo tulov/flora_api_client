@@ -214,3 +214,17 @@ class AnswerResponse(SuccessResponse):
 @dataclass
 class AnswersResponse(PagedResponse):
     result: list[Answer] = field(default_factory=list, metadata={"required": True})
+
+
+@dataclass
+class CancelOrderCalculation(BaseDataclass):
+    order_id: int = field()
+    return_sum: Decimal = field()
+    state: str = field()
+    payed_sum: Decimal = field()
+    revision: int = field()
+
+
+@dataclass
+class CancelOrderCalculationResponse(SuccessResponse):
+    result: CancelOrderCalculation = field()
