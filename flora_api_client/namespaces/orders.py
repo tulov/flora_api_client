@@ -23,6 +23,7 @@ from ..presentations.orders import (
     OrderBillRequest,
     AfterRejectRequestBody,
     OrderAnswerResponse,
+    CancelOrderCalculationResponse,
 )
 from ..schemas import (
     OrderResponseSchema,
@@ -32,7 +33,10 @@ from ..schemas import (
     ResultResponseSchema,
     SuccessResponseSchema,
 )
-from ..schemas.orders import OrderAnswerResponseSchema
+from ..schemas.orders import (
+    OrderAnswerResponseSchema,
+    CancelOrderCalculationResponseSchema,
+)
 
 
 class OrdersNamespace(Namespace):
@@ -201,5 +205,14 @@ class OrdersNamespace(Namespace):
     ) -> (int, OrderAnswerResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f"{order_id}/answers/"),
+            **kwargs,
+        )
+
+    @expectations(schema=CancelOrderCalculationResponseSchema)
+    async def calculate_for_cancel(
+        self, order_id: int, **kwargs
+    ) -> (int, CancelOrderCalculationResponse | ErrorResponse, RenewTokenResponse):
+        return await self._get(
+            self.build_url(postfix_url=f"{order_id}/cancel-calculate/"),
             **kwargs,
         )
