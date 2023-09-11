@@ -24,6 +24,7 @@ from ..presentations.orders import (
     AfterRejectRequestBody,
     OrderAnswerResponse,
     CancelOrderCalculationResponse,
+    CancelOrderCalculation,
 )
 from ..schemas import (
     OrderResponseSchema,
@@ -214,5 +215,15 @@ class OrdersNamespace(Namespace):
     ) -> (int, CancelOrderCalculationResponse | ErrorResponse, RenewTokenResponse):
         return await self._get(
             self.build_url(postfix_url=f"{order_id}/cancel-calculate/"),
+            **kwargs,
+        )
+
+    @expectations(schema=SuccessResponseSchema)
+    async def cancel(
+        self, data: CancelOrderCalculation, **kwargs
+    ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
+        return await self._put(
+            self.build_url(postfix_url=f"{data.order_id}/cancel/"),
+            json=data,
             **kwargs,
         )
