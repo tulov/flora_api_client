@@ -224,6 +224,6 @@ class OrdersNamespace(Namespace):
     ) -> (int, SuccessResponse | ErrorResponse, RenewTokenResponse):
         return await self._put(
             self.build_url(postfix_url=f"{data.order_id}/cancel/"),
-            json=data,
+            json=data.as_dict(),
             **kwargs,
         )
