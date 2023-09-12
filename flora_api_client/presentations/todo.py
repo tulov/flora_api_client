@@ -4,7 +4,7 @@ from typing import Any
 
 from marshmallow.validate import Length, OneOf
 
-from .base import BaseDataclass
+from .base import BaseDataclass, PagedResponse
 from .enums import TodoStates, TodoTypes
 
 
@@ -46,3 +46,8 @@ class Todo(BaseDataclass):
     )
     comments: str | None = field(metadata={"validate": Length(max=1500)}, default=None)
     data: Any = field(default_factory=dict)
+
+
+@dataclass
+class TodosResponse(PagedResponse):
+    result: list[Todo] = field(default_factory=list)

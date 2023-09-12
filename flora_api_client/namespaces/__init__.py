@@ -25,6 +25,7 @@ from .callbacks import CallbacksNamespace
 from .full_text_search import FullTextSearchNamespace
 from .occasions import OccasionsNamespace
 from .bookkeeping import BookkeepingNamespace
+from .todos import TodoNamespace
 
 
 NAMESPACES = {
@@ -55,4 +56,5 @@ NAMESPACES = {
     "full_text_search": FullTextSearchNamespace,
     "occasions": OccasionsNamespace,
     "bookkeeping": BookkeepingNamespace,
+    "todo": TodoNamespace,
 }
