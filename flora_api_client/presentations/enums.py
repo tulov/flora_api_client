@@ -165,3 +165,16 @@ class PaymentTypes(Enum):
 class Genders(Enum):
     man = "man"
     woman = "woman"
+
+
+@unique
+class TodoTypes(Enum):
+    dispute = "dispute"
+    refund = "refund"
+
+
+@unique
+class TodoStates(Enum):
+    new = "new"
+    work = "work"
+    finish = "finish"
