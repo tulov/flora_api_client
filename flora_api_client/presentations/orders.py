@@ -13,6 +13,7 @@ from .enums import OrderState
 from .images import Image
 from .products import Product
 from .users import User
+from .todo import Todo
 
 
 @dataclass
@@ -98,6 +99,7 @@ class Order(BaseDataclass):
     comments: list[OrderComment] | None = field(default_factory=list)
     photos_before_delivery: list[Image] | None = field(default_factory=list)
     bookkeeping: list[BookkeepingRow] | None = field(default_factory=list)
+    todos: list[Todo] | None = field(default_factory=list)
     answer: Answer | None = field(default=None)
     _max_time_for_accept: datetime | None = field(default=None)
 
