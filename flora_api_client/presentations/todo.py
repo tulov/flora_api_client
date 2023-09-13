@@ -6,6 +6,7 @@ from marshmallow.validate import Length, OneOf
 
 from .base import BaseDataclass, PagedResponse
 from .enums import TodoStates, TodoTypes
+from .users import Employee
 
 
 @dataclass
@@ -46,6 +47,7 @@ class Todo(BaseDataclass):
     )
     comments: str | None = field(metadata={"validate": Length(max=1500)}, default=None)
     data: Any = field(default_factory=dict)
+    employee: Employee | None = field(default=None)
 
 
 @dataclass

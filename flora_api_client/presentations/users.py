@@ -384,3 +384,13 @@ class UserPublicData(BaseDataclass):
 @dataclass
 class UserPublicDataResponse(SuccessResponse):
     result: list[UserPublicData] = field(default_factory=list)
+
+
+@dataclass
+class Employee(BaseDataclass):
+    id: int = field(
+        metadata={
+            "strict": True,
+        }
+    )
+    name: str = field(metadata={"validate": Length(max=150)})
