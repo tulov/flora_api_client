@@ -227,3 +227,13 @@ class OrdersNamespace(Namespace):
             json=data.as_dict(),
             **kwargs,
         )
+
+    @expectations(schema=ResultResponseSchema, expected_code=HTTPStatus.CREATED)
+    async def dispute(
+        self, order_id: int, data: DataRequest, **kwargs
+    ) -> (int, ResultResponse | ErrorResponse, RenewTokenResponse):
+        return await self._post(
+            self.build_url(postfix_url=f"{order_id}/dispute/"),
+            json=data.as_dict(),
+            **kwargs,
+        )
