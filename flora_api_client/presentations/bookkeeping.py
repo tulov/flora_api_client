@@ -34,6 +34,7 @@ class Summary(BaseDataclass):
 class SummaryRequest(BaseDataclass):
     start: datetime = field()
     end: datetime = field()
+    user_id: int = field()
 
 
 @dataclass
