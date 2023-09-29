@@ -6,7 +6,7 @@ from typing import Any
 from marshmallow.validate import Length, OneOf
 
 from .base import BaseDataclass, SuccessResponse, PagedResponse
-from .enums import PaymentTypes
+from .enums import PaymentTypes, Currency
 
 
 @dataclass
@@ -47,3 +47,18 @@ class EntriesResponse(PagedResponse):
     result: list[BookkeepingRow] = field(
         default_factory=list, metadata={"required": True}
     )
+
+
+@dataclass
+class BRow(BaseDataclass):
+    action: str = field(metadata={"validate": OneOf(["plus", "minus"])})
+    user_id: int = field()
+    amount: Decimal = field()
+    comment: str = field()
+    currency: str = field(metadata={"validate": OneOf([r.value for r in Currency])})
+    contract_id: int | None = field(default=None)
+
+
+@dataclass
+class CreateBookkeepingRowsRequest(BaseDataclass):
+    rows: list[BRow] = field()

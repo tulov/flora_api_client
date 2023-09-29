@@ -5,6 +5,7 @@ from flora_api_client.presentations.bookkeeping import (
     EntriesResponse,
     SummaryResponse,
     SummaryRequest,
+    CreateBookkeepingRowsRequest,
 )
 
 Schema.Meta.unknown = EXCLUDE
@@ -14,3 +15,6 @@ BookkeepingRowSchema = marshmallow_dataclass.class_schema(BookkeepingRow)
 BookkeepingEntriesResponseSchema = marshmallow_dataclass.class_schema(EntriesResponse)
 BookkeepingSummaryResponseSchema = marshmallow_dataclass.class_schema(SummaryResponse)
 BookkeepingSummaryRequestSchema = marshmallow_dataclass.class_schema(SummaryRequest)
+CreateBookkeepingRowsRequestSchema = marshmallow_dataclass.class_schema(
+    CreateBookkeepingRowsRequest
+)
